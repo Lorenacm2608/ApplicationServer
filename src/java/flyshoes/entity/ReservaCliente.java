@@ -6,6 +6,7 @@
 package flyshoes.entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +14,7 @@ import javax.persistence.Id;
 
 /**
  *
- * @author Lorena
+ * @author Lorena Cáceres Manuel
  */
 @Entity
 public class ReservaCliente implements Serializable {
@@ -22,6 +23,34 @@ public class ReservaCliente implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    private String id_cliente;
+    private String id_reserva;
+    private Timestamp fecha_llegada;
+
+    public String getId_cliente() {
+        return id_cliente;
+    }
+
+    public void setId_cliente(String id_cliente) {
+        this.id_cliente = id_cliente;
+    }
+
+    public String getId_reserva() {
+        return id_reserva;
+    }
+
+    public void setId_reserva(String id_reserva) {
+        this.id_reserva = id_reserva;
+    }
+
+    public Timestamp getFecha_llegada() {
+        return fecha_llegada;
+    }
+
+    public void setFecha_llegada(Timestamp fecha_llegada) {
+        this.fecha_llegada = fecha_llegada;
+    }
 
     public Long getId() {
         return id;
@@ -55,5 +84,5 @@ public class ReservaCliente implements Serializable {
     public String toString() {
         return "flyshoes.entity.ReservaCliente[ id=" + id + " ]";
     }
-    
+
 }
