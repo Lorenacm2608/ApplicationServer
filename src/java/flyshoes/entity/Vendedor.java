@@ -22,6 +22,42 @@ public class Vendedor implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private Long dni;
+    private Long direccion;
+    private Integer salario;
+
+    public Long getDni() {
+        return dni;
+    }
+
+    public void setDni(Long dni) {
+        this.dni = dni;
+    }
+
+    public Long getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(Long direccion) {
+        this.direccion = direccion;
+    }
+
+    public Integer getSalario() {
+        return salario;
+    }
+
+    public void setSalario(Integer salario) {
+        this.salario = salario;
+    }
+
+    public Long getTienda() {
+        return tienda;
+    }
+
+    public void setTienda(Long tienda) {
+        this.tienda = tienda;
+    }
+    private Long tienda;
 
     public Long getId() {
         return id;
