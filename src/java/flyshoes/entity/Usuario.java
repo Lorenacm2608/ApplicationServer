@@ -22,6 +22,78 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private Long login;
+    private Long email;
+    private Long fullname;
+    private Long status;
+    private Long privilege;
+    private Long password;
+    private Long lastAccess;
+    private Long lastPasswordChange;
+
+    public Long getLogin() {
+        return login;
+    }
+
+    public void setLogin(Long login) {
+        this.login = login;
+    }
+
+    public Long getEmail() {
+        return email;
+    }
+
+    public void setEmail(Long email) {
+        this.email = email;
+    }
+
+    public Long getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(Long fullname) {
+        this.fullname = fullname;
+    }
+
+    public Long getStatus() {
+        return status;
+    }
+
+    public void setStatus(Long status) {
+        this.status = status;
+    }
+
+    public Long getPrivilege() {
+        return privilege;
+    }
+
+    public void setPrivilege(Long privilege) {
+        this.privilege = privilege;
+    }
+
+    public Long getPassword() {
+        return password;
+    }
+
+    public void setPassword(Long password) {
+        this.password = password;
+    }
+
+    public Long getLastAccess() {
+        return lastAccess;
+    }
+
+    public void setLastAccess(Long lastAccess) {
+        this.lastAccess = lastAccess;
+    }
+
+    public Long getLastPasswordChange() {
+        return lastPasswordChange;
+    }
+
+    public void setLastPasswordChange(Long lastPasswordChange) {
+        this.lastPasswordChange = lastPasswordChange;
+    }
 
     public Long getId() {
         return id;
