@@ -16,15 +16,87 @@ import javax.persistence.Id;
  * @author Lorena
  */
 @Entity
-public class Vendedor implements Serializable {
+public class Vendedor extends Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private Long login;
+    private Long email;
+    private Long fullName;
+    private Long status;
+    private Long privilege;
+    private Long password;
+    private Long lastAccess;
+    private Long lastPasswordChange;
     private Long dni;
     private Long direccion;
     private Integer salario;
+
+    public Long getLogin() {
+        return login;
+    }
+
+    public void setLogin(Long login) {
+        this.login = login;
+    }
+
+    public Long getEmail() {
+        return email;
+    }
+
+    public void setEmail(Long email) {
+        this.email = email;
+    }
+
+    public Long getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(Long fullName) {
+        this.fullName = fullName;
+    }
+
+    public Long getStatus() {
+        return status;
+    }
+
+    public void setStatus(Long status) {
+        this.status = status;
+    }
+
+    public Long getPrivilege() {
+        return privilege;
+    }
+
+    public void setPrivilege(Long privilege) {
+        this.privilege = privilege;
+    }
+
+    public Long getPassword() {
+        return password;
+    }
+
+    public void setPassword(Long password) {
+        this.password = password;
+    }
+
+    public Long getLastAccess() {
+        return lastAccess;
+    }
+
+    public void setLastAccess(Long lastAccess) {
+        this.lastAccess = lastAccess;
+    }
+
+    public Long getLastPasswordChange() {
+        return lastPasswordChange;
+    }
+
+    public void setLastPasswordChange(Long lastPasswordChange) {
+        this.lastPasswordChange = lastPasswordChange;
+    }
 
     public Long getDni() {
         return dni;
