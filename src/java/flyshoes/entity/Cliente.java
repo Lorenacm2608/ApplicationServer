@@ -16,12 +16,14 @@ import javax.persistence.Id;
  * @author Lorena
  */
 @Entity
-public class Cliente implements Serializable {
+public class Cliente extends Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+
 
     public Long getId() {
         return id;
