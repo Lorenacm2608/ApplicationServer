@@ -6,26 +6,66 @@
 package flyshoes.entity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Lorena
+ * @author Moroni
+ * Entidad Vendedor relacionado con gestiona Producto y maneja Reserva
  */
 @Entity
+@Table(name="Vendedor",schema="flyshoesdb")
+@XmlRootElement
 public class Vendedor extends Usuario implements Serializable {
 
+    /*
+    *Vendedor se relaciona con Reserva por OneToMany
+    */
+    @OneToMany(mappedBy="Vendedor")
+    private Set<Reserva> reserva;
+    
+    /*
+    *Vendedor se relaciona con Producto por ManyToMany
+    */
+    @ManyToMany(mappedBy="Vendedor")
+    private Set<Producto> producto;
+    
     private static final long serialVersionUID = 1L;
+    /*
+    *Id del vendedor
+    */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     
-    private Long id;
+    private BigInteger id_vendedor;
+    
+    /*
+    * Dni del vendedor
+    */
     private Long dni;
+    
+    /*
+    * Direccion del vendedor
+    */
     private Long direccion;
+    
+    /*
+    * Salario del vendedor
+    */
     private Integer salario;
+    
+    /*
+    * Tienda del vendedor
+    */
     private Long tienda;
 
     public Long getDni() {
@@ -60,21 +100,44 @@ public class Vendedor extends Usuario implements Serializable {
         this.tienda = tienda;
     }
 
-    public Long getId() {
-        return id;
+    public Set<Reserva> getReserva() {
+        return reserva;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setReserva(Set<Reserva> reserva) {
+        this.reserva = reserva;
     }
 
+    public Set<Producto> getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Set<Producto> producto) {
+        this.producto = producto;
+    }
+
+    public BigInteger getId_vendedor() {
+        return id_vendedor;
+    }
+
+    public void setId_vendedor(BigInteger id_vendedor) {
+        this.id_vendedor = id_vendedor;
+    }
+
+    /*
+    * Implementacion del metodo Hashcode para la entidad
+    */
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (id_vendedor != null ? id_vendedor.hashCode() : 0);
         return hash;
     }
 
+    /*
+    * Este metodo compara 2 entidades Vendedor.
+    * Esta implementacion compara el campo id
+    */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -82,7 +145,7 @@ public class Vendedor extends Usuario implements Serializable {
             return false;
         }
         Vendedor other = (Vendedor) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.id_vendedor == null && other.id_vendedor != null) || (this.id_vendedor != null && !this.id_vendedor.equals(other.id_vendedor))) {
             return false;
         }
         return true;
@@ -90,7 +153,7 @@ public class Vendedor extends Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "flyshoes.entity.Vendedor[ id=" + id + " ]";
+        return "flyshoes.entity.Vendedor[ id=" + id_vendedor + " ]";
     }
     
 }
