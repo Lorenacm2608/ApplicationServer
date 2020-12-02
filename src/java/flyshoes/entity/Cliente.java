@@ -45,6 +45,7 @@ public class Cliente extends Usuario implements Serializable {
     @OneToMany(mappedBy="clientes", cascade=CascadeType.ALL)
     private Set<ReservaCliente> reservaCliente;
     
+    
     @Override
     public int hashCode() {
         int hash = 0;
