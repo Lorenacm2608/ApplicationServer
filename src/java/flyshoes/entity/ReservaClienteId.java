@@ -21,7 +21,7 @@ public class ReservaClienteId implements Serializable {
 
     private Long reservaId; //Identificador de la reserva
     private Long clienteId; //Identificador del cliente
-
+    
     public Long getReservaId() {
         return reservaId;
     }
