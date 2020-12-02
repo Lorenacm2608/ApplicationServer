@@ -1,46 +1,54 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package flyshoes.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
  * @author Lorena Cáceres Manuel
+ * 
+ * La clase ReservaCliente es la tabla de referencias cruzadas entre Reserva y Cliente,
+ * en ella vemos que tiene el identificador de cliente y de reserva y un atributo de tipo
+ * Timestamp que nos indicará la fecha de llegada de la reserva
  */
 @Entity
 public class ReservaCliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    private String id_cliente;
-    private String id_reserva;
+    //Indicamos que va a recibir un identificador de una clase Embeddable
+    @EmbeddedId
+    private ReservaCliente idReservaCliente; //Identificador de tipo ReservaCliente, incluye clienteId y reservaId
+    //Indica el atributo de la tabla ReservaCliente
+    @MapsId("clienteId")
+    @ManyToOne
+    private Long id_cliente;
+    //Indica el atributo de la tabla ReservaCliente
+    @MapsId("reservaId")
+    @ManyToOne
+    private Long id_reserva;
+    //Anotacion que define una fecha, le indicamos que es de tipo Timestamp
+    @Temporal(TemporalType.TIMESTAMP)
     private Timestamp fecha_llegada;
 
-    public String getId_cliente() {
+    public Long getId_cliente() {
         return id_cliente;
     }
 
-    public void setId_cliente(String id_cliente) {
+    public void setId_cliente(Long id_cliente) {
         this.id_cliente = id_cliente;
     }
 
-    public String getId_reserva() {
+    public Long getId_reserva() {
         return id_reserva;
     }
 
-    public void setId_reserva(String id_reserva) {
+    public void setId_reserva(Long id_reserva) {
         this.id_reserva = id_reserva;
     }
 
@@ -52,18 +60,20 @@ public class ReservaCliente implements Serializable {
         this.fecha_llegada = fecha_llegada;
     }
 
-    public Long getId() {
-        return id;
+    public ReservaCliente getIdReservaCliente() {
+        return idReservaCliente;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdReservaCliente(ReservaCliente idReservaCliente) {
+        this.idReservaCliente = idReservaCliente;
     }
+
+ 
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (idReservaCliente != null ? idReservaCliente.hashCode() : 0);
         return hash;
     }
 
@@ -74,7 +84,7 @@ public class ReservaCliente implements Serializable {
             return false;
         }
         ReservaCliente other = (ReservaCliente) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.idReservaCliente == null && other.idReservaCliente != null) || (this.idReservaCliente != null && !this.idReservaCliente.equals(other.idReservaCliente))) {
             return false;
         }
         return true;
@@ -82,7 +92,7 @@ public class ReservaCliente implements Serializable {
 
     @Override
     public String toString() {
-        return "flyshoes.entity.ReservaCliente[ id=" + id + " ]";
+        return "flyshoes.entity.ReservaCliente[ id=" + idReservaCliente + " ]";
     }
 
 }
