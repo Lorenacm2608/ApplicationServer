@@ -5,15 +5,23 @@
  */
 package flyshoes.entity;
 
+import com.sun.tools.xjc.model.nav.EagerNClass;
 import java.io.Serializable;
+import java.util.Set;
+import static javax.persistence.CascadeType.MERGE;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author Lorena
+ * @author Lorena Cáceres Manuel
  */
 @Entity
 public class Producto implements Serializable {
@@ -22,7 +30,35 @@ public class Producto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotNull
+    private String descripcion;
+    @NotNull
+    private Float precio;
+    
+    @ManyToOne
+    private Reserva reserva;
+    @ManyToOne
+    private Proveedor proveedor;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = MERGE)
+    @JoinTable(schema = "flyshoesdb", name = "vendedor_producto")
+    private Set <Vendedor> vendedores;
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Float getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Float precio) {
+        this.precio = precio;
+    }
+    
     public Long getId() {
         return id;
     }
