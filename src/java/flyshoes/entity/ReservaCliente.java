@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -18,19 +20,20 @@ import javax.persistence.TemporalType;
  * Timestamp que nos indicará la fecha de llegada de la reserva
  */
 @Entity
+@Table(name ="reservaCliente", schema ="flyshoesdb")
 public class ReservaCliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
     //Indicamos que va a recibir un identificador de una clase Embeddable
     @EmbeddedId
-    private ReservaCliente idReservaCliente; //Identificador de tipo ReservaCliente, incluye clienteId y reservaId
-    //Indica el atributo de la tabla ReservaCliente
+    private ReservaClienteId idReservaCliente; //Identificador de tipo ReservaCliente, incluye clienteId y reservaId
+    //Mapea el clienteId que se esta pasando con id_cliente
     @MapsId("clienteId")
     @ManyToOne
     private Long id_cliente;
-    //Indica el atributo de la tabla ReservaCliente
+    //Mapea el reservaId que se esta pasando con id_reserva
     @MapsId("reservaId")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Long id_reserva;
     //Anotacion que define una fecha, le indicamos que es de tipo Timestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -60,11 +63,11 @@ public class ReservaCliente implements Serializable {
         this.fecha_llegada = fecha_llegada;
     }
 
-    public ReservaCliente getIdReservaCliente() {
+    public ReservaClienteId getIdReservaCliente() {
         return idReservaCliente;
     }
 
-    public void setIdReservaCliente(ReservaCliente idReservaCliente) {
+    public void setIdReservaCliente(ReservaClienteId idReservaCliente) {
         this.idReservaCliente = idReservaCliente;
     }
 
