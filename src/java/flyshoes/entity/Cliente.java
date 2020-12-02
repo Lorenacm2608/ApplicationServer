@@ -6,6 +6,7 @@
 package flyshoes.entity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -22,21 +24,22 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="client",schema="flyshoesdb")
-public class Cliente extends Usuario implements Serializable {
+@XmlRootElement
+public class Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private BigInteger id_cliente;
 
 
 
-    public Long getId() {
-        return id;
+    public BigInteger getId_cliente() {
+        return id_cliente;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId_cliente(BigInteger id) {
+        this.id_cliente = id;
     }
    
     /*
@@ -49,7 +52,7 @@ public class Cliente extends Usuario implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (id_cliente != null ? id_cliente.hashCode() : 0);
         return hash;
     }
 
@@ -60,7 +63,7 @@ public class Cliente extends Usuario implements Serializable {
             return false;
         }
         Cliente other = (Cliente) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.id_cliente == null && other.id_cliente != null) || (this.id_cliente != null && !this.id_cliente.equals(other.id_cliente))) {
             return false;
         }
         return true;
@@ -68,7 +71,7 @@ public class Cliente extends Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "flyshoes.entity.Cliente[ idCliente=" + id + " ]";
+        return "flyshoes.entity.Cliente[ idCliente=" + id_cliente + " ]";
     }
     
 }
