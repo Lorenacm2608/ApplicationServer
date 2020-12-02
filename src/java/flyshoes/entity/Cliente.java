@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
@@ -20,6 +21,7 @@ import javax.persistence.OneToMany;
  * Entidad Cliente relacionado con Reserva y creando la tabla ReservaCliente.
  */
 @Entity
+@Table(name="client",schema="flyshoesdb")
 public class Cliente extends Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
