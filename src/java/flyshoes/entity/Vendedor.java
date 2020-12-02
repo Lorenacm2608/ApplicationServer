@@ -22,6 +22,7 @@ public class Vendedor extends Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     
+    private Long id;
     private Long dni;
     private Long direccion;
     private Integer salario;
@@ -59,10 +60,18 @@ public class Vendedor extends Usuario implements Serializable {
         this.tienda = tienda;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (dni != null ? dni.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -73,7 +82,7 @@ public class Vendedor extends Usuario implements Serializable {
             return false;
         }
         Vendedor other = (Vendedor) object;
-        if ((this.dni == null && other.dni != null) || (this.dni != null && !this.dni.equals(other.dni))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -81,7 +90,7 @@ public class Vendedor extends Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "flyshoes.entity.Vendedor[ dni=" + dni + " ]";
+        return "flyshoes.entity.Vendedor[ id=" + id + " ]";
     }
     
 }
