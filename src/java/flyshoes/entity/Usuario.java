@@ -6,29 +6,79 @@
 package flyshoes.entity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Lorena
+ * @author Moroni
+ * Entidad Usuario relacionado con gestiona Proveedor
  */
 @Entity
+@Table(name="Usuario",schema="flyshoesdb")
+@XmlRootElement
 public class Usuario implements Serializable {
 
+    /*
+    *Usuario se relaciona con Proveedor por OneToMany
+    */
+    @OneToMany(mappedBy="Usuario")
+    private Set<Proveedor> proveedor;
+    
     private static final long serialVersionUID = 1L;
+    
+    /*
+    *Id del usuario
+    */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private BigInteger id_usuario;
+    
+    /*
+    * Login del usuario
+    */
     private Long login;
+    
+    /*
+    * Email del usuario
+    */
     private Long email;
+    
+    /*
+    * Nombre completo del usuario
+    */
     private Long fullname;
+    
+    /*
+    * Estado del usuario
+    */
     private Long status;
+    
+    /*
+    * Privilegio del usuario
+    */
     private Long privilege;
+    
+    /*
+    * Contraseña del usuario
+    */
     private Long password;
+    
+    /*
+    * Ultimo acceso del usuario
+    */
     private Long lastAccess;
+    
+    /*
+    * Ultimo cambio de contraseña del usuario
+    */
     private Long lastPasswordChange;
 
     public Long getLogin() {
@@ -95,21 +145,36 @@ public class Usuario implements Serializable {
         this.lastPasswordChange = lastPasswordChange;
     }
 
-    public Long getId() {
-        return id;
+    public Set<Proveedor> getProveedor() {
+        return proveedor;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setProveedor(Set<Proveedor> proveedor) {
+        this.proveedor = proveedor;
     }
 
+    public BigInteger getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(BigInteger id_usuario) {
+        this.id_usuario = id_usuario;
+    }
+
+    /*
+    * Implementacion del metodo Hashcode para la entidad
+    */
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (id_usuario != null ? id_usuario.hashCode() : 0);
         return hash;
     }
 
+    /*
+    * Este metodo compara 2 entidades Usuario.
+    * Esta implementacion compara el campo id
+    */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -117,7 +182,7 @@ public class Usuario implements Serializable {
             return false;
         }
         Usuario other = (Usuario) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.id_usuario == null && other.id_usuario != null) || (this.id_usuario != null && !this.id_usuario.equals(other.id_usuario))) {
             return false;
         }
         return true;
@@ -125,7 +190,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "flyshoes.entity.Usuario[ id=" + id + " ]";
+        return "flyshoes.entity.Usuario[ id=" + id_usuario + " ]";
     }
     
 }
