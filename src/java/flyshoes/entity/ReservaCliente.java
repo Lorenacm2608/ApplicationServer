@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -19,6 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name ="reservaCliente", schema ="flyshoesdb")
+@XmlRootElement
 public class ReservaCliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
