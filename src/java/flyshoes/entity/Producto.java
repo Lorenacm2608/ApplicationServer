@@ -12,6 +12,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlTransient;
@@ -44,7 +45,9 @@ public class Producto implements Serializable {
      */
     @NotNull //Nos indica que el atributo precio no podrá ser nulo
     private Float precio;
-    
+    /**
+     * Imagen del producto
+     */
     @Lob
     private byte[] imagen;
     /**
@@ -60,8 +63,7 @@ public class Producto implements Serializable {
     /**
      * Relación con la entidad Vendedor
      */
-    @ManyToMany(fetch = FetchType.EAGER, cascade = MERGE)
-    @JoinTable(schema = "flyshoesdb", name = "vendedor_producto")
+    @OneToMany(cascade = MERGE, mappedBy="producto") 
     private Set <Vendedor> vendedores;
 
     /**
