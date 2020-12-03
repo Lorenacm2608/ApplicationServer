@@ -68,6 +68,10 @@ public class Vendedor extends Usuario implements Serializable {
     */
     private Long tienda;
 
+    public Vendedor(){
+        
+    }
+    
     public Long getDni() {
         return dni;
     }
