@@ -9,12 +9,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import static org.hibernate.metamodel.source.annotations.JPADotNames.LOB;
 
 /**
  *
@@ -46,6 +48,8 @@ public class Producto implements Serializable {
     @NotNull //Nos indica que el atributo precio no podrá ser nulo
     private Float precio;
     
+    @Lob
+    private byte[] imagen;
     /**
      * Relación con la entidad Reserva
      */
@@ -62,6 +66,22 @@ public class Producto implements Serializable {
     @ManyToMany(fetch = FetchType.EAGER, cascade = MERGE)
     @JoinTable(schema = "flyshoesdb", name = "vendedor_producto")
     private Set <Vendedor> vendedores;
+
+    /**
+     * 
+     * @return 
+     */
+    public byte[] getImagen() {
+        return imagen;
+    }
+
+    /**
+     * 
+     * @param imagen que establecemos
+     */
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
+    }
 
     /**
      * 
