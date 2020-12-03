@@ -6,7 +6,6 @@
 package flyshoes.entity;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,13 +39,6 @@ public class Vendedor extends Usuario implements Serializable {
     private Set<Producto> producto;
     
     private static final long serialVersionUID = 1L;
-    /*
-    *Id del vendedor
-    */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    
-    private Long id_vendedor;
     
     /*
     * Dni del vendedor
@@ -120,44 +112,9 @@ public class Vendedor extends Usuario implements Serializable {
         this.producto = producto;
     }
 
-    public Long getId_vendedor() {
-        return id_vendedor;
-    }
-
-    public void setId_vendedor(Long id_vendedor) {
-        this.id_vendedor = id_vendedor;
-    }
-
-    /*
-    * Implementacion del metodo Hashcode para la entidad
-    */
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id_vendedor != null ? id_vendedor.hashCode() : 0);
-        return hash;
-    }
-
-    /*
-    * Este metodo compara 2 entidades Vendedor.
-    * Esta implementacion compara el campo id
-    */
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Vendedor)) {
-            return false;
-        }
-        Vendedor other = (Vendedor) object;
-        if ((this.id_vendedor == null && other.id_vendedor != null) || (this.id_vendedor != null && !this.id_vendedor.equals(other.id_vendedor))) {
-            return false;
-        }
-        return true;
-    }
-
     @Override
     public String toString() {
-        return "flyshoes.entity.Vendedor[ id=" + id_vendedor + " ]";
+        return "flyshoes.entity.Vendedor[ id=" + dni + " ]";
     }
     
 }
