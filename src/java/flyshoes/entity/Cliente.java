@@ -30,6 +30,6 @@ public class Cliente extends Usuario implements Serializable {
      * Cualquier cambio(actualizar, quitar y insertar ) Cliente se produzca también debe producirse en cascada ReservaCliente
      */
     @OneToMany(mappedBy="clientes", cascade=CascadeType.ALL)
-    private Set<ReservaCliente> reservaCliente;
+    private Set<Reserva> reserva;
   
 }
