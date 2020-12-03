@@ -81,6 +81,10 @@ public class Usuario implements Serializable {
     */
     private Long lastPasswordChange;
 
+    public Usuario(){
+        
+}
+    
     public Long getLogin() {
         return login;
     }
