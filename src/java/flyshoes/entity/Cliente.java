@@ -18,9 +18,9 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
  * @author Nadir
- * Entidad Cliente relacionado con Reserva y creando la tabla ReservaCliente.
+ * Entidad Cliente que representa a clientes. Este tiene el siguiente campo:
+ * id_clientee. Este tiene relacion con Reserva y creando la tabla ReservaCliente.
  */
 @Entity
 @Table(name="client",schema="flyshoesdb")
@@ -30,15 +30,15 @@ public class Cliente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private BigInteger id_cliente;
+    private Long id_cliente;
 
 
 
-    public BigInteger getId_cliente() {
+    public Long getId_cliente() {
         return id_cliente;
     }
 
-    public void setId_cliente(BigInteger id) {
+    public void setId_cliente(Long id) {
         this.id_cliente = id;
     }
    
