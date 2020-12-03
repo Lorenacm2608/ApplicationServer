@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -22,6 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Entidad Usuario relacionado con gestiona Proveedor
  */
 @Entity
+@Inheritance(strategy=InheritanceType.JOINED)
 @Table(name="Usuario",schema="flyshoesdb")
 @XmlRootElement
 public class Usuario implements Serializable {
@@ -59,12 +62,12 @@ public class Usuario implements Serializable {
     /*
     * Estado del usuario
     */
-    private Long status;
+    private Enum status;
     
     /*
     * Privilegio del usuario
     */
-    private Long privilege;
+    private Enum privilege;
     
     /*
     * Contraseña del usuario
@@ -109,19 +112,19 @@ public class Usuario implements Serializable {
         this.fullname = fullname;
     }
 
-    public Long getStatus() {
+    public Enum getStatus() {
         return status;
     }
 
-    public void setStatus(Long status) {
+    public void setStatus(Enum status) {
         this.status = status;
     }
 
-    public Long getPrivilege() {
+    public Enum getPrivilege() {
         return privilege;
     }
 
-    public void setPrivilege(Long privilege) {
+    public void setPrivilege(Enum privilege) {
         this.privilege = privilege;
     }
 
