@@ -23,7 +23,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * Esta clase se ecncargará sobre la gestión de reservas
+ * Esta clase se encargará sobre la gestión de reservas
  *
  * @author Fredy
  */
