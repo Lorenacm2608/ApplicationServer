@@ -46,7 +46,7 @@ public class Vendedor extends Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     
-    private BigInteger id_vendedor;
+    private Long id_vendedor;
     
     /*
     * Dni del vendedor
@@ -116,11 +116,11 @@ public class Vendedor extends Usuario implements Serializable {
         this.producto = producto;
     }
 
-    public BigInteger getId_vendedor() {
+    public Long getId_vendedor() {
         return id_vendedor;
     }
 
-    public void setId_vendedor(BigInteger id_vendedor) {
+    public void setId_vendedor(Long id_vendedor) {
         this.id_vendedor = id_vendedor;
     }
 
