@@ -39,7 +39,7 @@ public class Usuario implements Serializable {
     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private BigInteger id_usuario;
+    private Long id_usuario;
     
     /*
     * Login del usuario
@@ -153,11 +153,11 @@ public class Usuario implements Serializable {
         this.proveedor = proveedor;
     }
 
-    public BigInteger getId_usuario() {
+    public Long getId_usuario() {
         return id_usuario;
     }
 
-    public void setId_usuario(BigInteger id_usuario) {
+    public void setId_usuario(Long id_usuario) {
         this.id_usuario = id_usuario;
     }
 
