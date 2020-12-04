@@ -9,11 +9,7 @@ import java.io.Serializable;
 import java.util.Set;
 import static javax.persistence.CascadeType.MERGE;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -104,13 +100,13 @@ public class Vendedor extends Usuario implements Serializable {
     public void setReserva(Set<Reserva> reserva) {
         this.reserva = reserva;
     }
-
-    public Set<Producto> getProducto() {
-        return producto;
+    
+    public Set<VendedorProducto> getVendedorProducto() {
+        return vendedorProducto;
     }
 
-    public void setProducto(Set<Producto> producto) {
-        this.producto = producto;
+    public void setVendedorProducto(Set<VendedorProducto> vendedorProducto) {
+        this.vendedorProducto = vendedorProducto;
     }
 
     @Override
