@@ -7,6 +7,7 @@ package flyshoes.entity;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.sql.Timestamp;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -47,17 +48,17 @@ public class Usuario implements Serializable {
     /*
     * Login del usuario
     */
-    private Long login;
+    private String login;
     
     /*
     * Email del usuario
     */
-    private Long email;
+    private String email;
     
     /*
     * Nombre completo del usuario
     */
-    private Long fullname;
+    private String fullname;
     
     /*
     * Estado del usuario
@@ -72,43 +73,43 @@ public class Usuario implements Serializable {
     /*
     * Contraseña del usuario
     */
-    private Long password;
+    private String password;
     
     /*
     * Ultimo acceso del usuario
     */
-    private Long lastAccess;
+    private Timestamp lastAccess;
     
     /*
     * Ultimo cambio de contraseña del usuario
     */
-    private Long lastPasswordChange;
+    private Timestamp lastPasswordChange;
 
     public Usuario(){
         
 }
     
-    public Long getLogin() {
+    public String getLogin() {
         return login;
     }
 
-    public void setLogin(Long login) {
+    public void setLogin(String login) {
         this.login = login;
     }
 
-    public Long getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(Long email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public Long getFullname() {
+    public String getFullname() {
         return fullname;
     }
 
-    public void setFullname(Long fullname) {
+    public void setFullname(String fullname) {
         this.fullname = fullname;
     }
 
@@ -128,27 +129,27 @@ public class Usuario implements Serializable {
         this.privilege = privilege;
     }
 
-    public Long getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(Long password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public Long getLastAccess() {
+    public Timestamp getLastAccess() {
         return lastAccess;
     }
 
-    public void setLastAccess(Long lastAccess) {
+    public void setLastAccess(Timestamp lastAccess) {
         this.lastAccess = lastAccess;
     }
 
-    public Long getLastPasswordChange() {
+    public Timestamp getLastPasswordChange() {
         return lastPasswordChange;
     }
 
-    public void setLastPasswordChange(Long lastPasswordChange) {
+    public void setLastPasswordChange(Timestamp lastPasswordChange) {
         this.lastPasswordChange = lastPasswordChange;
     }
 
