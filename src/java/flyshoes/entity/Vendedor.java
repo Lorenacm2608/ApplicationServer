@@ -7,6 +7,7 @@ package flyshoes.entity;
 
 import java.io.Serializable;
 import java.util.Set;
+import static javax.persistence.CascadeType.MERGE;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,8 +36,8 @@ public class Vendedor extends Usuario implements Serializable {
     /*
     *Vendedor se relaciona con Producto por ManyToMany
     */
-    @ManyToMany(mappedBy="Vendedor")
-    private Set<Producto> producto;
+    @OneToMany(cascade = MERGE, mappedBy="vendedor")
+    private Set<VendedorProducto> vendedorProducto;
     
     private static final long serialVersionUID = 1L;
     
