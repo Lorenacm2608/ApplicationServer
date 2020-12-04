@@ -42,7 +42,7 @@ public class Usuario implements Serializable {
     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long id_usuario;
     
     /*
     * Login del usuario
@@ -160,12 +160,12 @@ public class Usuario implements Serializable {
         this.proveedor = proveedor;
     }
 
-    public Long getId() {
-        return id;
+    public Long getId_usuario() {
+        return id_usuario;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId_usuario(Long id_usuario) {
+        this.id_usuario = id_usuario;
     }
 
     /*
@@ -174,7 +174,7 @@ public class Usuario implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (id_usuario != null ? id_usuario.hashCode() : 0);
         return hash;
     }
 
@@ -189,7 +189,7 @@ public class Usuario implements Serializable {
             return false;
         }
         Usuario other = (Usuario) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.id_usuario == null && other.id_usuario != null) || (this.id_usuario != null && !this.id_usuario.equals(other.id_usuario))) {
             return false;
         }
         return true;
@@ -197,7 +197,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "flyshoes.entity.Usuario[ id=" + id + " ]";
+        return "flyshoes.entity.Usuario[ id=" + id_usuario + " ]";
     }
     
 }
