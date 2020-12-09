@@ -22,7 +22,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *Entidad Cliente, hereda de Usuario
+ * Entidad Cliente, hereda de Usuario, del cual tiene sus atributos.
+ * Esta relacionada con Reserva (OneToMany) y Vendedor (ManyToOne).
  * @author Nadir
  */
 /*
@@ -47,32 +48,36 @@ public class Cliente extends Usuario implements Serializable{
     @ManyToOne
     private Vendedor vendedor;
     
-    /*
-    * Muestra las Reservas del Cliente
-    */
+    /**
+     * 
+     * @return reservas, retorna las reservas de un Cliente.
+     */
     @XmlTransient
     public Set<Reserva> getReservas() {
         return reservas;
     }
     
-    /*
-    * Crea las reservas del Cliente
-    */
+    /**
+     * 
+     * @param reservas, Creamos las reservas de un Cliente.
+     */
     public void setReservas(Set<Reserva> reservas) {
         this.reservas = reservas;
     }
     
-     /*
-    * Muestra los vendedores del Cliente
+    /**
+     * 
+     * @return vendedor, retorna el vendedor de los Clientes.
     */
     @XmlTransient
     public Vendedor getVendedor() {
         return vendedor;
     }
     
-    /*
-    * Crea los vendedores del Cliente
-    */
+    /**
+     * 
+     * @param vendedor, Creamos el vendedor de los Clientes.
+     */
      public void setVendedor(Vendedor vendedor) {
         this.vendedor = vendedor;
     }
