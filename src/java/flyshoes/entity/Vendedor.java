@@ -1,14 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package flyshoes.entity;
 
 import java.io.Serializable;
 import java.util.Set;
 import static javax.persistence.CascadeType.MERGE;
 import javax.persistence.Entity;
+import static javax.persistence.FetchType.EAGER;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -17,148 +13,99 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /*
- *
- * @author Moroni
  * Entidad Vendedor relacionado con gestiona Producto y maneja Reserva
  */
 @Entity
-@Table(name="Vendedor",schema="flyshoesdb")
+@Table(name = "vendedor", schema = "flyshoesdb")
 @XmlRootElement
 public class Vendedor extends Usuario implements Serializable {
 
     /*
-    *Vendedor se relaciona con Cliente por OneToMany
-    */
-    @OneToMany( mappedBy="vendedor")
-    private Set<Cliente> clientes;
-    
+     * Vendedor se relaciona con Cliente por OneToMany
+     */
+    @OneToMany(mappedBy = "vendedor")
+    private Set<Cliente> cliente;
+
     /*
     *Vendedor se relaciona con Producto por ManyToMany
-    */
-    @ManyToMany
-    @JoinTable(name="VendedorProducto")
+     */
+    @ManyToMany(fetch = EAGER, cascade = MERGE)
+    @JoinTable(schema = "flyshoesdb", name = "vendedorProducto")
     private Set<Producto> productos;
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     /*
     * Dni del vendedor
-    */
-    private String dni;
-    
+     */
+    private Long dni;
+
     /*
     * Direccion del vendedor
-    */
-    private String direccion;
-    
+     */
+    private Long direccion;
+
     /*
     * Salario del vendedor
-    */
+     */
     private Integer salario;
-    
+
     /*
     * Tienda del vendedor
-    */
-    private String tienda;
+     */
+    private Long tienda;
 
-    public Vendedor(){
-        
+    public Vendedor() {
+
     }
 
-    /*
-     * Devuelve el valor de salario para Vendedor
-     * @return el valor de salario
-     */
+    public Long getDni() {
+        return dni;
+    }
+
+    public void setDni(Long dni) {
+        this.dni = dni;
+    }
+
+    public Long getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(Long direccion) {
+        this.direccion = direccion;
+    }
+
     public Integer getSalario() {
         return salario;
     }
 
-    /*
-     * Establece el valor de salario para Vendedor
-     * @param de salario del valor salario
-     */
     public void setSalario(Integer salario) {
         this.salario = salario;
     }
 
-    /*
-     * Devuelve el valor de dni para Vendedor
-     * @return el valor de dni
-     */
-    public String getDni() {
-        return dni;
-    }
-    /*
-     * Establece el valor de dni para Vendedor
-     * @param de dni del valor dni
-     */
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
-
-    /*
-     * Devuelve el valor de direccion para Vendedor
-     * @return el valor de direccion
-     */
-    public String getDireccion() {
-        return direccion;
-    }
-
-    /*
-     * Establece el valor de direccion para Vendedor
-     * @param de direccion del valor direccion
-     */
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    /*
-     * Devuelve el valor de tienda para Vendedor
-     * @return el valor de tienda
-     */
-    public String getTienda() {
+    public Long getTienda() {
         return tienda;
     }
 
-    /*
-     * Establece el valor de tienda para Vendedor
-     * @param de tienda del valor tienda
-     */
-    public void setTienda(String tienda) {
+    public void setTienda(Long tienda) {
         this.tienda = tienda;
     }
-    
-    /*
-     * Devuelve el valor de cliente para Vendedor
-     * @return el valor de cliente
-     */
+
     @XmlTransient
     public Set<Cliente> getCliente() {
-        return clientes;
+        return cliente;
     }
 
-    /*
-     * Establece el valor de cliente para Vendedor
-     * @param de cliente del valor cliente
-     */
-    public void setCliente(Set<Cliente> clientes) {
-        this.clientes = clientes;
+    public void setCliente(Set<Cliente> cliente) {
+        this.cliente = cliente;
     }
 
-    /*
-     * Devuelve el valor de producto para Vendedor
-     * @return el valor de producto
-     */
     @XmlTransient
     public Set<Producto> getProducto() {
         return productos;
     }
 
-    /*
-     * Establece el valor de producto para Vendedor
-     * @param de producto del valor producto
-     */
-    public void setProducto(Set<Producto> producto) {
+    public void setProducto(Set<Producto> productos) {
         this.productos = productos;
     }
 
@@ -166,5 +113,5 @@ public class Vendedor extends Usuario implements Serializable {
     public String toString() {
         return "flyshoes.entity.Vendedor[ id=" + dni + " ]";
     }
-    
+
 }
