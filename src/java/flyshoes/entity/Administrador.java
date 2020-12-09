@@ -20,7 +20,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
  * @author Fredy
  */
 @Entity
-@PrimaryKeyJoinColumn(referencedColumnName = "id")
+@PrimaryKeyJoinColumn(referencedColumnName = "id_usuario")
 public class Administrador extends Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
