@@ -35,6 +35,7 @@ public class Vendedor extends Usuario implements Serializable {
     /*
     *Vendedor se relaciona con Producto por ManyToMany
     */
+    @ManyToMany
     @JoinTable(name="VendedorProducto")
     private Set<Producto> productos;
     
