@@ -8,28 +8,48 @@ package flyshoes.entity;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import static javax.persistence.FetchType.EAGER;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
- * @author Nadir
- * Entidad Cliente que representa a clientes. Este tiene el siguiente campo:
- * id_clientee. Este tiene relacion con Reserva y creando la tabla ReservaCliente.
+ *
+ * @author user
  */
+/*
 @Entity
-@Table(name="client",schema="flyshoesdb")
+@DiscriminatorValue(value="C")
+*/
+@Entity
+@Table(name="cliente", schema="reto6")
 @PrimaryKeyJoinColumn(referencedColumnName="id")
-public class Cliente extends Usuario implements Serializable {
+@XmlRootElement
+public class Cliente extends Usuario implements Serializable{
 
     private static final long serialVersionUID = 1L;
+    
+    @OneToMany(mappedBy="cliente",cascade=CascadeType.ALL,fetch=EAGER)
+    private Set<Reserva> reservas;
 
-    /**
-     * Cualquier cambio(actualizar, quitar y insertar ) Cliente se produzca también debe producirse en cascada ReservaCliente
-     */
-    @OneToMany(mappedBy="clientes", cascade=CascadeType.ALL)
-    private Set<Reserva> reserva;
-  
+    @ManyToOne
+    private Vendedor vendedor;
+    
+    @XmlTransient
+    public Set<Reserva> getReservas() {
+        return reservas;
+    }
+
+    public void setReservas(Set<Reserva> reservas) {
+        this.reservas = reservas;
+    }
+    
 }
