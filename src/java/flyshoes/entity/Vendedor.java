@@ -66,7 +66,7 @@ public class Vendedor extends Usuario implements Serializable {
     }
 
     /*
-     * Devuelve el valor de salario para Usuario
+     * Devuelve el valor de salario para Vendedor
      * @return el valor de salario
      */
     public Integer getSalario() {
@@ -74,7 +74,7 @@ public class Vendedor extends Usuario implements Serializable {
     }
 
     /*
-     * Establece el valor de salario para Usuario
+     * Establece el valor de salario para Vendedor
      * @param de salario del valor salario
      */
     public void setSalario(Integer salario) {
@@ -82,14 +82,14 @@ public class Vendedor extends Usuario implements Serializable {
     }
 
     /*
-     * Devuelve el valor de dni para Usuario
+     * Devuelve el valor de dni para Vendedor
      * @return el valor de dni
      */
     public String getDni() {
         return dni;
     }
     /*
-     * Establece el valor de dni para Usuario
+     * Establece el valor de dni para Vendedor
      * @param de dni del valor dni
      */
     public void setDni(String dni) {
@@ -97,7 +97,7 @@ public class Vendedor extends Usuario implements Serializable {
     }
 
     /*
-     * Devuelve el valor de direccion para Usuario
+     * Devuelve el valor de direccion para Vendedor
      * @return el valor de direccion
      */
     public String getDireccion() {
@@ -105,7 +105,7 @@ public class Vendedor extends Usuario implements Serializable {
     }
 
     /*
-     * Establece el valor de direccion para Usuario
+     * Establece el valor de direccion para Vendedor
      * @param de direccion del valor direccion
      */
     public void setDireccion(String direccion) {
@@ -113,7 +113,7 @@ public class Vendedor extends Usuario implements Serializable {
     }
 
     /*
-     * Devuelve el valor de tienda para Usuario
+     * Devuelve el valor de tienda para Vendedor
      * @return el valor de tienda
      */
     public String getTienda() {
@@ -121,7 +121,7 @@ public class Vendedor extends Usuario implements Serializable {
     }
 
     /*
-     * Establece el valor de tienda para Usuario
+     * Establece el valor de tienda para Vendedor
      * @param de tienda del valor tienda
      */
     public void setTienda(String tienda) {
@@ -129,7 +129,7 @@ public class Vendedor extends Usuario implements Serializable {
     }
     
     /*
-     * Devuelve el valor de cliente para Usuario
+     * Devuelve el valor de cliente para Vendedor
      * @return el valor de cliente
      */
     @XmlTransient
@@ -138,7 +138,7 @@ public class Vendedor extends Usuario implements Serializable {
     }
 
     /*
-     * Establece el valor de cliente para Usuario
+     * Establece el valor de cliente para Vendedor
      * @param de cliente del valor cliente
      */
     public void setCliente(Set<Cliente> clientes) {
@@ -146,7 +146,7 @@ public class Vendedor extends Usuario implements Serializable {
     }
 
     /*
-     * Devuelve el valor de producto para Usuario
+     * Devuelve el valor de producto para Vendedor
      * @return el valor de producto
      */
     @XmlTransient
@@ -155,7 +155,7 @@ public class Vendedor extends Usuario implements Serializable {
     }
 
     /*
-     * Establece el valor de producto para Usuario
+     * Establece el valor de producto para Vendedor
      * @param de producto del valor producto
      */
     public void setProducto(Set<Producto> producto) {
