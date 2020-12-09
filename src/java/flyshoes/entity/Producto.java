@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * un precio y una imagen del producto.
  */
 @Entity
-@Table(name = "producto", schema = "reto4")
+@Table(name = "producto", schema = "flyshoesdb")
 @XmlRootElement
 public class Producto implements Serializable {
 
