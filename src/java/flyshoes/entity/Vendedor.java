@@ -36,7 +36,7 @@ public class Vendedor extends Usuario implements Serializable {
     *Vendedor se relaciona con Producto por ManyToMany
     */
     @ManyToMany( mappedBy="Vendedor")
-    @JoinTable(name="Producto")
+    @JoinTable(name="VendedorProducto")
     private Set<Producto> productos;
     
     private static final long serialVersionUID = 1L;
