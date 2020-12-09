@@ -13,8 +13,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
-/**
+/*
  *
  * @author Moroni
  * Entidad Vendedor relacionado con gestiona Producto y maneja Reserva
@@ -27,19 +28,19 @@ public class Vendedor extends Usuario implements Serializable {
     /*
     *Vendedor se relaciona con Reserva por OneToMany
     */
-    @OneToMany(cascade = MERGE, mappedBy="Vendedor")
+    @OneToMany( mappedBy="Vendedor")
     private Set<Reserva> reserva;
+    
+    /*
+    *Vendedor se relaciona con Cliente por OneToMany
+    */
+    @OneToMany( mappedBy="vendedor")
+    private Set<Cliente> cliente;
     
     /*
     *Vendedor se relaciona con Producto por ManyToMany
     */
-    @OneToMany(cascade = MERGE, mappedBy="vendedor")
-    private Set<Cliente> cliente;
-    
-    /*
-    *Vendedor se relaciona con Reserva por OneToMany
-    */
-    @ManyToMany(cascade = MERGE, mappedBy="Vendedor")
+    @ManyToMany( mappedBy="Vendedor")
     private Set<Producto> producto;
     
     private static final long serialVersionUID = 1L;
@@ -100,6 +101,7 @@ public class Vendedor extends Usuario implements Serializable {
         this.tienda = tienda;
     }
 
+    @XmlTransient
     public Set<Reserva> getReserva() {
         return reserva;
     }
@@ -108,6 +110,7 @@ public class Vendedor extends Usuario implements Serializable {
         this.reserva = reserva;
     }
     
+    @XmlTransient
     public Set<Cliente> getCliente() {
         return cliente;
     }
@@ -116,6 +119,7 @@ public class Vendedor extends Usuario implements Serializable {
         this.cliente = cliente;
     }
 
+    @XmlTransient
     public Set<Producto> getProducto() {
         return producto;
     }
