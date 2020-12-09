@@ -44,7 +44,8 @@ public class ProveedorFacadeREST extends AbstractFacade<Proveedor> {
 
     @PUT
     @Consumes({MediaType.APPLICATION_XML})
-    public void edit(@PathParam("id") Long id, Proveedor entity) {
+    @Override
+    public void edit(Proveedor entity) {
         super.edit(entity);
     }
 
@@ -60,10 +61,10 @@ public class ProveedorFacadeREST extends AbstractFacade<Proveedor> {
     public Proveedor find(@PathParam("id") Long id) {
         return super.find(id);
     }
-    
+
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }
