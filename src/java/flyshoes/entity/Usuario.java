@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -57,11 +59,13 @@ public class Usuario implements Serializable {
     /*
     * Estado del usuario
     */
+    @Enumerated(EnumType.ORDINAL)
     private EstadoUsuario status;
     
     /*
     * Privilegio del usuario
     */
+    @Enumerated(EnumType.ORDINAL)
     private PrivilegioUsuario privilege;
     
     /*
@@ -77,7 +81,7 @@ public class Usuario implements Serializable {
     /*
     * Ultimo cambio de contraseña del usuario
     */
-    private Timestamp lastPasswordChange;
+    private String lastPasswordChange;
 
     public Usuario(){
         
@@ -139,11 +143,11 @@ public class Usuario implements Serializable {
         this.lastAccess = lastAccess;
     }
 
-    public Timestamp getLastPasswordChange() {
+    public String getLastPasswordChange() {
         return lastPasswordChange;
     }
 
-    public void setLastPasswordChange(Timestamp lastPasswordChange) {
+    public void setLastPasswordChange(String lastPasswordChange) {
         this.lastPasswordChange = lastPasswordChange;
     }
 
