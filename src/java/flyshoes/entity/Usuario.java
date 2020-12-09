@@ -17,6 +17,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -152,6 +153,7 @@ public class Usuario implements Serializable {
         this.lastPasswordChange = lastPasswordChange;
     }
 
+    @XmlTransient
     public Set<Proveedor> getProveedor() {
         return proveedor;
     }
