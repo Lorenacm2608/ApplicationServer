@@ -23,33 +23,59 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author user
+ * @author Nadir
  */
 /*
 @Entity
 @DiscriminatorValue(value="C")
 */
 @Entity
-@Table(name="cliente", schema="reto6")
+@Table(name="cliente", schema="flyshoesdb")
 @PrimaryKeyJoinColumn(referencedColumnName="id")
 @XmlRootElement
 public class Cliente extends Usuario implements Serializable{
 
     private static final long serialVersionUID = 1L;
-    
+    /*
+    * Cliente se relación con reservas via OneToMany
+    */
     @OneToMany(mappedBy="cliente",cascade=CascadeType.ALL,fetch=EAGER)
     private Set<Reserva> reservas;
-
+    
+    /*
+    * Cliente se relación con reservas via ManyToOne
+    */
     @ManyToOne
     private Vendedor vendedor;
     
+    /*
+    * Muestra las Reservas del Cliente
+    */
     @XmlTransient
     public Set<Reserva> getReservas() {
         return reservas;
     }
-
+    
+    /*
+    * Crea las reservas del Cliente
+    */
     public void setReservas(Set<Reserva> reservas) {
         this.reservas = reservas;
+    }
+    
+     /*
+    * Muestra los vendedores del Cliente
+    */
+    @XmlTransient
+    public Vendedor getVendedor() {
+        return vendedor;
+    }
+    
+    /*
+    * Crea los vendedores del Cliente
+    */
+     public void setVendedor(Vendedor vendedor) {
+        this.vendedor = vendedor;
     }
     
 }
