@@ -107,19 +107,19 @@ public class Usuario implements Serializable {
         this.fullname = fullname;
     }
 
-    public Enum getStatus() {
+    public EstadoUsuario getStatus() {
         return status;
     }
 
-    public void setStatus(Enum status) {
+    public void setStatus(EstadoUsuario status) {
         this.status = status;
     }
 
-    public Enum getPrivilege() {
+    public PrivilegioUsuario getPrivilege() {
         return privilege;
     }
 
-    public void setPrivilege(Enum privilege) {
+    public void setPrivilege(PrivilegioUsuario privilege) {
         this.privilege = privilege;
     }
 
@@ -145,15 +145,6 @@ public class Usuario implements Serializable {
 
     public void setLastPasswordChange(Timestamp lastPasswordChange) {
         this.lastPasswordChange = lastPasswordChange;
-    }
-
-    @XmlTransient
-    public Set<Proveedor> getProveedor() {
-        return proveedor;
-    }
-
-    public void setProveedor(Set<Proveedor> proveedor) {
-        this.proveedor = proveedor;
     }
 
     public Long getId_usuario() {
