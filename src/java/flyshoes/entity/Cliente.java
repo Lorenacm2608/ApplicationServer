@@ -6,54 +6,80 @@
 package flyshoes.entity;
 
 import java.io.Serializable;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import static javax.persistence.FetchType.EAGER;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
- * @author Lorena
+ * Entidad Cliente, hereda de Usuario, del cual tiene sus atributos.
+ * Esta relacionada con Reserva (OneToMany) y Vendedor (ManyToOne).
+ * @author Nadir
  */
+/*
 @Entity
-public class Cliente implements Serializable {
+@DiscriminatorValue(value="C")
+*/
+@Entity
+@Table(name="cliente", schema="flyshoesdb")
+@XmlRootElement
+public class Cliente extends Usuario implements Serializable{
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    public Long getId() {
-        return id;
+    /*
+    * Cliente se relación con reservas via OneToMany
+    */
+    @OneToMany(mappedBy="cliente",cascade=CascadeType.ALL,fetch=EAGER)
+    private Set<Reserva> reservas;
+    
+    /*
+    * Cliente se relación con reservas via ManyToOne
+    */
+    @ManyToOne
+    private Vendedor vendedor;
+    
+    /**
+     * 
+     * @return reservas, retorna las reservas de un Cliente.
+     */
+    @XmlTransient
+    public Set<Reserva> getReservas() {
+        return reservas;
     }
-
-    public void setId(Long id) {
-        this.id = id;
+    
+    /**
+     * 
+     * @param reservas, Creamos las reservas de un Cliente.
+     */
+    public void setReservas(Set<Reserva> reservas) {
+        this.reservas = reservas;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    
+    /**
+     * 
+     * @return vendedor, retorna el vendedor de los Clientes.
+    */
+    @XmlTransient
+    public Vendedor getVendedor() {
+        return vendedor;
     }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Cliente)) {
-            return false;
-        }
-        Cliente other = (Cliente) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "flyshoes.entity.Cliente[ id=" + id + " ]";
+    
+    /**
+     * 
+     * @param vendedor, Creamos el vendedor de los Clientes.
+     */
+     public void setVendedor(Vendedor vendedor) {
+        this.vendedor = vendedor;
     }
     
 }

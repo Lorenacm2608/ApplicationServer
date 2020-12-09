@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package flyshoes.services;
+package flyshoes.entity;
 
 /**
  *
- * @author Lorena
+ * @author pocoy
  */
-public class ReservaClienteRESTful {
-    
+enum EstadoUsuario {
+    ENABLED, DISABLED
 }
