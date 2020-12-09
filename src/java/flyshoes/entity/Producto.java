@@ -2,30 +2,31 @@ package flyshoes.entity;
 
 import java.io.Serializable;
 import java.util.Set;
-import static javax.persistence.CascadeType.MERGE;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import static javax.persistence.FetchType.EAGER;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Lorena Cáceres Manuel
- * 
- * Entidad producto está relacionada con la entidad Reserva, vendedor y proveedor. 
- * Esta entidad tiene una identificador de producto, una descripción y un precio.
+ *
+ * Entidad producto está relacionada con la entidad Reserva, vendedor y
+ * proveedor. Esta entidad tiene una identificador de producto, una descripción
+ * y un precio.
  */
 @Entity
-@Table(name="producto", schema="flyshoesdb")
+@Table(name = "producto", schema = "reto4")
+@XmlRootElement
 public class Producto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,16 +35,14 @@ public class Producto implements Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id; 
+    private Long id;
     /**
      * Descripcion del producto
      */
-    @NotNull //Nos indica que el atributo descripción no podrá ser nulo
     private String descripcion;
     /**
      * Precio del producto
      */
-    @NotNull //Nos indica que el atributo precio no podrá ser nulo
     private Float precio;
     /**
      * Imagen del producto
@@ -53,8 +52,8 @@ public class Producto implements Serializable {
     /**
      * Relación con la entidad Reserva
      */
-    @ManyToOne
-    private Reserva reserva;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "producto")
+    private Set<Reserva> reservas;
     /**
      * Relación con la entidad Proveedor
      */
@@ -63,11 +62,11 @@ public class Producto implements Serializable {
     /**
      * Relación con la entidad Vendedor
      */
-    @OneToMany(cascade = MERGE, mappedBy="producto") 
-    private Set <Vendedor> vendedores;
+    @ManyToMany(mappedBy = "productos", cascade = CascadeType.ALL, fetch = EAGER)
+    private Set<Vendedor> vendedores;
 
     /**
-     * 
+     *
      * @return imagen
      */
     public byte[] getImagen() {
@@ -75,7 +74,7 @@ public class Producto implements Serializable {
     }
 
     /**
-     * 
+     *
      * @param imagen que establecemos
      */
     public void setImagen(byte[] imagen) {
@@ -83,58 +82,58 @@ public class Producto implements Serializable {
     }
 
     /**
-     * 
+     *
      * @return reseva
      */
-    public Reserva getReserva() {
-        return reserva;
+    @XmlTransient
+    public Set<Reserva> getReservas() {
+        return reservas;
     }
-    
+
     /**
-     * 
+     *
      * @param reserva que establecemos
      */
-    public void setReserva(Reserva reserva) {
-        this.reserva = reserva;
+    public void setReservas(Set<Reserva> reserva) {
+        this.reservas = reserva;
     }
-    
+
     /**
-     * 
-     * @return proveedor 
+     *
+     * @return proveedor
      */
     public Proveedor getProveedor() {
         return proveedor;
     }
-    
+
     /**
-     * 
+     *
      * @param proveedor que establecemos
      */
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
     }
-    
+
     /**
-     * 
-     * @return vendedores, contiene los vendedores que han gestionado
-     * un producto
+     *
+     * @return vendedores, contiene los vendedores que han gestionado un
+     * producto
      */
     @XmlTransient
     public Set<Vendedor> getVendedores() {
         return vendedores;
     }
-    
+
     /**
-     * 
+     *
      * @param vendedores que establecemos
      */
     public void setVendedores(Set<Vendedor> vendedores) {
         this.vendedores = vendedores;
     }
 
-
     /**
-     * 
+     *
      * @return descripcion
      */
     public String getDescripcion() {
@@ -142,7 +141,7 @@ public class Producto implements Serializable {
     }
 
     /**
-     * 
+     *
      * @param descripcion que estableceremos
      */
     public void setDescripcion(String descripcion) {
@@ -150,7 +149,7 @@ public class Producto implements Serializable {
     }
 
     /**
-     * 
+     *
      * @return precio
      */
     public Float getPrecio() {
@@ -158,15 +157,15 @@ public class Producto implements Serializable {
     }
 
     /**
-     * 
+     *
      * @param precio que estableceremos
      */
     public void setPrecio(Float precio) {
         this.precio = precio;
     }
-    
+
     /**
-     * 
+     *
      * @return id
      */
     public Long getId() {
@@ -174,7 +173,7 @@ public class Producto implements Serializable {
     }
 
     /**
-     * 
+     *
      * @param id que estableceremos
      */
     public void setId(Long id) {
@@ -183,7 +182,8 @@ public class Producto implements Serializable {
 
     /**
      * Representacion en forma de entero para un producto
-     * @return 
+     *
+     * @return
      */
     @Override
     public int hashCode() {
@@ -193,8 +193,9 @@ public class Producto implements Serializable {
     }
 
     /**
-     * Compara dos productos. Este método considera que un producto es igual que otro
-     * si los identificadores tienen el mismo valor
+     * Compara dos productos. Este método considera que un producto es igual que
+     * otro si los identificadores tienen el mismo valor
+     *
      * @param object El otro producto que compararemos
      * @return true si son iguales
      */
@@ -213,11 +214,12 @@ public class Producto implements Serializable {
 
     /**
      * Obtenemos una representacion en forma de String del producto
-     * @return 
+     *
+     * @return
      */
     @Override
     public String toString() {
         return "flyshoes.entity.Producto[ id=" + id + " ]";
     }
-    
+
 }
