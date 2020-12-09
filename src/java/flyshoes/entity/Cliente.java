@@ -31,7 +31,6 @@ import javax.xml.bind.annotation.XmlTransient;
 */
 @Entity
 @Table(name="cliente", schema="flyshoesdb")
-@PrimaryKeyJoinColumn(referencedColumnName="id")
 @XmlRootElement
 public class Cliente extends Usuario implements Serializable{
 
