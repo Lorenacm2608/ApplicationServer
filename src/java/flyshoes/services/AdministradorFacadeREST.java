@@ -44,7 +44,8 @@ public class AdministradorFacadeREST extends AbstractFacade<Administrador> {
 
     @PUT
     @Consumes({MediaType.APPLICATION_XML})
-    public void edit(@PathParam("id") Long id, Administrador entity) {
+    @Override
+    public void edit( Administrador entity) {
         super.edit(entity);
     }
 

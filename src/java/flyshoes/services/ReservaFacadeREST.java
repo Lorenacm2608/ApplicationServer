@@ -42,9 +42,10 @@ public class ReservaFacadeREST extends AbstractFacade<Reserva> {
         super.create(entity);
     }
 
-    @PUT   
+    @PUT
     @Consumes({MediaType.APPLICATION_XML})
-    public void edit(@PathParam("id") Long id, Reserva entity) {
+    @Override
+    public void edit(Reserva entity) {
         super.edit(entity);
     }
 
@@ -65,5 +66,5 @@ public class ReservaFacadeREST extends AbstractFacade<Reserva> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }
