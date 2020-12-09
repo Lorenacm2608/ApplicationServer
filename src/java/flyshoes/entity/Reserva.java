@@ -10,16 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import java.io.Serializable;
-import java.util.List;
-import javax.persistence.Entity;
-import static javax.persistence.FetchType.EAGER;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -29,6 +21,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "reserva", schema = "flyshoesdb")
+@IdClass(ReservaId.class)
 public class Reserva implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -36,25 +29,20 @@ public class Reserva implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    //lista de productos que contiene la reserva
-    @OneToMany(mappedBy = "reserva", fetch = EAGER)
-    private List<Producto> productos;
+    //producto contiene la reserva
+    @ManyToOne
+    public Producto producto;
     //descripcion de la reserva
     private String descripcion;
     //estado de la reserva
     private EstadoReserva estado;
-    //vendedor que gestiona la reserva
-    @ManyToOne
-    private Vendedor vendedor;
+
     //cliente dueño de la reserva
     @ManyToOne
     private Cliente cliente;
+    //cantidad del producto
+    private Integer cantidad;
 
-    /**
-     * Devuelve el id de la reserva
-     *
-     * @return id
-     */
     public Long getId() {
         return id;
     }
@@ -123,40 +111,44 @@ public class Reserva implements Serializable {
     }
 
     /**
-     * Devuelve al vendedor que ha gestionado la reserva
+     * devuelve del producto
      *
-     * @return vendedor
+     * @return producto
      */
-    public Vendedor getVendedor() {
-        return vendedor;
+    public Producto getProducto() {
+        return producto;
     }
 
     /**
-     * Inserta al vendedor de la reserva
+     * inserta el producto a la reserva
      *
-     * @param vendedor
+     * @param producto
      */
-
-    public void setVendedor(Vendedor vendedor) {
-        this.vendedor = vendedor;
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 
     /**
-     * Devuelve la lista de productos que contiene la reserva
+     * devuelve la cantidad del producto
      *
-     * @return productos
+     * @return cantidad
      */
-    public List<Producto> getProductos() {
-        return productos;
+    public Integer getCantidad() {
+        return cantidad;
     }
 
     /**
-     * Añade una lista de productos que contiene la reserva
+     * inserta la cantidad del producto
      *
-     * @param productos
+     * @param cantidad
      */
-    public void setProductos(List<Producto> productos) {
-        this.productos = productos;
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
     }
 
+    /**
+     * Devuelve el id de la reserva
+     *
+     * @return id
+     */
 }
