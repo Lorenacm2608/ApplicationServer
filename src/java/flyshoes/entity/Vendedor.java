@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Set;
 import static javax.persistence.CascadeType.MERGE;
 import javax.persistence.Entity;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -35,6 +36,7 @@ public class Vendedor extends Usuario implements Serializable {
     *Vendedor se relaciona con Producto por ManyToMany
     */
     @ManyToMany( mappedBy="Vendedor")
+    @JoinTable(name="Productos")
     private Set<Producto> productos;
     
     private static final long serialVersionUID = 1L;
