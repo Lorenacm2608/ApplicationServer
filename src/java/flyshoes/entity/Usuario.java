@@ -29,12 +29,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name="Usuario",schema="flyshoesdb")
 @XmlRootElement
 public class Usuario implements Serializable {
-
-    /*
-    *Usuario se relaciona con Proveedor por OneToMany
-    */
-    @OneToMany(mappedBy="Usuario")
-    private Set<Proveedor> proveedor;
     
     private static final long serialVersionUID = 1L;
     
@@ -63,12 +57,12 @@ public class Usuario implements Serializable {
     /*
     * Estado del usuario
     */
-    private Enum status;
+    private EstadoUsuario status;
     
     /*
     * Privilegio del usuario
     */
-    private Enum privilege;
+    private PrivilegioUsuario privilege;
     
     /*
     * Contraseña del usuario
