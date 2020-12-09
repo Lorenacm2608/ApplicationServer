@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Set;
 import static javax.persistence.CascadeType.MERGE;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -26,14 +27,20 @@ public class Vendedor extends Usuario implements Serializable {
     /*
     *Vendedor se relaciona con Reserva por OneToMany
     */
-    @OneToMany(mappedBy="Vendedor")
+    @OneToMany(cascade = MERGE, mappedBy="Vendedor")
     private Set<Reserva> reserva;
     
     /*
     *Vendedor se relaciona con Producto por ManyToMany
     */
     @OneToMany(cascade = MERGE, mappedBy="vendedor")
-    private Set<VendedorProducto> vendedorProducto;
+    private Set<Cliente> cliente;
+    
+    /*
+    *Vendedor se relaciona con Reserva por OneToMany
+    */
+    @ManyToMany(cascade = MERGE, mappedBy="Vendedor")
+    private Set<Producto> producto;
     
     private static final long serialVersionUID = 1L;
     
@@ -101,12 +108,20 @@ public class Vendedor extends Usuario implements Serializable {
         this.reserva = reserva;
     }
     
-    public Set<VendedorProducto> getVendedorProducto() {
-        return vendedorProducto;
+    public Set<Cliente> getCliente() {
+        return cliente;
     }
 
-    public void setVendedorProducto(Set<VendedorProducto> vendedorProducto) {
-        this.vendedorProducto = vendedorProducto;
+    public void setCliente(Set<Cliente> cliente) {
+        this.cliente = cliente;
+    }
+
+    public Set<Producto> getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Set<Producto> producto) {
+        this.producto = producto;
     }
 
     @Override
