@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import static javax.persistence.FetchType.EAGER;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
 /**
  * Clase Administrador que hereda de Usuario, esta clase será la encargada de la
@@ -21,6 +22,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
  */
 @Entity
 @PrimaryKeyJoinColumn(referencedColumnName = "id_usuario")
+@Table(name="administrador", schema="flyshoesdb")
 public class Administrador extends Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
