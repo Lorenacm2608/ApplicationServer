@@ -26,22 +26,16 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Vendedor extends Usuario implements Serializable {
 
     /*
-    *Vendedor se relaciona con Reserva por OneToMany
-    */
-    @OneToMany( mappedBy="Vendedor")
-    private Set<Reserva> reserva;
-    
-    /*
     *Vendedor se relaciona con Cliente por OneToMany
     */
     @OneToMany( mappedBy="vendedor")
-    private Set<Cliente> cliente;
+    private Set<Cliente> clientes;
     
     /*
     *Vendedor se relaciona con Producto por ManyToMany
     */
     @ManyToMany( mappedBy="Vendedor")
-    private Set<Producto> producto;
+    private Set<Producto> productos;
     
     private static final long serialVersionUID = 1L;
     
@@ -100,32 +94,23 @@ public class Vendedor extends Usuario implements Serializable {
     public void setTienda(String tienda) {
         this.tienda = tienda;
     }
-
-    @XmlTransient
-    public Set<Reserva> getReserva() {
-        return reserva;
-    }
-
-    public void setReserva(Set<Reserva> reserva) {
-        this.reserva = reserva;
-    }
     
     @XmlTransient
     public Set<Cliente> getCliente() {
-        return cliente;
+        return clientes;
     }
 
-    public void setCliente(Set<Cliente> cliente) {
-        this.cliente = cliente;
+    public void setCliente(Set<Cliente> clientes) {
+        this.clientes = clientes;
     }
 
     @XmlTransient
     public Set<Producto> getProducto() {
-        return producto;
+        return productos;
     }
 
     public void setProducto(Set<Producto> producto) {
-        this.producto = producto;
+        this.productos = productos;
     }
 
     @Override
