@@ -21,8 +21,8 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Lorena Cáceres Manuel
  *
  * Entidad producto está relacionada con la entidad Reserva, vendedor y
- * proveedor. Esta entidad tiene una identificador de producto, una descripción
- * y un precio.
+ * proveedor. Esta entidad tiene una identificador de producto, una descripción,
+ * un precio y una imagen del producto.
  */
 @Entity
 @Table(name = "producto", schema = "reto4")
