@@ -15,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Esta clase se encargará de facilitarnos productos(ropa y zapatillas).
@@ -23,6 +25,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "proveedor", schema = "flyshoesdb")
+@XmlRootElement
 public class Proveedor implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -71,6 +74,7 @@ public class Proveedor implements Serializable {
      *
      * @return lista de productos
      */
+    @XmlTransient
     public Set<Producto> getProductos() {
         return productos;
     }

@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Esta clase se encargará sobre la gestión de reservas
@@ -24,6 +25,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "reserva", schema = "flyshoesdb")
 @IdClass(ReservaId.class)
+@XmlRootElement
 public class Reserva implements Serializable {
 
     private static final long serialVersionUID = 1L;
