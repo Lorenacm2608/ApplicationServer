@@ -32,16 +32,17 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
     private EntityManager em;
 
     /**
-     * Dentro del constructor hacemos llamada a AbstractFacade 
-     * e indicamos la clase abstracta en la que nos encontramos
+     * Dentro del constructor hacemos llamada a AbstractFacade e indicamos la
+     * clase abstracta en la que nos encontramos
      */
     public ProductoFacadeREST() {
         super(Producto.class);
     }
 
     /**
-     * Este método nos permite insertar nuevos productos 
-     * @param entity 
+     * Este método nos permite insertar nuevos productos
+     *
+     * @param entity
      */
     @POST
     @Override
@@ -52,7 +53,8 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
 
     /**
      * Este método nos permite editar uno de los productos
-     * @param entity 
+     *
+     * @param entity
      */
     @PUT
     @Consumes({MediaType.APPLICATION_XML})
@@ -63,7 +65,8 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
 
     /**
      * Este método nos permite eliminar un producto por su id
-     * @param id 
+     *
+     * @param id
      */
     @DELETE
     @Path("{id}")
@@ -72,8 +75,8 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
     }
 
     /**
-     * Este método nos devuelve un producto el cual hemos
-     * buscado por su id
+     * Este método nos devuelve un producto el cual hemos buscado por su id
+     *
      * @param id
      * @return producto
      */
@@ -85,10 +88,13 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
     }
 
     /**
-     * Este método nos devuelve todos los productos en
-     * orden ascendente dependiendo de su precio
+     * Este método nos devuelve todos los productos en orden ascendente
+     * dependiendo de su precio
+     *
      * @return productos. Colección de productos
      */
+    @GET
+    @Produces({MediaType.APPLICATION_XML})
     public Set<Producto> findAllProductosAsc() { //IllegalArgumentException
         Set<Producto> productos = null;
         try {
@@ -101,10 +107,13 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
     }
 
     /**
-     * Este método nos devuelve todos los productos en 
-     * orden descendente dependiendo de su precio
+     * Este método nos devuelve todos los productos en orden descendente
+     * dependiendo de su precio
+     *
      * @return productos. Colección de productos
      */
+    @GET
+    @Produces({MediaType.APPLICATION_XML})
     public Set<Producto> findAllProductosDesc() {
         Set<Producto> productos = null;
         try {
@@ -117,10 +126,13 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
     }
 
     /**
-     * Este método nos permite buscar todos los productos los cuales 
-     * tengan en su descripción incluido 'Zapatillas'
+     * Este método nos permite buscar todos los productos los cuales tengan en
+     * su descripción incluido 'Zapatillas'
+     *
      * @return zapatillas. Colección de productos
      */
+    @GET
+    @Produces({MediaType.APPLICATION_XML})
     public Set<Producto> findAllZapatillas() {
         Set<Producto> zapatillas = null;
         try {
@@ -133,10 +145,13 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
     }
 
     /**
-     * Este método nos permite buscar todos los productos los cuales
-     * tengan en su descripcion incluido 'Ropa'
+     * Este método nos permite buscar todos los productos los cuales tengan en
+     * su descripcion incluido 'Ropa'
+     *
      * @return ropa. Colección de productos
      */
+    @GET
+    @Produces({MediaType.APPLICATION_XML})
     public Set<Producto> findAllRopa() {
         Set<Producto> ropa = null;
         try {
@@ -150,6 +165,7 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
 
     /**
      * Este método nos devuelve un entityManager
+     *
      * @return em
      */
     @Override
