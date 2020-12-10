@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -26,6 +28,12 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "producto", schema = "flyshoesdb")
+@NamedQueries({
+    @NamedQuery(name="findAllProductosAsc", query = "SELECT p FROM Producto p ORDER BY p.precio ASC"),
+    @NamedQuery(name = "findAllProductosDesc", query="SELECT p FROM Producto p ORDER BY p.precio DESC"),
+    @NamedQuery(name ="findAllZapatillas", query="SELECT p FROM Producto p WHERE p.descripcion = 'Zapatillas'"),
+    @NamedQuery(name ="findAllRopa", query="SELECT p FROM Producto p WHERE p.descripcion = 'Ropa'"),  
+  })
 @XmlRootElement
 public class Producto implements Serializable {
 
