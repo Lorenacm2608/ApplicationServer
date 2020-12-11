@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
-@Table(name="Usuario",schema="flyshoesdb")
+@Table(name="usuario",schema="flyshoesdb")
 @XmlRootElement
 public class Usuario implements Serializable {
     
