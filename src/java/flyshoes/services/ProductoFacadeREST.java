@@ -1,10 +1,8 @@
 package flyshoes.services;
 
 import flyshoes.entity.Producto;
-import flyshoes.exception.SelectException;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,29 +20,17 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Lorena Cáceres Manuel
  */
-@Stateless //Inyección de EJB 
-@Path("flyshoes.entity.producto")
+@Stateless
+@Path("productos")
 public class ProductoFacadeREST extends AbstractFacade<Producto> {
 
-    private static final Logger LOG = Logger.getLogger(ProductoFacadeREST.class.getName());
-
-    //Indicamos cual es la unidad de persistencia
     @PersistenceContext(unitName = "ApplicationServerPU")
     private EntityManager em;
 
-    /**
-     * Dentro del constructor hacemos llamada a AbstractFacade e indicamos la
-     * clase abstracta en la que nos encontramos
-     */
     public ProductoFacadeREST() {
         super(Producto.class);
     }
 
-    /**
-     * Este método nos permite insertar nuevos productos
-     *
-     * @param entity
-     */
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_XML})
@@ -52,11 +38,6 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
         super.create(entity);
     }
 
-    /**
-     * Este método nos permite editar uno de los productos
-     *
-     * @param entity
-     */
     @PUT
     @Consumes({MediaType.APPLICATION_XML})
     @Override
@@ -64,23 +45,12 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
         super.edit(entity);
     }
 
-    /**
-     * Este método nos permite eliminar un producto por su id
-     *
-     * @param id
-     */
     @DELETE
     @Path("{id}")
     public void remove(@PathParam("id") Long id) {
         super.remove(super.find(id));
     }
 
-    /**
-     * Este método nos devuelve un producto el cual hemos buscado por su id
-     *
-     * @param id
-     * @return producto
-     */
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML})
@@ -88,26 +58,61 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
         return super.find(id);
     }
 
+    /**
+     * Este método nos devuelve todos los productos en orden ascendente
+     * dependiendo de su precio
+     *
+     * @return productos. Colección de productos
+     */
     @GET
+    @Path("findAllProductosAsc")
     @Produces({MediaType.APPLICATION_XML})
-    public Set<Producto> findAllProductoAsc() throws SelectException {
-        try {
-            Set<Producto> productos = super.findAllProductosAsc();
-            return productos;
-        } catch (Exception e) {
-            throw new SelectException();
-        }
+    public List<Producto> findAllProductosAsc() {
+        List<Producto> productos = new ArrayList<>(super.findAllProductosAsc());
+        return productos;
     }
 
+    /**
+     * Este método nos devuelve todos los productos en orden descendente
+     * dependiendo de su precio
+     *
+     * @return productos. Colección de productos
+     */
     @GET
+    @Path("findAllProductoDesc")
     @Produces({MediaType.APPLICATION_XML})
-    public Set<Producto> findAllProductoDesc() throws SelectException {
-        try {
-            Set<Producto> productos = super.findAllProductosDesc();
-            return productos;
-        } catch (Exception e) {
-            throw new SelectException();
-        }
+    public List<Producto> findAllProductosDesc() {
+        List<Producto> productos = new ArrayList<>(super.findAllProductosDesc());
+        return productos;
+
+    }
+
+    /**
+     * Este método nos permite buscar todos los productos los cuales tengan en
+     * su descripción incluido 'Zapatillas'
+     *
+     * @return zapatillas. Colección de productos
+     */
+    @GET
+    @Path("findAllZapatillas")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<Producto> findAllZapatillas() {
+        List<Producto> zapatillas = new ArrayList<>(super.findAllZapatillas());
+        return zapatillas;
+    }
+
+    /**
+     * Este método nos permite buscar todos los productos los cuales tengan en
+     * su descripcion incluido 'Ropa'
+     *
+     * @return ropa. Colección de productos
+     */
+    @GET
+    @Path("findAllRopa")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<Producto> findAllRopa() {
+        List<Producto> ropa = new ArrayList<>(super.findAllRopa());
+        return ropa;
     }
 
     /**
