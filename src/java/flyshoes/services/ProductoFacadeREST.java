@@ -1,6 +1,7 @@
 package flyshoes.services;
 
 import flyshoes.entity.Producto;
+import flyshoes.exception.SelectException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -87,80 +88,26 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
         return super.find(id);
     }
 
-    /**
-     * Este método nos devuelve todos los productos en orden ascendente
-     * dependiendo de su precio
-     *
-     * @return productos. Colección de productos
-     */
     @GET
     @Produces({MediaType.APPLICATION_XML})
-    public Set<Producto> findAllProductosAsc() { //IllegalArgumentException
-        Set<Producto> productos = null;
+    public Set<Producto> findAllProductoAsc() throws SelectException {
         try {
-            productos = new HashSet<>(em.createNamedQuery("findAllProductosAsc").getResultList());
+            Set<Producto> productos = super.findAllProductosAsc();
+            return productos;
         } catch (Exception e) {
-            LOG.severe(" " + e.getMessage());
-            //Lanzamos la excepcion que hemos creado
+            throw new SelectException();
         }
-        return productos;
     }
 
-    /**
-     * Este método nos devuelve todos los productos en orden descendente
-     * dependiendo de su precio
-     *
-     * @return productos. Colección de productos
-     */
     @GET
     @Produces({MediaType.APPLICATION_XML})
-    public Set<Producto> findAllProductosDesc() {
-        Set<Producto> productos = null;
+    public Set<Producto> findAllProductoDesc() throws SelectException {
         try {
-            productos = new HashSet<>(em.createNamedQuery("findAllProductosDesc").getResultList());
+            Set<Producto> productos = super.findAllProductosDesc();
+            return productos;
         } catch (Exception e) {
-            LOG.severe(" " + e.getMessage());
-            //Lanzamos la excepcion que hemos creado
+            throw new SelectException();
         }
-        return productos;
-    }
-
-    /**
-     * Este método nos permite buscar todos los productos los cuales tengan en
-     * su descripción incluido 'Zapatillas'
-     *
-     * @return zapatillas. Colección de productos
-     */
-    @GET
-    @Produces({MediaType.APPLICATION_XML})
-    public Set<Producto> findAllZapatillas() {
-        Set<Producto> zapatillas = null;
-        try {
-            zapatillas = new HashSet<>(em.createNamedQuery("findAllZapatillas").getResultList());
-        } catch (Exception e) {
-            LOG.severe(" " + e.getMessage());
-            //Lanzamos la excepcion que hemos creado
-        }
-        return zapatillas;
-    }
-
-    /**
-     * Este método nos permite buscar todos los productos los cuales tengan en
-     * su descripcion incluido 'Ropa'
-     *
-     * @return ropa. Colección de productos
-     */
-    @GET
-    @Produces({MediaType.APPLICATION_XML})
-    public Set<Producto> findAllRopa() {
-        Set<Producto> ropa = null;
-        try {
-            ropa = new HashSet<>(em.createNamedQuery("findAllRopa").getResultList());
-        } catch (Exception e) {
-            LOG.severe(" " + e.getMessage());
-            //Lanzamos la excepcion que hemos creado
-        }
-        return ropa;
     }
 
     /**
