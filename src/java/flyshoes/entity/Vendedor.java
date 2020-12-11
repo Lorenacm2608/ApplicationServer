@@ -38,12 +38,12 @@ public class Vendedor extends Usuario implements Serializable {
     /*
     * Dni del vendedor
      */
-    private Long dni;
+    private String dni;
 
     /*
     * Direccion del vendedor
      */
-    private Long direccion;
+    private String direccion;
 
     /*
     * Salario del vendedor
@@ -53,27 +53,45 @@ public class Vendedor extends Usuario implements Serializable {
     /*
     * Tienda del vendedor
      */
-    private Long tienda;
+    private String tienda;
 
     public Vendedor() {
 
     }
 
-    public Long getDni() {
+    public Set<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(Set<Producto> productos) {
+        this.productos = productos;
+    }
+
+    public String getDni() {
         return dni;
     }
 
-    public void setDni(Long dni) {
+    public void setDni(String dni) {
         this.dni = dni;
     }
 
-    public Long getDireccion() {
+    public String getDireccion() {
         return direccion;
     }
 
-    public void setDireccion(Long direccion) {
+    public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
+
+    public String getTienda() {
+        return tienda;
+    }
+
+    public void setTienda(String tienda) {
+        this.tienda = tienda;
+    }
+
+    
 
     public Integer getSalario() {
         return salario;
@@ -81,14 +99,6 @@ public class Vendedor extends Usuario implements Serializable {
 
     public void setSalario(Integer salario) {
         this.salario = salario;
-    }
-
-    public Long getTienda() {
-        return tienda;
-    }
-
-    public void setTienda(Long tienda) {
-        this.tienda = tienda;
     }
 
     @XmlTransient
