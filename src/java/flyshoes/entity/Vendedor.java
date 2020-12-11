@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import static javax.persistence.FetchType.EAGER;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -32,6 +33,9 @@ public class Vendedor extends Usuario implements Serializable {
     @ManyToMany(fetch = EAGER, cascade = MERGE)
     @JoinTable(schema = "flyshoesdb", name = "vendedorProducto")
     private Set<Producto> productos;
+    @ManyToOne
+    private Administrador administrador;
+    
 
     private static final long serialVersionUID = 1L;
 
@@ -108,6 +112,24 @@ public class Vendedor extends Usuario implements Serializable {
     public void setProducto(Set<Producto> productos) {
         this.productos = productos;
     }
+
+    @XmlTransient
+    public Set<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(Set<Producto> productos) {
+        this.productos = productos;
+    }
+
+    public Administrador getAdministrador() {
+        return administrador;
+    }
+
+    public void setAdministrador(Administrador administrador) {
+        this.administrador = administrador;
+    }
+    
 
     @Override
     public String toString() {
