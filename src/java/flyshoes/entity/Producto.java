@@ -31,8 +31,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name="findAllProductosAsc", query = "SELECT p FROM Producto p ORDER BY p.precio ASC"),
     @NamedQuery(name = "findAllProductosDesc", query="SELECT p FROM Producto p ORDER BY p.precio DESC"),
-    @NamedQuery(name ="findAllZapatillas", query="SELECT p FROM Producto p WHERE p.descripcion = 'Zapatillas'"),
-    @NamedQuery(name ="findAllRopa", query="SELECT p FROM Producto p WHERE p.descripcion = 'Ropa'"),  
+    @NamedQuery(name ="findAllZapatillas", query="SELECT p FROM Producto p WHERE p.descripcion LIKE '%Zapatilla%'"),
+    @NamedQuery(name ="findAllRopa", query="SELECT p FROM Producto p WHERE p.descripcion LIKE '%Ropa%'") 
   })
 @XmlRootElement
 public class Producto implements Serializable {

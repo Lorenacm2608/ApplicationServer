@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 /**
  *
  * @author flyshoes
+ * 
  */
 public abstract class AbstractFacade<T> {
 

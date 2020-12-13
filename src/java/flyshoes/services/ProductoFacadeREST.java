@@ -1,9 +1,8 @@
 package flyshoes.services;
 
 import flyshoes.entity.Producto;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,29 +20,17 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Lorena Cáceres Manuel
  */
-@Stateless //Inyección de EJB 
-@Path("flyshoes.entity.producto")
+@Stateless
+@Path("productos")
 public class ProductoFacadeREST extends AbstractFacade<Producto> {
 
-    private static final Logger LOG = Logger.getLogger(ProductoFacadeREST.class.getName());
-
-    //Indicamos cual es la unidad de persistencia
     @PersistenceContext(unitName = "ApplicationServerPU")
     private EntityManager em;
 
-    /**
-     * Dentro del constructor hacemos llamada a AbstractFacade e indicamos la
-     * clase abstracta en la que nos encontramos
-     */
     public ProductoFacadeREST() {
         super(Producto.class);
     }
 
-    /**
-     * Este método nos permite insertar nuevos productos
-     *
-     * @param entity
-     */
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_XML})
@@ -51,35 +38,19 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
         super.create(entity);
     }
 
-    /**
-     * Este método nos permite editar uno de los productos
-     *
-     * @param entity
-     */
     @PUT
     @Consumes({MediaType.APPLICATION_XML})
     @Override
-    public void edit(Producto entity) {
+    public void edit( Producto entity) {
         super.edit(entity);
     }
 
-    /**
-     * Este método nos permite eliminar un producto por su id
-     *
-     * @param id
-     */
     @DELETE
     @Path("{id}")
     public void remove(@PathParam("id") Long id) {
         super.remove(super.find(id));
     }
 
-    /**
-     * Este método nos devuelve un producto el cual hemos buscado por su id
-     *
-     * @param id
-     * @return producto
-     */
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML})
@@ -94,15 +65,10 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
      * @return productos. Colección de productos
      */
     @GET
+    @Path("findAllProductosAsc")
     @Produces({MediaType.APPLICATION_XML})
-    public Set<Producto> findAllProductosAsc() { //IllegalArgumentException
-        Set<Producto> productos = null;
-        try {
-            productos = new HashSet<>(em.createNamedQuery("findAllProductosAsc").getResultList());
-        } catch (Exception e) {
-            LOG.severe(" " + e.getMessage());
-            //Lanzamos la excepcion que hemos creado
-        }
+    public List<Producto> findAllProductosAsc() {
+        List<Producto> productos = new ArrayList<>(super.findAllProductosAsc());
         return productos;
     }
 
@@ -113,16 +79,12 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
      * @return productos. Colección de productos
      */
     @GET
+    @Path("findAllProductoDesc")
     @Produces({MediaType.APPLICATION_XML})
-    public Set<Producto> findAllProductosDesc() {
-        Set<Producto> productos = null;
-        try {
-            productos = new HashSet<>(em.createNamedQuery("findAllProductosDesc").getResultList());
-        } catch (Exception e) {
-            LOG.severe(" " + e.getMessage());
-            //Lanzamos la excepcion que hemos creado
-        }
+    public List<Producto> findAllProductosDesc() {
+        List<Producto> productos = new ArrayList<>(super.findAllProductosDesc());
         return productos;
+
     }
 
     /**
@@ -132,15 +94,10 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
      * @return zapatillas. Colección de productos
      */
     @GET
+    @Path("findAllZapatillas")
     @Produces({MediaType.APPLICATION_XML})
-    public Set<Producto> findAllZapatillas() {
-        Set<Producto> zapatillas = null;
-        try {
-            zapatillas = new HashSet<>(em.createNamedQuery("findAllZapatillas").getResultList());
-        } catch (Exception e) {
-            LOG.severe(" " + e.getMessage());
-            //Lanzamos la excepcion que hemos creado
-        }
+    public List<Producto> findAllZapatillas() {
+        List<Producto> zapatillas = new ArrayList<>(super.findAllZapatillas());
         return zapatillas;
     }
 
@@ -151,15 +108,10 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
      * @return ropa. Colección de productos
      */
     @GET
+    @Path("findAllRopa")
     @Produces({MediaType.APPLICATION_XML})
-    public Set<Producto> findAllRopa() {
-        Set<Producto> ropa = null;
-        try {
-            ropa = new HashSet<>(em.createNamedQuery("findAllRopa").getResultList());
-        } catch (Exception e) {
-            LOG.severe(" " + e.getMessage());
-            //Lanzamos la excepcion que hemos creado
-        }
+    public List<Producto> findAllRopa() {
+        List<Producto> ropa = new ArrayList<>(super.findAllRopa());
         return ropa;
     }
 
@@ -172,5 +124,5 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
     protected EntityManager getEntityManager() {
         return em;
     }
-
+    
 }

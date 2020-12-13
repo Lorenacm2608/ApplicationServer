@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Esta clase se encargará sobre la gestión de reservas
  *
- * @author Fredy
+ * @author Fredy Vargas Flores
  */
 @Entity
 @Table(name = "reserva", schema = "flyshoesdb")

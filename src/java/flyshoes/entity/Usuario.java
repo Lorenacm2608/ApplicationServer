@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
-@Table(name="Usuario",schema="flyshoesdb")
+@Table(name="usuario",schema="flyshoesdb")
 @XmlRootElement
 public class Usuario implements Serializable {
     
@@ -56,13 +56,13 @@ public class Usuario implements Serializable {
     /*
     * Estado del usuario
     */
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private EstadoUsuario status;
     
     /*
     * Privilegio del usuario
     */
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private PrivilegioUsuario privilege;
     
     /*
