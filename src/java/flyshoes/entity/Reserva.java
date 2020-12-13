@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package flyshoes.entity;
 
 import java.io.Serializable;
@@ -14,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -26,6 +23,11 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "reserva", schema = "flyshoesdb")
+@NamedQueries({
+    @NamedQuery(name="findReservasCanceladas", query = "SELECT r FROM Reserva r WHERE r.estado='CANCELADA'"),
+    @NamedQuery(name = "findReservasConfirmadas", query="SELECT r FROM Reserva r WHERE r.estado='CONFIRMADA'"),
+    @NamedQuery(name ="findReservasRealizadas", query="SELECT r FROM Reserva r WHERE r.estado='REALIZADA'"),
+  })
 @IdClass(ReservaId.class)
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -42,9 +44,8 @@ public class Reserva implements Serializable {
     //descripcion de la reserva
     private String descripcion;
     //estado de la reserva
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private EstadoReserva estado;
-
     //cliente dueño de la reserva
     @ManyToOne
     private Cliente cliente;
