@@ -6,7 +6,11 @@
 package flyshoes.services;
 
 import flyshoes.entity.Administrador;
+import flyshoes.entity.Proveedor;
+import flyshoes.entity.Vendedor;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,6 +34,7 @@ public class AdministradorFacadeREST extends AbstractFacade<Administrador> {
 
     @PersistenceContext(unitName = "ApplicationServerPU")
     private EntityManager em;
+    private Logger LOGGER = Logger.getLogger(AdministradorFacadeREST.class.getName());
 
     public AdministradorFacadeREST() {
         super(Administrador.class);
@@ -45,7 +50,7 @@ public class AdministradorFacadeREST extends AbstractFacade<Administrador> {
     @PUT
     @Consumes({MediaType.APPLICATION_XML})
     @Override
-    public void edit( Administrador entity) {
+    public void edit(Administrador entity) {
         super.edit(entity);
     }
 
@@ -62,9 +67,47 @@ public class AdministradorFacadeREST extends AbstractFacade<Administrador> {
         return super.find(id);
     }
 
+    /**
+     * Lista de todos los proveeedores ordenados por Empresa
+     *
+     * @return proveedores
+     */
+    @GET
+    @Path("proveedores")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<Proveedor> getProveedores() {
+        List<Proveedor> proveedores = null;
+        try {
+            proveedores = new ArrayList<>(em.createNamedQuery("listaProveedores").getResultList());
+
+        } catch (Exception e) {
+            LOGGER.severe(" " + e.getMessage());
+        }
+        return proveedores;
+    }
+
+    /**
+     * Lista de vendedores ordenados por login
+     *
+     * @return vendedores
+     */
+    @GET
+    @Path("vendedores")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<Vendedor> getVendedores() {
+        List<Vendedor> vendedores = null;
+        try {
+            vendedores = new ArrayList<>(em.createNamedQuery("listaVendedores").getResultList());
+
+        } catch (Exception e) {
+            LOGGER.severe(" " + e.getMessage());
+        }
+        return vendedores;
+    }
+
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }
