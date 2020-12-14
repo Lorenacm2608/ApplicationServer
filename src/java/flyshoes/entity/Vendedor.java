@@ -36,7 +36,6 @@ public class Vendedor extends Usuario implements Serializable {
     private Set<Producto> productos;
     @ManyToOne
     private Administrador administrador;
-    
 
     private static final long serialVersionUID = 1L;
 
@@ -60,6 +59,7 @@ public class Vendedor extends Usuario implements Serializable {
 
     /**
      * Devuelve una lista de productos
+     *
      * @return productos
      */
     public Set<Producto> getProductos() {
@@ -68,7 +68,8 @@ public class Vendedor extends Usuario implements Serializable {
 
     /**
      * Establece una lista de productos
-     * @param productos 
+     *
+     * @param productos
      */
     public void setProductos(Set<Producto> productos) {
         this.productos = productos;
@@ -76,6 +77,7 @@ public class Vendedor extends Usuario implements Serializable {
 
     /**
      * Devuelve el dni del vendedor
+     *
      * @return dni
      */
     public String getDni() {
@@ -84,7 +86,8 @@ public class Vendedor extends Usuario implements Serializable {
 
     /**
      * Establece el dni del producto
-     * @param dni 
+     *
+     * @param dni
      */
     public void setDni(String dni) {
         this.dni = dni;
@@ -92,6 +95,7 @@ public class Vendedor extends Usuario implements Serializable {
 
     /**
      * Devuelve el salario del vendedor
+     *
      * @return salario
      */
     public Integer getSalario() {
@@ -100,7 +104,8 @@ public class Vendedor extends Usuario implements Serializable {
 
     /**
      * Establece el salario del vendedor
-     * @param salario 
+     *
+     * @param salario
      */
     public void setSalario(Integer salario) {
         this.salario = salario;
@@ -108,6 +113,7 @@ public class Vendedor extends Usuario implements Serializable {
 
     /**
      * Devuelve la tienda en la que trabaja el vendedor
+     *
      * @return tienda
      */
     public String getTienda() {
@@ -116,7 +122,8 @@ public class Vendedor extends Usuario implements Serializable {
 
     /**
      * Establece la tienda en la que trabaja el vendedor
-     * @param tienda 
+     *
+     * @param tienda
      */
     public void setTienda(String tienda) {
         this.tienda = tienda;
@@ -124,6 +131,7 @@ public class Vendedor extends Usuario implements Serializable {
 
     /**
      * Devuelve una lista de clientes
+     *
      * @return lista de clientes
      */
     @XmlTransient
@@ -133,7 +141,8 @@ public class Vendedor extends Usuario implements Serializable {
 
     /**
      * Establece una lista de clientes
-     * @param cliente 
+     *
+     * @param cliente
      */
     public void setCliente(Set<Cliente> cliente) {
         this.cliente = cliente;
@@ -141,6 +150,7 @@ public class Vendedor extends Usuario implements Serializable {
 
     /**
      * Devuelve una lista de productos
+     *
      * @return lista de productos
      */
     @XmlTransient
@@ -150,29 +160,31 @@ public class Vendedor extends Usuario implements Serializable {
 
     /**
      * Establece una lista de productos
-     * @param productos 
+     *
+     * @param productos
      */
     public void setProducto(Set<Producto> productos) {
         this.productos = productos;
     }
 
-    @XmlTransient
-    public Set<Producto> getProductos() {
-        return productos;
-    }
-
-    public void setProductos(Set<Producto> productos) {
-        this.productos = productos;
-    }
+    /**
+     * devuelve el administrador
+     *
+     * @return administrador
+     */
 
     public Administrador getAdministrador() {
         return administrador;
     }
 
+    /**
+     * establece el administrador
+     *
+     * @param administrador
+     */
     public void setAdministrador(Administrador administrador) {
         this.administrador = administrador;
     }
-    
 
     @Override
     public String toString() {
