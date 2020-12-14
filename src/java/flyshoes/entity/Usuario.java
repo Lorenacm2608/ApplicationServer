@@ -16,73 +16,111 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Moroni
- * Entidad Usuario relacionado con gestiona Proveedor
+ * @author Moroni Entidad Usuario relacionado con gestiona Proveedor
  */
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
-@Table(name="usuario",schema="flyshoesdb")
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "usuario", schema = "flyshoesdb")
 @XmlRootElement
 public class Usuario implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     /*
     *Id del usuario
-    */
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_usuario;
-    
+
     /*
     * Login del usuario
-    */
+     */
+    @NotNull
     private String login;
-    
+
     /*
     * Email del usuario
-    */
+     */
+    @NotNull
     private String email;
-    
+
     /*
     * Nombre completo del usuario
-    */
+     */
+    @NotNull
     private String fullname;
-    
+
     /*
     * Estado del usuario
-    */
+     */
     @Enumerated(EnumType.STRING)
     private EstadoUsuario status;
-    
+
     /*
     * Privilegio del usuario
-    */
+     */
     @Enumerated(EnumType.STRING)
     private PrivilegioUsuario privilege;
-    
+
     /*
     * Contraseña del usuario
-    */
+     */
+    @NotNull
     private String password;
-    
+
     /*
     * Ultimo acceso del usuario
-    */
+     */
     private Timestamp lastAccess;
-    
+
     /*
     * Ultimo cambio de contraseña del usuario
-    */
+     */
     private String lastPasswordChange;
 
-    public Usuario(){
-        
-}
+    @NotNull
+    private String direccion;
+    @NotNull
+    private Integer telefono;
+
+    /**
+     * Devuelve la direccion del usuario
+     * @return direccion
+     */
+    public String getDireccion() {
+        return direccion;
+    }
+
+    /**
+     * Establece la direccion del usuario
+     * @param direccion 
+     */
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    /**
+     * Devuelve el telefono del usuario
+     * @return telefono
+     */
+    public Integer getTelefono() {
+        return telefono;
+    }
+
+    /**
+     * Establece el telefono del usuario
+     * @param telefono 
+     */
+    public void setTelefono(Integer telefono) {
+        this.telefono = telefono;
+    }
+
     /*
      * Devuelve el valor de login para Usuario
      * @return el valor de login
@@ -229,7 +267,7 @@ public class Usuario implements Serializable {
 
     /*
     * Implementacion del metodo Hashcode para la entidad
-    */
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -240,7 +278,7 @@ public class Usuario implements Serializable {
     /*
     * Este metodo compara 2 entidades Usuario.
     * Esta implementacion compara el campo id
-    */
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -258,5 +296,5 @@ public class Usuario implements Serializable {
     public String toString() {
         return "flyshoes.entity.Usuario[ id=" + id_usuario + " ]";
     }
-    
+
 }

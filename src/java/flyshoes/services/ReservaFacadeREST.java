@@ -78,7 +78,7 @@ public class ReservaFacadeREST extends AbstractFacade<Reserva> {
      * @return reservas
      */
     @GET
-    @Path("findReservasCanceladas")
+    @Path("findReservasConfirmadas")
     @Produces({MediaType.APPLICATION_XML})
     public List<Reserva> findReservasConfirmadas() {
         List<Reserva> reservas = new ArrayList(super.findReservasConfirmadas());
@@ -91,7 +91,7 @@ public class ReservaFacadeREST extends AbstractFacade<Reserva> {
      * @return reservas
      */
     @GET
-    @Path("findReservasCanceladas")
+    @Path("findReservasRealizadas")
     @Produces({MediaType.APPLICATION_XML})
     public List<Reserva> findReservasRealizadas() {
         List<Reserva> reservas = new ArrayList(super.findReservasRealizadas());

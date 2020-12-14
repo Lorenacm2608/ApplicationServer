@@ -7,8 +7,8 @@ package flyshoes.entity;
 
 /**
  *
- * @author pocoy
+ * @author Lorena
  */
-enum PrivilegioUsuario {
-    ADMINISTRADOR, CLIENTE, VENDEDOR
+public enum TipoProducto {
+    ZAPATILLAS, ROPA
 }

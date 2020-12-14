@@ -9,6 +9,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -38,73 +39,115 @@ public class Vendedor extends Usuario implements Serializable {
     /*
     * Dni del vendedor
      */
-    private Long dni;
-
-    /*
-    * Direccion del vendedor
-     */
-    private Long direccion;
+    @NotNull
+    private String dni;
 
     /*
     * Salario del vendedor
      */
+    @NotNull
     private Integer salario;
 
     /*
     * Tienda del vendedor
      */
-    private Long tienda;
+    @NotNull
+    private String tienda;
 
-    public Vendedor() {
-
+    /**
+     * Devuelve una lista de productos
+     * @return productos
+     */
+    public Set<Producto> getProductos() {
+        return productos;
     }
 
-    public Long getDni() {
+    /**
+     * Establece una lista de productos
+     * @param productos 
+     */
+    public void setProductos(Set<Producto> productos) {
+        this.productos = productos;
+    }
+
+    /**
+     * Devuelve el dni del vendedor
+     * @return dni
+     */
+    public String getDni() {
         return dni;
     }
 
-    public void setDni(Long dni) {
+    /**
+     * Establece el dni del producto
+     * @param dni 
+     */
+    public void setDni(String dni) {
         this.dni = dni;
     }
 
-    public Long getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(Long direccion) {
-        this.direccion = direccion;
-    }
-
+    /**
+     * Devuelve el salario del vendedor
+     * @return salario
+     */
     public Integer getSalario() {
         return salario;
     }
 
+    /**
+     * Establece el salario del vendedor
+     * @param salario 
+     */
     public void setSalario(Integer salario) {
         this.salario = salario;
     }
 
-    public Long getTienda() {
+    /**
+     * Devuelve la tienda en la que trabaja el vendedor
+     * @return tienda
+     */
+    public String getTienda() {
         return tienda;
     }
 
-    public void setTienda(Long tienda) {
+    /**
+     * Establece la tienda en la que trabaja el vendedor
+     * @param tienda 
+     */
+    public void setTienda(String tienda) {
         this.tienda = tienda;
     }
 
+    /**
+     * Devuelve una lista de clientes
+     * @return lista de clientes
+     */
     @XmlTransient
     public Set<Cliente> getCliente() {
         return cliente;
     }
 
+    /**
+     * Establece una lista de clientes
+     * @param cliente 
+     */
     public void setCliente(Set<Cliente> cliente) {
         this.cliente = cliente;
     }
 
+    /**
+     * Devuelve una lista de productos
+     * @return lista de productos
+     */
     @XmlTransient
     public Set<Producto> getProducto() {
         return productos;
     }
 
+    /**
+     * Establece una lista de productos
+     * @param productos 
+     */
     public void setProducto(Set<Producto> productos) {
         this.productos = productos;
     }

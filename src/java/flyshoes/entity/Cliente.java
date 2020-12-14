@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlTransient;
 /**
  * Entidad Cliente, hereda de Usuario, del cual tiene sus atributos.
  * Esta relacionada con Reserva (OneToMany) y Vendedor (ManyToOne).
- * @author Nadir
+ * @autorh Nadir
  */
 @Entity
 @Table(name="cliente", schema="flyshoesdb")

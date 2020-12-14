@@ -1,17 +1,18 @@
 package flyshoes.entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -26,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name="findReservasCanceladas", query = "SELECT r FROM Reserva r WHERE r.estado='CANCELADA'"),
     @NamedQuery(name = "findReservasConfirmadas", query="SELECT r FROM Reserva r WHERE r.estado='CONFIRMADA'"),
-    @NamedQuery(name ="findReservasRealizadas", query="SELECT r FROM Reserva r WHERE r.estado='REALIZADA'"),
+    @NamedQuery(name ="findReservasRealizadas", query="SELECT r FROM Reserva r WHERE r.estado='REALIZADA'")
   })
 @IdClass(ReservaId.class)
 @XmlRootElement
@@ -34,12 +35,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Reserva implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    //id de la reserva
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     //producto contiene la reserva
+    @Id
     @ManyToOne
+    @JoinColumn(
+            name = "producto_id",
+            insertable = false, updatable = false
+    )
     public Producto producto;
     //descripcion de la reserva
     private String descripcion;
@@ -47,23 +49,19 @@ public class Reserva implements Serializable {
     @Enumerated(EnumType.STRING)
     private EstadoReserva estado;
     //cliente dueño de la reserva
+    @Id
     @ManyToOne
+    @JoinColumn(
+            name = "cliente_id",
+            insertable = false, updatable = false
+    )
     private Cliente cliente;
     //cantidad del producto
+    @NotNull
     private Integer cantidad;
-
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * Inserta el id de la reserva
-     *
-     * @param id
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
+    //Fecha de reserva
+    @NotNull
+    private Timestamp fechaReserva;
 
     /**
      * Devuelve la descripcion de la reserva
@@ -156,8 +154,18 @@ public class Reserva implements Serializable {
     }
 
     /**
-     * Devuelve el id de la reserva
-     *
-     * @return id
+     * devuelve la fecha de la reserva
+     * @return 
      */
+    public Timestamp getFechaReserva() {
+        return fechaReserva;
+    }
+
+    /**
+     * inserta la fecha de reserva
+     * @param fechaReserva 
+     */
+    public void setFechaReserva(Timestamp fechaReserva) {
+        this.fechaReserva = fechaReserva;
+    }
 }
