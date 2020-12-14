@@ -30,13 +30,9 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "proveedor", schema = "flyshoesdb")
-/*
-@NamedQueries({
-    @NamedQuery(name = "proveedoresEncontrados",
-            query = "SELECT p FROM PROVEEDOR p ORDER BY p.empresa "),
-    @NamedQuery(name = "proveedoresTipos",
-            query = "SELECT p FROM PROVEEDOR p GROUP BY p.tipo ")})
-*/
+@NamedQuery(name = "listaProductos",
+        query = "SELECT p FROM Producto p WHERE p.proveedor.idProveedor =:id ORDER BY p.modelo ")
+
 @XmlRootElement
 
 public class Proveedor implements Serializable {

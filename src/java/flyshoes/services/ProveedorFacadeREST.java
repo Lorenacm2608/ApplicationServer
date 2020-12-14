@@ -5,8 +5,11 @@
  */
 package flyshoes.services;
 
+import flyshoes.entity.Producto;
 import flyshoes.entity.Proveedor;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,6 +33,7 @@ public class ProveedorFacadeREST extends AbstractFacade<Proveedor> {
 
     @PersistenceContext(unitName = "ApplicationServerPU")
     private EntityManager em;
+    private Logger LOGGER = Logger.getLogger(ProveedorFacadeREST.class.getName());
 
     public ProveedorFacadeREST() {
         super(Proveedor.class);
@@ -45,7 +49,7 @@ public class ProveedorFacadeREST extends AbstractFacade<Proveedor> {
     @PUT
     @Consumes({MediaType.APPLICATION_XML})
     @Override
-    public void edit( Proveedor entity) {
+    public void edit(Proveedor entity) {
         super.edit(entity);
     }
 
@@ -62,10 +66,29 @@ public class ProveedorFacadeREST extends AbstractFacade<Proveedor> {
         return super.find(id);
     }
 
+    /**
+     * Lista de productos ofrecidos
+     *
+     * @param id del proveedor
+     * @return productos
+     */
+    @GET
+    @Path("producto/{id}")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<Producto> getProductos(@PathParam("id") Long id) {
+        List<Producto> productos = null;
+        try {
+            productos = new ArrayList<>(em.createNamedQuery("listaProductos").setParameter("id", id).getResultList());
+        } catch (Exception e) {
+            LOGGER.severe(" " + e.getMessage());
+        }
+        return productos;
+
+    }
 
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }
