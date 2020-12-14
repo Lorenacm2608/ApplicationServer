@@ -15,6 +15,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -28,7 +30,15 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "proveedor", schema = "flyshoesdb")
+/*
+@NamedQueries({
+    @NamedQuery(name = "proveedoresEncontrados",
+            query = "SELECT p FROM PROVEEDOR p ORDER BY p.empresa "),
+    @NamedQuery(name = "proveedoresTipos",
+            query = "SELECT p FROM PROVEEDOR p GROUP BY p.tipo ")})
+*/
 @XmlRootElement
+
 public class Proveedor implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -221,5 +231,4 @@ public class Proveedor implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
 }

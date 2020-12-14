@@ -32,6 +32,27 @@ public class Administrador extends Usuario implements Serializable {
     //Lista de Proveedores gestionados
     @OneToMany(mappedBy = "administrador", fetch = EAGER)
     private Set<Proveedor> proveedores;
+    @OneToMany(mappedBy = "administrador", fetch = EAGER)
+    private Set<Vendedor> vendedores;
+    
+    /**
+     * Devuelve la lista de vendedores gestionados
+     * @return vendedores
+     */
+
+    @XmlTransient
+    public Set<Vendedor> getVendedores() {
+        return vendedores;
+    }
+    /**
+     * Inserta una lista de vendedores 
+     * @param vendedores
+     */
+
+    public void setVendedores(Set<Vendedor> vendedores) {
+        this.vendedores = vendedores;
+    }
+    
 
     /**
      * Devuelve la lista de proveedores gestionados
@@ -46,7 +67,7 @@ public class Administrador extends Usuario implements Serializable {
     /**
      * Inserta una lista de proveedores
      *
-     * @param lista de proveedores
+     * @param proveedores
      */
     public void setProveedores(Set<Proveedor> proveedores) {
         this.proveedores = proveedores;

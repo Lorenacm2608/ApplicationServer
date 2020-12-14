@@ -22,7 +22,7 @@ import javax.ws.rs.core.MediaType;
  * 
  */
 @Stateless
-@Path("reservas")
+@Path("reserva")
 public class ReservaFacadeREST extends AbstractFacade<Reserva> {
 
     @PersistenceContext(unitName = "ApplicationServerPU")
@@ -42,7 +42,7 @@ public class ReservaFacadeREST extends AbstractFacade<Reserva> {
     @PUT
     @Consumes({MediaType.APPLICATION_XML})
     @Override
-    public void edit(Reserva entity) {
+    public void edit( Reserva entity) {
         super.edit(entity);
     }
 
@@ -102,5 +102,5 @@ public class ReservaFacadeREST extends AbstractFacade<Reserva> {
     protected EntityManager getEntityManager() {
         return em;
     }
-
+    
 }

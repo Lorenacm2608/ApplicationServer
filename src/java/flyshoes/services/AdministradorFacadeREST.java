@@ -22,7 +22,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author Lorena
+ * @author 2dam
  */
 @Stateless
 @Path("administrador")

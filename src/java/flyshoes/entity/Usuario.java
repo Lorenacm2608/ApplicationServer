@@ -21,7 +21,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Moroni Entidad Usuario relacionado con gestiona Proveedor
+ * @author Moroni
+ * Entidad Usuario relacionado con gestiona Proveedor
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)

@@ -21,7 +21,7 @@ import javax.ws.rs.core.MediaType;
  * @author Lorena Cáceres Manuel
  */
 @Stateless
-@Path("productos")
+@Path("producto")
 public class ProductoFacadeREST extends AbstractFacade<Producto> {
 
     @PersistenceContext(unitName = "ApplicationServerPU")

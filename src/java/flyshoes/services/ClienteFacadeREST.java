@@ -22,7 +22,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author Lorena
+ * @author 2dam
  */
 @Stateless
 @Path("cliente")
@@ -45,7 +45,7 @@ public class ClienteFacadeREST extends AbstractFacade<Cliente> {
     @PUT
     @Consumes({MediaType.APPLICATION_XML})
     @Override
-    public void edit(Cliente entity) {
+    public void edit( Cliente entity) {
         super.edit(entity);
     }
 
@@ -62,9 +62,10 @@ public class ClienteFacadeREST extends AbstractFacade<Cliente> {
         return super.find(id);
     }
 
+
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-
+    
 }
