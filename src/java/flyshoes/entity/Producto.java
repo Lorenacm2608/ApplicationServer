@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import static javax.persistence.FetchType.EAGER;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,8 +13,11 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -26,6 +31,15 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "producto", schema = "flyshoesdb")
+@NamedQueries({
+    @NamedQuery(name = "findAllProductosAsc", query = "SELECT p FROM Producto p ORDER BY p.precio ASC")
+    ,
+    @NamedQuery(name = "findAllProductosDesc", query = "SELECT p FROM Producto p ORDER BY p.precio DESC")
+    ,
+    @NamedQuery(name = "findAllZapatillas", query = "SELECT p FROM Producto p WHERE p.descripcion LIKE '%Zapatilla%'")
+    ,
+    @NamedQuery(name = "findAllRopa", query = "SELECT p FROM Producto p WHERE p.descripcion LIKE '%Ropa%'")
+})
 @XmlRootElement
 public class Producto implements Serializable {
 
@@ -39,16 +53,32 @@ public class Producto implements Serializable {
     /**
      * Descripcion del producto
      */
+    @NotNull
     private String descripcion;
     /**
      * Precio del producto
      */
+    @NotNull
     private Float precio;
     /**
      * Imagen del producto
      */
     @Lob
     private byte[] imagen;
+
+    @NotNull
+    private String talla;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private TipoProducto tipo;
+
+    @NotNull
+    private Integer stock;
+
+    @NotNull
+    private String modelo;
+
     /**
      * Relación con la entidad Reserva
      */
@@ -66,6 +96,7 @@ public class Producto implements Serializable {
     private Set<Vendedor> vendedores;
 
     /**
+     * Devuelve la imagen del producto
      *
      * @return imagen
      */
@@ -74,6 +105,7 @@ public class Producto implements Serializable {
     }
 
     /**
+     * Inserta la imagen del producto
      *
      * @param imagen que establecemos
      */
@@ -82,6 +114,7 @@ public class Producto implements Serializable {
     }
 
     /**
+     * Devuelve una lista de reservas
      *
      * @return reseva
      */
@@ -91,6 +124,7 @@ public class Producto implements Serializable {
     }
 
     /**
+     * Establece una lista de reservas
      *
      * @param reserva que establecemos
      */
@@ -99,6 +133,7 @@ public class Producto implements Serializable {
     }
 
     /**
+     * Devuelve un proveedor
      *
      * @return proveedor
      */
@@ -107,6 +142,7 @@ public class Producto implements Serializable {
     }
 
     /**
+     * Establece un proveedor
      *
      * @param proveedor que establecemos
      */
@@ -115,6 +151,7 @@ public class Producto implements Serializable {
     }
 
     /**
+     * Devuelve una lista de vendedores
      *
      * @return vendedores, contiene los vendedores que han gestionado un
      * producto
@@ -125,6 +162,7 @@ public class Producto implements Serializable {
     }
 
     /**
+     * Establece una lista de vendedores
      *
      * @param vendedores que establecemos
      */
@@ -133,6 +171,7 @@ public class Producto implements Serializable {
     }
 
     /**
+     * Devuelve una descripcion del producto
      *
      * @return descripcion
      */
@@ -141,6 +180,7 @@ public class Producto implements Serializable {
     }
 
     /**
+     * Establece una descripcion del producto
      *
      * @param descripcion que estableceremos
      */
@@ -149,6 +189,7 @@ public class Producto implements Serializable {
     }
 
     /**
+     * Devuelve el precio del producto
      *
      * @return precio
      */
@@ -157,6 +198,7 @@ public class Producto implements Serializable {
     }
 
     /**
+     * Establece el precio del producto
      *
      * @param precio que estableceremos
      */
@@ -165,6 +207,7 @@ public class Producto implements Serializable {
     }
 
     /**
+     * Devuelve la id del producto
      *
      * @return id
      */
@@ -173,11 +216,85 @@ public class Producto implements Serializable {
     }
 
     /**
+     * Establece la id del producto
      *
      * @param id que estableceremos
      */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    /**
+     *
+     * Devuelve la talla del producto
+     *
+     * @return talla
+     */
+    public String getTalla() {
+        return talla;
+    }
+
+    /**
+     * Establece la talla del producto
+     *
+     * @param talla
+     */
+    public void setTalla(String talla) {
+        this.talla = talla;
+    }
+
+    /**
+     * Devuelve el tipo del producto
+     *
+     * @return tipo. Zapatillas. Ropa
+     */
+    public TipoProducto getTipo() {
+        return tipo;
+    }
+
+    /**
+     * Establece el tipo del producto
+     *
+     * @param tipo
+     */
+    public void setTipo(TipoProducto tipo) {
+        this.tipo = tipo;
+    }
+
+    /**
+     * Devuelve la cantidad en stock del producto
+     *
+     * @return stock
+     */
+    public Integer getStock() {
+        return stock;
+    }
+
+    /**
+     * Establece la cantidad en stock del producto
+     *
+     * @param stock
+     */
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
+    /**
+     * Devuelve el modelo del producto
+     *
+     * @return modelo
+     */
+    public String getModelo() {
+        return modelo;
+    }
+
+    /**
+     * Establece el modelo del producto
+     *
+     * @param modelo
+     */
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
     }
 
     /**

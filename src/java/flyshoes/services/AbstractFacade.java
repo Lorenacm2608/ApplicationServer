@@ -1,16 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package flyshoes.services;
 
+import flyshoes.entity.Producto;
+import flyshoes.entity.Reserva;
 import java.util.List;
 import javax.persistence.EntityManager;
 
 /**
  *
- * @author 2dam
+ * @author flyshoes
+ * 
  */
 public abstract class AbstractFacade<T> {
 
@@ -38,5 +36,70 @@ public abstract class AbstractFacade<T> {
         return getEntityManager().find(entityClass, id);
     }
 
-    
+    /**
+     * Implementa el método que nos muestra las reservas canceladas
+     *
+     * @return lista de reservas
+     */
+    public List<Reserva> findReservasCanceladas() {
+        return (List<Reserva>) getEntityManager().createNamedQuery("findReservasCanceladas").getResultList();
+    }
+
+    /**
+     * Implementa el método que nos muestra las reservas confirmadas
+     *
+     * @return lista de reservas
+     */
+    public List<Reserva> findReservasConfirmadas() {
+        return (List<Reserva>) getEntityManager().createNamedQuery("findReservasConfirmadas").getResultList();
+    }
+
+    /**
+     * Implementa el método que nos muestra las reservas realizadas
+     *
+     * @return lista de reservas
+     */
+    public List<Reserva> findReservasRealizadas() {
+        return (List<Reserva>) getEntityManager().createNamedQuery("findReservasRealizadas").getResultList();
+    }
+
+    /**
+     * Implementa el método que muestra los productos de manera ascendente según
+     * el precio
+     *
+     * @return lista de productos
+     */
+    public List<Producto> findAllProductosAsc() {
+        return (List<Producto>) getEntityManager().createNamedQuery("findAllProductosAsc").getResultList();
+
+    }
+
+    /**
+     * Implementa el método que muestra los productos de manera descendente
+     * según el precio
+     *
+     * @return lista de productos
+     */
+    public List<Producto> findAllProductosDesc() {
+        return (List<Producto>) getEntityManager().createNamedQuery("findAllProductosDesc").getResultList();
+
+    }
+
+    /**
+     * Implementa el método que nos muestra las zapatillas
+     *
+     * @return lista de productos
+     */
+    public List<Producto> findAllZapatillas() {
+        return (List<Producto>) getEntityManager().createNamedQuery("findAllZapatillas").getResultList();
+    }
+
+    /**
+     * Implementa el método nos muestra la ropa
+     *
+     * @return lista de productos
+     */
+    public List<Producto> findAllRopa() {
+        return (List<Producto>) getEntityManager().createNamedQuery("findAllRopa").getResultList();
+    }
 }

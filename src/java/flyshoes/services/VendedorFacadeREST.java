@@ -25,7 +25,7 @@ import javax.ws.rs.core.MediaType;
  * @author 2dam
  */
 @Stateless
-@Path("vendedores")
+@Path("vendedor")
 public class VendedorFacadeREST extends AbstractFacade<Vendedor> {
 
     @PersistenceContext(unitName = "ApplicationServerPU")

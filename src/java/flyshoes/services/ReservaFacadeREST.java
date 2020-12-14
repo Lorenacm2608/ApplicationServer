@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package flyshoes.services;
 
 import flyshoes.entity.Reserva;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -22,10 +18,11 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author 2dam
+ * @author Lorena Cáceres Manuel
+ * 
  */
 @Stateless
-@Path("reservas")
+@Path("reserva")
 public class ReservaFacadeREST extends AbstractFacade<Reserva> {
 
     @PersistenceContext(unitName = "ApplicationServerPU")
@@ -62,6 +59,44 @@ public class ReservaFacadeREST extends AbstractFacade<Reserva> {
         return super.find(id);
     }
 
+    /**
+     * Este método devuelve las reservas que han sido canceladas
+     *
+     * @return reservas
+     */
+    @GET
+    @Path("findReservasCanceladas")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<Reserva> findReservasCanceladas() {
+        List<Reserva> reservas = new ArrayList(super.findReservasCanceladas());
+        return reservas;
+    }
+
+    /**
+     * Este método devuelve las reservas que han sido confirmadas
+     *
+     * @return reservas
+     */
+    @GET
+    @Path("findReservasConfirmadas")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<Reserva> findReservasConfirmadas() {
+        List<Reserva> reservas = new ArrayList(super.findReservasConfirmadas());
+        return reservas;
+    }
+
+    /**
+     * Este método devuelve las reservas que han sido canceladas
+     *
+     * @return reservas
+     */
+    @GET
+    @Path("findReservasRealizadas")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<Reserva> findReservasRealizadas() {
+        List<Reserva> reservas = new ArrayList(super.findReservasRealizadas());
+        return reservas;
+    }
 
     @Override
     protected EntityManager getEntityManager() {

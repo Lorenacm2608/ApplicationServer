@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package flyshoes.services;
 
 import flyshoes.entity.Producto;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -22,10 +18,10 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author 2dam
+ * @author Lorena Cáceres Manuel
  */
 @Stateless
-@Path("productos")
+@Path("producto")
 public class ProductoFacadeREST extends AbstractFacade<Producto> {
 
     @PersistenceContext(unitName = "ApplicationServerPU")
@@ -62,6 +58,68 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
         return super.find(id);
     }
 
+    /**
+     * Este método nos devuelve todos los productos en orden ascendente
+     * dependiendo de su precio
+     *
+     * @return productos. Colección de productos
+     */
+    @GET
+    @Path("findAllProductosAsc")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<Producto> findAllProductosAsc() {
+        List<Producto> productos = new ArrayList<>(super.findAllProductosAsc());
+        return productos;
+    }
+
+    /**
+     * Este método nos devuelve todos los productos en orden descendente
+     * dependiendo de su precio
+     *
+     * @return productos. Colección de productos
+     */
+    @GET
+    @Path("findAllProductoDesc")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<Producto> findAllProductosDesc() {
+        List<Producto> productos = new ArrayList<>(super.findAllProductosDesc());
+        return productos;
+
+    }
+
+    /**
+     * Este método nos permite buscar todos los productos los cuales tengan en
+     * su descripción incluido 'Zapatillas'
+     *
+     * @return zapatillas. Colección de productos
+     */
+    @GET
+    @Path("findAllZapatillas")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<Producto> findAllZapatillas() {
+        List<Producto> zapatillas = new ArrayList<>(super.findAllZapatillas());
+        return zapatillas;
+    }
+
+    /**
+     * Este método nos permite buscar todos los productos los cuales tengan en
+     * su descripcion incluido 'Ropa'
+     *
+     * @return ropa. Colección de productos
+     */
+    @GET
+    @Path("findAllRopa")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<Producto> findAllRopa() {
+        List<Producto> ropa = new ArrayList<>(super.findAllRopa());
+        return ropa;
+    }
+
+    /**
+     * Este método nos devuelve un entityManager
+     *
+     * @return em
+     */
     @Override
     protected EntityManager getEntityManager() {
         return em;

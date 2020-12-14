@@ -8,6 +8,8 @@ package flyshoes.entity;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import static javax.persistence.FetchType.EAGER;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +19,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -43,13 +46,20 @@ public class Proveedor implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     //id del proveedor
     private Long idProveedor;
-    //tipo de proveedor
-    private String tipo;
+    @NotNull
+    private String nombre;
+    //tipo de proveedor 
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private TipoProducto tipo;
     //empresa a la que pertenece el proveedor
+    @NotNull
     private String empresa;
     //correo del proveedor
+    @NotNull
     private String email;
     //telefono del proveedor
+    @NotNull
     private String telefono;
     //descripcion del proveedor
     private String descripcion;
@@ -121,7 +131,7 @@ public class Proveedor implements Serializable {
      *
      * @return tipo
      */
-    public String getTipo() {
+    public TipoProducto getTipo() {
         return tipo;
     }
 
@@ -130,7 +140,7 @@ public class Proveedor implements Serializable {
      *
      * @param tipo
      */
-    public void setTipo(String tipo) {
+    public void setTipo(TipoProducto tipo) {
         this.tipo = tipo;
     }
 
@@ -205,5 +215,20 @@ public class Proveedor implements Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
+
+    /**
+     * Devuelve el nombre del proveedor
+     * @return
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * Inserta el nombre del proveedor
+     * @param nombre
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 }
