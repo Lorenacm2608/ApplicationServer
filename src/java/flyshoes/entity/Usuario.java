@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -27,6 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "usuario", schema = "flyshoesdb")
+@NamedQuery(name="findAllUsuariosAsc", query = "select u from Usuario u order by u.id_usuario asc")
 @XmlRootElement
 public class Usuario implements Serializable {
 
