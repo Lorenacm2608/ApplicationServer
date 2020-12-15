@@ -8,6 +8,7 @@ import static javax.persistence.FetchType.EAGER;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -19,6 +20,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "vendedor", schema = "flyshoesdb")
+@NamedQuery(name="findAllVendedoresAsc", query = "select u from Usuario u where u.privilege='Vendedor' order by u.id_usuario asc")
 @XmlRootElement
 public class Vendedor extends Usuario implements Serializable {
 

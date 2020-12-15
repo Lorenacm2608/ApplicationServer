@@ -2,8 +2,15 @@ package flyshoes.services;
 
 import flyshoes.entity.Producto;
 import flyshoes.entity.Reserva;
+import flyshoes.entity.Usuario;
+import flyshoes.entity.Vendedor;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.EntityManager;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
@@ -101,5 +108,21 @@ public abstract class AbstractFacade<T> {
      */
     public List<Producto> findAllRopa() {
         return (List<Producto>) getEntityManager().createNamedQuery("findAllRopa").getResultList();
+    }
+    
+    @GET
+    @Path("vendedores/{vendedores}")
+    @Produces({MediaType.APPLICATION_XML})
+    public Set<Vendedor> findAllVendedoresAsc() {
+        return (Set<Vendedor>) getEntityManager().createNamedQuery("findAllVendedoresAsc").getResultList();
+
+    }
+    
+    @GET
+    @Path("usuarios/{usuarios}")
+    @Produces({MediaType.APPLICATION_XML})
+    public Set<Usuario> findAllUsuarioAsc() {
+        return (Set<Usuario>) getEntityManager().createNamedQuery("findAllUsuariosAsc").getResultList();
+
     }
 }
