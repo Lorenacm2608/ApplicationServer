@@ -6,7 +6,9 @@
 package flyshoes.services;
 
 import flyshoes.entity.Cliente;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,7 +32,8 @@ public class ClienteFacadeREST extends AbstractFacade<Cliente> {
 
     @PersistenceContext(unitName = "ApplicationServerPU")
     private EntityManager em;
-
+    private Logger LOGGER = Logger.getLogger(AdministradorFacadeREST.class.getName());
+    
     public ClienteFacadeREST() {
         super(Cliente.class);
     }
@@ -61,8 +64,40 @@ public class ClienteFacadeREST extends AbstractFacade<Cliente> {
     public Cliente find(@PathParam("id") Long id) {
         return super.find(id);
     }
+    
+    /**
+     * Metodo GET para recibir todos los clientes: usa el metodo findAllClientes
+     * @return Una lista del objeto Cliente.
+     */
+    @GET
+    @Path("Encontrar_clientes")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<Cliente> findAllClientes() {
+         List<Cliente> clientes = new ArrayList<>(super.findAllClientes());
+        return clientes;
+    }
 
+    /**
+     * Metodo GET para recibir las reservas de un cliente: usa el metodo findReserva
+     * @return Una lista de reservas de un Cliente.
+     */
+    /*
+    @GET
+    @Path("Encontrar_Reservas/{id}")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<Cliente> findReserva(@PathParam("id") Long id) {
+         List<Cliente> cliente = null;
+        try {
+            cliente = new ArrayList<>(em.createNamedQuery("findReserva").setParameter("id", id).getResultList());
 
+        } catch (Exception e) {
+            LOGGER.severe(" " + e.getMessage());
+        }
+        return cliente;
+    }
+    */
+    
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;
