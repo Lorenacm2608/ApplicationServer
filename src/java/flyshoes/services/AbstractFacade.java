@@ -117,7 +117,11 @@ public abstract class AbstractFacade<T> {
         return (Set<Vendedor>) getEntityManager().createNamedQuery("findAllVendedoresAsc").getResultList();
 
     }
-    
+    /**
+     * Implementa el método nos muestra los usuarios
+     *
+     * @return lista de usuarios
+     */
     @GET
     @Path("usuarios/{usuarios}")
     @Produces({MediaType.APPLICATION_XML})
