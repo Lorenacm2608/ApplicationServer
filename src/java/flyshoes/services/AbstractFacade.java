@@ -124,11 +124,5 @@ public abstract class AbstractFacade<T> {
 
     }
     */
-    @GET
-    @Path("findUsuarios")
-    @Produces({MediaType.APPLICATION_XML})
-    public List<Usuario> findAllUsuariosAsc() {
-        List<Usuario> usuarios = new ArrayList(super.findAllUsuariosAsc());
-        return usuarios;
-    }
+    
 }
