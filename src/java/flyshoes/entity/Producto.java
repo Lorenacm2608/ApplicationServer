@@ -22,7 +22,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
  * @author Lorena Cáceres Manuel
  *
  * Entidad producto está relacionada con la entidad Reserva, vendedor y

@@ -38,7 +38,6 @@ public class Cliente extends Usuario implements Serializable{
      * 
      * @return reservas, retorna las reservas de un Cliente.
      */
-    @XmlTransient
     public Set<Reserva> getReservas() {
         return reservas;
     }

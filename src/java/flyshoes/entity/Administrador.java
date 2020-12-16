@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Entity;
 import static javax.persistence.FetchType.EAGER;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -24,7 +26,14 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @PrimaryKeyJoinColumn(referencedColumnName = "id_usuario")
-@Table(name="administrador", schema="flyshoesdb")
+@Table(name = "administrador", schema = "flyshoesdb")
+@NamedQueries({
+    @NamedQuery(name = "listaProveedores",
+            query = "SELECT p FROM Proveedor p  ORDER BY p.empresa"
+    )
+    ,@NamedQuery(name = "listaVendedores",
+            query = "SELECT v FROM Vendedor v  ORDER BY v.login "
+    )})
 @XmlRootElement
 public class Administrador extends Usuario implements Serializable {
 
@@ -32,6 +41,27 @@ public class Administrador extends Usuario implements Serializable {
     //Lista de Proveedores gestionados
     @OneToMany(mappedBy = "administrador", fetch = EAGER)
     private Set<Proveedor> proveedores;
+    @OneToMany(mappedBy = "administrador", fetch = EAGER)
+    private Set<Vendedor> vendedores;
+
+    /**
+     * Devuelve la lista de vendedores gestionados
+     *
+     * @return vendedores
+     */
+    public Set<Vendedor> getVendedores() {
+        return vendedores;
+    }
+
+    /**
+     * Inserta una lista de vendedores
+     *
+     * @param vendedores
+     */
+
+    public void setVendedores(Set<Vendedor> vendedores) {
+        this.vendedores = vendedores;
+    }
 
     /**
      * Devuelve la lista de proveedores gestionados
@@ -46,7 +76,7 @@ public class Administrador extends Usuario implements Serializable {
     /**
      * Inserta una lista de proveedores
      *
-     * @param lista de proveedores
+     * @param proveedores
      */
     public void setProveedores(Set<Proveedor> proveedores) {
         this.proveedores = proveedores;
