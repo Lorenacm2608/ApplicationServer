@@ -4,6 +4,7 @@ import flyshoes.entity.Producto;
 import flyshoes.entity.Reserva;
 import flyshoes.entity.Usuario;
 import flyshoes.entity.Vendedor;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.EntityManager;
@@ -114,7 +115,7 @@ public abstract class AbstractFacade<T> {
      * Implementa el método nos muestra los vendedores
      *
      * @return lista de vendedores
-     */
+     
     @GET
     @Path("vendedores/{vendedores}")
     @Produces({MediaType.APPLICATION_XML})
@@ -122,12 +123,12 @@ public abstract class AbstractFacade<T> {
         return (Set<Vendedor>) getEntityManager().createNamedQuery("findAllVendedoresAsc").getResultList();
 
     }
-    
+    */
     @GET
-    @Path("usuarios/{usuarios}")
+    @Path("findVendedores")
     @Produces({MediaType.APPLICATION_XML})
-    public Set<Usuario> findAllUsuarioAsc() {
-        return (Set<Usuario>) getEntityManager().createNamedQuery("findAllUsuariosAsc").getResultList();
-
+    public List<Vendedor> findAllVendedores() {
+        List<Vendedor> vendedores = new ArrayList(super.findAllVendedores());
+        return vendedores;
     }
 }
