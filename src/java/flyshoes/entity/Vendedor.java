@@ -172,7 +172,7 @@ public class Vendedor extends Usuario implements Serializable {
      *
      * @return administrador
      */
-
+    @XmlTransient
     public Administrador getAdministrador() {
         return administrador;
     }

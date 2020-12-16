@@ -49,7 +49,7 @@ public class Administrador extends Usuario implements Serializable {
      *
      * @return vendedores
      */
-    @XmlTransient
+    
     public Set<Vendedor> getVendedores() {
         return vendedores;
     }
@@ -69,7 +69,7 @@ public class Administrador extends Usuario implements Serializable {
      *
      * @return proveedores
      */
-    @XmlTransient
+
     public Set<Proveedor> getProveedores() {
         return proveedores;
     }
