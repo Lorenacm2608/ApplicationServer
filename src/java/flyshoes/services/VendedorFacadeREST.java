@@ -6,6 +6,7 @@
 package flyshoes.services;
 
 import flyshoes.entity.Vendedor;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -62,7 +63,13 @@ public class VendedorFacadeREST extends AbstractFacade<Vendedor> {
         return super.find(id);
     }
 
-   
+   @GET
+    @Path("findVendedores")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<Vendedor> findAllVendedores() {
+        List<Vendedor> vendedores = new ArrayList(em.createNamedQuery("findAllVendedoresAsc").getResultList());
+        return vendedores;
+    }
 
     @Override
     protected EntityManager getEntityManager() {

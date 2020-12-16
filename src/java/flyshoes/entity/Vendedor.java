@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "vendedor", schema = "flyshoesdb")
-@NamedQuery(name="findAllVendedoresAsc", query = "select u from Usuario u where u.privilege='Vendedor' order by u.id_usuario asc")
+@NamedQuery(name="findAllVendedoresAsc", query = "select v from Vendedor v order by v.dni asc")
 @XmlRootElement
 public class Vendedor extends Usuario implements Serializable {
 

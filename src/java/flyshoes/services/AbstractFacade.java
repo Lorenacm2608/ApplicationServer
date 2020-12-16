@@ -124,11 +124,5 @@ public abstract class AbstractFacade<T> {
 
     }
     */
-    @GET
-    @Path("findVendedores")
-    @Produces({MediaType.APPLICATION_XML})
-    public List<Vendedor> findAllVendedores() {
-        List<Vendedor> vendedores = new ArrayList(super.findAllVendedores());
-        return vendedores;
-    }
+    
 }
