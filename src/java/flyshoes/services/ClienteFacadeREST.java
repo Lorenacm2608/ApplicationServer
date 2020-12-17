@@ -67,18 +67,6 @@ public class ClienteFacadeREST extends AbstractFacade<Cliente> {
     }
     
     /**
-     * Metodo GET para recibir todos los clientes: usa el metodo findAllClientes
-     * @return Una lista del objeto Cliente.
-     */
-    @GET
-    @Path("Encontrar_clientes")
-    @Produces({MediaType.APPLICATION_XML})
-    public List<Cliente> findAllClientes() {
-         List<Cliente> clientes = new ArrayList<>(super.findAllClientes());
-        return clientes;
-    }
-
-    /**
      * Metodo GET para recibir las reservas de un cliente: usa el metodo findReserva
      * @return Una lista de reservas de un Cliente.
      */

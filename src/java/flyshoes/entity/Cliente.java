@@ -21,14 +21,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name="cliente", schema="flyshoesdb")
 @NamedQueries({
-   
-@NamedQuery(name="findAllClientes",
-            query="SELECT c FROM Cliente c"
-),
     @NamedQuery(name="findReserva",
-           query="SELECT r FROM Cliente c,Reserva r where r.cliente.id_usuario=:id"
-),@NamedQuery(name="findCliente",
-           query="SELECT r FROM Cliente c,Reserva r where r.cliente.id_usuario=:id"
+           query="SELECT r.producto FROM Reserva r where r.cliente.id_usuario=:id"
 ),/*
     @NamedQuery(name="BorrarCliente",
             query="DELETE FROM Cliente c where c.id_usuario=:idCliente "
@@ -53,7 +47,7 @@ public class Cliente extends Usuario implements Serializable{
     /**
      * 
      * @return reservas, retorna las reservas de un Cliente.
-     */
+     */ 
     public Set<Reserva> getReservas() {
         return reservas;
     }

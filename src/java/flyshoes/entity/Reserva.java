@@ -104,7 +104,7 @@ public class Reserva implements Serializable {
      * Devuelve el cliente que ha realizado dicha reserva
      *
      * @return cliente
-     */          
+     */     
     @XmlTransient
     public Cliente getCliente() {
         return cliente;
