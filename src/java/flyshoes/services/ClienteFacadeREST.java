@@ -6,7 +6,12 @@
 package flyshoes.services;
 
 import flyshoes.entity.Cliente;
+import flyshoes.entity.Producto;
+import flyshoes.entity.Reserva;
+import flyshoes.entity.Usuario;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,7 +35,8 @@ public class ClienteFacadeREST extends AbstractFacade<Cliente> {
 
     @PersistenceContext(unitName = "ApplicationServerPU")
     private EntityManager em;
-
+    private Logger LOGGER = Logger.getLogger(AdministradorFacadeREST.class.getName());
+    
     public ClienteFacadeREST() {
         super(Cliente.class);
     }
@@ -61,7 +67,39 @@ public class ClienteFacadeREST extends AbstractFacade<Cliente> {
     public Cliente find(@PathParam("id") Long id) {
         return super.find(id);
     }
+    
+    
+    /**
+     * Metodo GET para recibir las reservas de un cliente: usa el metodo findReserva
+     * @return Una lista de reservas de un Cliente.
+     */
+    @GET
+    @Path("Reservas_cliente/{id}")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<Reserva> findReserva(@PathParam("id") Long id) {
+         List<Reserva> reserva = null;
+        try {
+            reserva = new ArrayList<>(em.createNamedQuery("findReserva").setParameter("id", id).getResultList());
 
+        } catch (Exception e) {
+            LOGGER.severe(" " + e.getMessage());
+        }
+        return reserva;
+    }
+    
+    /**
+     * Este método nos devuelve todos los productos en orden ascendente
+     * dependiendo de su precio
+     *
+     * @return productos. Colección de productos
+     */
+    @GET
+    @Path("findAllProductosAsc")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<Producto> findAllProductosAsc() {
+        List<Producto> productos = new ArrayList<>(super.findAllProductosAsc());
+        return productos;
+    }
 
     @Override
     protected EntityManager getEntityManager() {

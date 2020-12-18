@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Esta clase se encargará sobre la gestión de reservas
@@ -103,7 +104,8 @@ public class Reserva implements Serializable {
      * Devuelve el cliente que ha realizado dicha reserva
      *
      * @return cliente
-     */
+     */     
+    @XmlTransient
     public Cliente getCliente() {
         return cliente;
     }
