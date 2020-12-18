@@ -23,10 +23,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name="findReserva",
            query="SELECT r.producto FROM Reserva r where r.cliente.id_usuario=:id"
-),/*
-    @NamedQuery(name="BorrarCliente",
-            query="DELETE FROM Cliente c where c.id_usuario=:idCliente "
-), */   
+),  @NamedQuery(name="findPorLoginCliente",
+            query="SELECT u from Usuario u where u.login=:login "
+),
 })
 @XmlRootElement
 public class Cliente extends Usuario implements Serializable{
