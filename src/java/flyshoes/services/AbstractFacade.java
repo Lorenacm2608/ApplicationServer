@@ -1,6 +1,5 @@
 package flyshoes.services;
 
-import flyshoes.entity.Cliente;
 import flyshoes.entity.Producto;
 import flyshoes.entity.Reserva;
 import java.util.List;
@@ -9,11 +8,12 @@ import javax.persistence.EntityManager;
 /**
  *
  * @author flyshoes
+ * @param <T>
  * 
  */
 public abstract class AbstractFacade<T> {
 
-    private Class<T> entityClass;
+    private  Class<T> entityClass;
 
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
