@@ -117,7 +117,6 @@ public class Producto implements Serializable {
      *
      * @return reseva
      */
-    @XmlTransient
     public Set<Reserva> getReservas() {
         return reservas;
     }

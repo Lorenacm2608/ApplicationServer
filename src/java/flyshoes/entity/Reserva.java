@@ -124,6 +124,7 @@ public class Reserva implements Serializable {
      *
      * @return producto
      */
+    @XmlTransient
     public Producto getProducto() {
         return producto;
     }

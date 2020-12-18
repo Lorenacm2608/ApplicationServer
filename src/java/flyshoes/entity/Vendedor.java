@@ -8,6 +8,7 @@ import static javax.persistence.FetchType.EAGER;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -19,6 +20,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "vendedor", schema = "flyshoesdb")
+@NamedQuery(name = "findAllClientes", query = "SELECT c FROM Cliente c")
 @XmlRootElement
 public class Vendedor extends Usuario implements Serializable {
 
@@ -62,6 +64,7 @@ public class Vendedor extends Usuario implements Serializable {
      *
      * @return productos
      */
+    @XmlTransient
     public Set<Producto> getProductos() {
         return productos;
     }
@@ -153,6 +156,7 @@ public class Vendedor extends Usuario implements Serializable {
      *
      * @return lista de productos
      */
+    @XmlTransient
     public Set<Producto> getProducto() {
         return productos;
     }

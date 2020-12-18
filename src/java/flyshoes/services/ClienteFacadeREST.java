@@ -5,7 +5,10 @@
  */
 package flyshoes.services;
 
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import flyshoes.entity.Cliente;
+import flyshoes.entity.Reserva;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -60,6 +63,26 @@ public class ClienteFacadeREST extends AbstractFacade<Cliente> {
     @Produces({MediaType.APPLICATION_XML})
     public Cliente find(@PathParam("id") Long id) {
         return super.find(id);
+    }
+
+    /**
+     * Metodo GET para recibir las reservas de un cliente: usa el metodo
+     * findReserva
+     *
+     * @return Una lista de reservas de un Cliente.
+     */
+    @GET
+    @Path("EncontrarReservas/{id}")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<Reserva> findReserva(@PathParam("id") Long id) {
+        List<Reserva> reserva = null;
+        try {
+            reserva = new ArrayList<>(em.createNamedQuery("findReserva").setParameter("id", id).getResultList());
+
+        } catch (Exception e) {
+            LOGGER.severe(" " + e.getMessage());
+        }
+        return reserva;
     }
 
     @Override

@@ -5,8 +5,11 @@
  */
 package flyshoes.services;
 
+import flyshoes.entity.Cliente;
 import flyshoes.entity.Vendedor;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,6 +33,7 @@ public class VendedorFacadeREST extends AbstractFacade<Vendedor> {
 
     @PersistenceContext(unitName = "ApplicationServerPU")
     private EntityManager em;
+    private Logger LOGGER = Logger.getLogger(VendedorFacadeREST.class.getName());
 
     public VendedorFacadeREST() {
         super(Vendedor.class);
@@ -65,6 +69,20 @@ public class VendedorFacadeREST extends AbstractFacade<Vendedor> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+
+    @GET
+    @Path("findAllClientes")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<Cliente> findAllClientes() {
+        List<Cliente> clientes = null;
+        try {
+            clientes = new ArrayList<>(em.createNamedQuery("findAllClientes").getResultList());
+        } catch (Exception e) {
+            LOGGER.severe(" " + e.getMessage());
+        }
+        return clientes;
+
     }
 
 }

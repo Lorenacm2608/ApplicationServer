@@ -6,6 +6,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import static javax.persistence.FetchType.EAGER;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -18,6 +20,14 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name="cliente", schema="flyshoesdb")
+@NamedQueries({
+    @NamedQuery(name="findReserva",
+           query="SELECT r.producto FROM Reserva r where r.cliente.id_usuario=:id"
+),/*
+    @NamedQuery(name="BorrarCliente",
+            query="DELETE FROM Cliente c where c.id_usuario=:idCliente "
+), */   
+})
 @XmlRootElement
 public class Cliente extends Usuario implements Serializable{
 
@@ -37,7 +47,7 @@ public class Cliente extends Usuario implements Serializable{
     /**
      * 
      * @return reservas, retorna las reservas de un Cliente.
-     */
+     */ 
     public Set<Reserva> getReservas() {
         return reservas;
     }

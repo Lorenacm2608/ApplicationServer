@@ -102,4 +102,5 @@ public abstract class AbstractFacade<T> {
     public List<Producto> findAllRopa() {
         return (List<Producto>) getEntityManager().createNamedQuery("findAllRopa").getResultList();
     }
+    
 }
