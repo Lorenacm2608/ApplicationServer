@@ -10,5 +10,21 @@ package flyshoes.entity;
  * @author Fredy
  */
 public enum EstadoReserva {
-    CANCELADA, CONFIRMADA, REALIZADA
+    /**
+     * La reserva ha sido cancelada
+     */
+    CANCELADA,
+    /**
+     * La reserva ha sido confirmada
+     */
+    CONFIRMADA,
+    /**
+     * La reserva ha sido finalizada
+     */
+    REALIZADA,
+    /**
+     * La reserva ha expirado
+     */
+    EXPIRADA;
+
 }

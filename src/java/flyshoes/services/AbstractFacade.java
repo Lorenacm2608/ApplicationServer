@@ -2,6 +2,7 @@ package flyshoes.services;
 
 import flyshoes.entity.Producto;
 import flyshoes.entity.Reserva;
+import flyshoes.entity.Usuario;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -103,5 +104,6 @@ public abstract class AbstractFacade<T> {
     public List<Producto> findAllRopa() {
         return (List<Producto>) getEntityManager().createNamedQuery("findAllRopa").getResultList();
     }
+       
 
 }

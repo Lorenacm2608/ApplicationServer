@@ -7,6 +7,7 @@ package flyshoes.services;
 
 import flyshoes.entity.Usuario;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,6 +31,7 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
 
     @PersistenceContext(unitName = "ApplicationServerPU")
     private EntityManager em;
+    private Logger LOGGER = Logger.getLogger(UsuarioFacadeREST.class.getName());
 
     public UsuarioFacadeREST() {
         super(Usuario.class);
@@ -67,5 +69,25 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     protected EntityManager getEntityManager() {
         return em;
     }
+    
+     /**
+     * Login usario
+     * @param login
+     * @return usuario
+     */
+    @GET
+    @Path("usuarioByLogin/{login}")
+    @Produces({MediaType.APPLICATION_XML})
+    public Usuario usuarioByLogin(@PathParam("login") String login) {
+        Usuario usuario= null;
+        try{
+        usuario=(Usuario) em.createNamedQuery("usuarioByLogin").setParameter("login", login).getSingleResult();
+        } catch (Exception e) {
+            LOGGER.severe(" " + e.getMessage());
+        }
+       return usuario;
+    }
+    
+  
     
 }

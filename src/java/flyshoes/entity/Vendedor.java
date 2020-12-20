@@ -8,7 +8,10 @@ import static javax.persistence.FetchType.EAGER;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -18,7 +21,18 @@ import javax.xml.bind.annotation.XmlTransient;
  * Entidad Vendedor relacionado con gestiona Producto y maneja Reserva
  */
 @Entity
+@PrimaryKeyJoinColumn(referencedColumnName = "id_usuario")
 @Table(name = "vendedor", schema = "flyshoesdb")
+
+
+@NamedQueries({
+    @NamedQuery(name = "findAllReservas",
+        query = "SELECT r FROM Reserva r ORDER BY r.cliente.login ")
+    ,
+    @NamedQuery(name = "vendedorByLogin",
+        query = "SELECT v FROM Vendedor v WHERE  v.login=:login")
+   
+})
 @XmlRootElement
 public class Vendedor extends Usuario implements Serializable {
 
@@ -34,6 +48,7 @@ public class Vendedor extends Usuario implements Serializable {
     @ManyToMany(fetch = EAGER, cascade = MERGE)
     @JoinTable(schema = "flyshoesdb", name = "vendedorProducto")
     private Set<Producto> productos;
+    
     @ManyToOne
     private Administrador administrador;
 
@@ -62,6 +77,7 @@ public class Vendedor extends Usuario implements Serializable {
      *
      * @return productos
      */
+    @XmlTransient
     public Set<Producto> getProductos() {
         return productos;
     }
@@ -146,25 +162,6 @@ public class Vendedor extends Usuario implements Serializable {
      */
     public void setCliente(Set<Cliente> cliente) {
         this.cliente = cliente;
-    }
-
-    /**
-     * Devuelve una lista de productos
-     *
-     * @return lista de productos
-     */
-    @XmlTransient
-    public Set<Producto> getProducto() {
-        return productos;
-    }
-
-    /**
-     * Establece una lista de productos
-     *
-     * @param productos
-     */
-    public void setProducto(Set<Producto> productos) {
-        this.productos = productos;
     }
 
     /**

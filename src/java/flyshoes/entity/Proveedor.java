@@ -63,6 +63,7 @@ public class Proveedor implements Serializable {
     //administrador encargado del proveedor
     @ManyToOne
     private Administrador administrador;
+    
     //lista de productos ofrecidos por el proveedor
     @OneToMany(mappedBy = "proveedor", fetch = EAGER)
     private Set<Producto> productos;
@@ -72,7 +73,7 @@ public class Proveedor implements Serializable {
      *
      * @return administrador
      */
-     @XmlTransient
+    @XmlTransient
     public Administrador getAdministrador() {
         return administrador;
     }
@@ -215,6 +216,7 @@ public class Proveedor implements Serializable {
 
     /**
      * Devuelve el nombre del proveedor
+     *
      * @return
      */
     public String getNombre() {
@@ -223,6 +225,7 @@ public class Proveedor implements Serializable {
 
     /**
      * Inserta el nombre del proveedor
+     *
      * @param nombre
      */
     public void setNombre(String nombre) {

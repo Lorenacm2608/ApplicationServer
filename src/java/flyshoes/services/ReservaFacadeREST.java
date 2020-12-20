@@ -86,7 +86,7 @@ public class ReservaFacadeREST extends AbstractFacade<Reserva> {
     }
 
     /**
-     * Este método devuelve las reservas que han sido canceladas
+     * Este método devuelve las reservas que han sido realizadas
      *
      * @return reservas
      */
