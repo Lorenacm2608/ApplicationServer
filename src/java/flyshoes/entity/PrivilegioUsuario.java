@@ -10,5 +10,5 @@ package flyshoes.entity;
  * @author pocoy
  */
 enum PrivilegioUsuario {
-    ADMINISTRADOR, CLIENTE, VENDEDOR
+    ADMINISTRADOR, CLIENTE, VENDEDOR;
 }

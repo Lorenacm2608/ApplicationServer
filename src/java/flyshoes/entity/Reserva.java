@@ -5,8 +5,9 @@ import java.sql.Timestamp;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -16,7 +17,6 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Esta clase se encargará sobre la gestión de reservas
@@ -26,36 +26,43 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "reserva", schema = "flyshoesdb")
 @NamedQueries({
-    @NamedQuery(name="findReservasCanceladas", query = "SELECT r FROM Reserva r WHERE r.estado='CANCELADA'"),
-    @NamedQuery(name = "findReservasConfirmadas", query="SELECT r FROM Reserva r WHERE r.estado='CONFIRMADA'"),
-    @NamedQuery(name ="findReservasRealizadas", query="SELECT r FROM Reserva r WHERE r.estado='REALIZADA'")
-  })
-@IdClass(ReservaId.class)
+    @NamedQuery(name = "findReservasCanceladas",
+            query = "SELECT r FROM Reserva r WHERE r.estado ='CANCELADA'"
+    )
+    ,
+    @NamedQuery(name = "findReservasConfirmadas",
+            query = "SELECT r FROM Reserva r WHERE r.estado ='CONFIRMADA'"
+    )
+    ,
+    @NamedQuery(name = "findReservasRealizadas",
+            query = "SELECT r FROM Reserva r WHERE r.estado ='REALIZADA'"
+    )
+
+})
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Reserva implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    //producto contiene la reserva
+
+    /**
+     * Identificador de la reserva
+     */
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    //producto contiene la reserva
     @ManyToOne
-    @JoinColumn(
-            name = "producto_id",
-            insertable = false, updatable = false
-    )
     public Producto producto;
     //descripcion de la reserva
     private String descripcion;
     //estado de la reserva
     @Enumerated(EnumType.STRING)
     private EstadoReserva estado;
-    //cliente dueño de la reserva
-    @Id
+
+    //cliente  de la reserva
     @ManyToOne
-    @JoinColumn(
-            name = "cliente_id",
-            insertable = false, updatable = false
-    )
     private Cliente cliente;
     //cantidad del producto
     @NotNull
@@ -63,6 +70,24 @@ public class Reserva implements Serializable {
     //Fecha de reserva
     @NotNull
     private Timestamp fechaReserva;
+
+    /**
+     * Devuelve la id de la reserva
+     *
+     * @return id
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * Establece la id de la reserva
+     *
+     * @param id
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     /**
      * Devuelve la descripcion de la reserva
@@ -104,8 +129,8 @@ public class Reserva implements Serializable {
      * Devuelve el cliente que ha realizado dicha reserva
      *
      * @return cliente
-     */     
-    @XmlTransient
+     */
+    // @XmlTransient
     public Cliente getCliente() {
         return cliente;
     }
@@ -124,6 +149,7 @@ public class Reserva implements Serializable {
      *
      * @return producto
      */
+    // @XmlTransient
     public Producto getProducto() {
         return producto;
     }
@@ -157,7 +183,8 @@ public class Reserva implements Serializable {
 
     /**
      * devuelve la fecha de la reserva
-     * @return 
+     *
+     * @return
      */
     public Timestamp getFechaReserva() {
         return fechaReserva;
@@ -165,7 +192,8 @@ public class Reserva implements Serializable {
 
     /**
      * inserta la fecha de reserva
-     * @param fechaReserva 
+     *
+     * @param fechaReserva
      */
     public void setFechaReserva(Timestamp fechaReserva) {
         this.fechaReserva = fechaReserva;

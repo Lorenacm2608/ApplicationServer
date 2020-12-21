@@ -10,5 +10,5 @@ package flyshoes.entity;
  * @author pocoy
  */
 enum EstadoUsuario {
-    ENABLED, DISABLED
+    ENABLED, DISABLED;
 }

@@ -7,9 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import static javax.persistence.FetchType.EAGER;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -36,9 +38,9 @@ import javax.xml.bind.annotation.XmlTransient;
     ,
     @NamedQuery(name = "findAllProductosDesc", query = "SELECT p FROM Producto p ORDER BY p.precio DESC")
     ,
-    @NamedQuery(name = "findAllZapatillas", query = "SELECT p FROM Producto p WHERE p.descripcion LIKE '%Zapatilla%'")
+    @NamedQuery(name = "findAllZapatillas", query = "SELECT p FROM Producto p WHERE p.tipo LIKE 'ZAPATILLAS'")
     ,
-    @NamedQuery(name = "findAllRopa", query = "SELECT p FROM Producto p WHERE p.descripcion LIKE '%Ropa%'")
+    @NamedQuery(name = "findAllRopa", query = "SELECT p FROM Producto p WHERE p.tipo LIKE 'ROPA'")
 })
 @XmlRootElement
 public class Producto implements Serializable {
@@ -48,7 +50,7 @@ public class Producto implements Serializable {
      * Identificador del producto
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
      * Descripcion del producto

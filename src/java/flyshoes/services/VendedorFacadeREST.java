@@ -5,7 +5,7 @@
  */
 package flyshoes.services;
 
-import flyshoes.entity.Cliente;
+import flyshoes.entity.Reserva;
 import flyshoes.entity.Vendedor;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,19 +70,40 @@ public class VendedorFacadeREST extends AbstractFacade<Vendedor> {
     protected EntityManager getEntityManager() {
         return em;
     }
-
+    /**
+     * login vendedor
+     * @param login
+     * @return vendedor
+     */
     @GET
-    @Path("findAllClientes")
+    @Path("vendedorByLogin/{login}")
     @Produces({MediaType.APPLICATION_XML})
-    public List<Cliente> findAllClientes() {
-        List<Cliente> clientes = null;
-        try {
-            clientes = new ArrayList<>(em.createNamedQuery("findAllClientes").getResultList());
+    public Vendedor usuarioByLogin(@PathParam("login") String login) {
+        Vendedor vendedor= null;
+        try{
+        vendedor=(Vendedor) em.createNamedQuery("vendedorByLogin").setParameter("login", login).getSingleResult();
         } catch (Exception e) {
             LOGGER.severe(" " + e.getMessage());
         }
-        return clientes;
-
+       return vendedor;
     }
+    
 
+    /**
+     * Devuelve la lista completa de las reservas de un cliente
+     *
+     * @return lista reservas
+     */
+    @GET
+    @Path("findAllReservas")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<Reserva> findAllReservas() {
+        List<Reserva> reservas = null;
+        try {
+            reservas = new ArrayList<>(em.createNamedQuery("findAllReservas").getResultList());
+        } catch (Exception e) {
+            LOGGER.severe(" " + e.getMessage());
+        }
+        return reservas;
+    }
 }

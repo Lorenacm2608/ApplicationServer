@@ -67,6 +67,23 @@ public class ClienteFacadeREST extends AbstractFacade<Cliente> {
     public Cliente find(@PathParam("id") Long id) {
         return super.find(id);
     }
+    /**
+     * Login cliente
+     * @param login
+     * @return cliente
+     */
+    @GET
+    @Path("clienteByLogin/{login}")
+    @Produces({MediaType.APPLICATION_XML})
+    public Cliente clienteByLogin(@PathParam("login") String login) {
+        Cliente cliente= null;
+        try{
+        cliente=(Cliente) em.createNamedQuery("clienteByLogin").setParameter("login", login).getSingleResult();
+        } catch (Exception e) {
+            LOGGER.severe(" " + e.getMessage());
+        }
+       return cliente;
+    }
     
     
     /**
@@ -77,14 +94,14 @@ public class ClienteFacadeREST extends AbstractFacade<Cliente> {
     @Path("Reservas_cliente/{id}")
     @Produces({MediaType.APPLICATION_XML})
     public List<Reserva> findReserva(@PathParam("id") Long id) {
-         List<Reserva> reserva = null;
+         List<Reserva> reservas = null;
         try {
-            reserva = new ArrayList<>(em.createNamedQuery("findReserva").setParameter("id", id).getResultList());
+            reservas = new ArrayList<>(em.createNamedQuery("findReserva").setParameter("id", id).getResultList());
 
         } catch (Exception e) {
             LOGGER.severe(" " + e.getMessage());
         }
-        return reserva;
+        return reservas;
     }
     
     /**

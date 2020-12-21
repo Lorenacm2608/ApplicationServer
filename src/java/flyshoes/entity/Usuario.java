@@ -15,18 +15,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Moroni
- * Entidad Usuario relacionado con gestiona Proveedor
+ * @author Moroni Entidad Usuario relacionado con gestiona Proveedor
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "usuario", schema = "flyshoesdb")
+@NamedQuery(name = "usuarioByLogin",
+        query = "SELECT u FROM Usuario u WHERE u.login =:login")
 @XmlRootElement
 public class Usuario implements Serializable {
 
@@ -36,7 +38,7 @@ public class Usuario implements Serializable {
     *Id del usuario
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_usuario;
 
     /*
@@ -92,6 +94,7 @@ public class Usuario implements Serializable {
 
     /**
      * Devuelve la direccion del usuario
+     *
      * @return direccion
      */
     public String getDireccion() {
@@ -100,7 +103,8 @@ public class Usuario implements Serializable {
 
     /**
      * Establece la direccion del usuario
-     * @param direccion 
+     *
+     * @param direccion
      */
     public void setDireccion(String direccion) {
         this.direccion = direccion;
@@ -108,6 +112,7 @@ public class Usuario implements Serializable {
 
     /**
      * Devuelve el telefono del usuario
+     *
      * @return telefono
      */
     public Integer getTelefono() {
@@ -116,7 +121,8 @@ public class Usuario implements Serializable {
 
     /**
      * Establece el telefono del usuario
-     * @param telefono 
+     *
+     * @param telefono
      */
     public void setTelefono(Integer telefono) {
         this.telefono = telefono;
