@@ -1,0 +1,5 @@
+/*
+ * Excepciones
+ *
+ */
+package flyshoes.exceptions;
