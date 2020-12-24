@@ -2,7 +2,7 @@ package flyshoes.exceptions;
 
 /**
  *
- * @author Lorena
+ * @author Lorena Cáceres Manuel
  */
 public class VendedorNotFoundException extends Exception{
 

@@ -3,6 +3,7 @@ package flyshoes.exceptions;
 /**
  *
  * @author Lorena Cáceres Manuel
+ * 
  */
 public class EmailYaExisteException extends Exception {
     /**
