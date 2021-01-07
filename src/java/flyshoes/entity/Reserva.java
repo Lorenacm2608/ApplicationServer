@@ -70,6 +70,9 @@ public class Reserva implements Serializable {
     //Fecha de reserva
     @NotNull
     private Timestamp fechaReserva;
+    //Fecha de entrega prevista
+    @NotNull
+    private Timestamp fechaEntrega;
 
     /**
      * Devuelve la id de la reserva
@@ -184,7 +187,7 @@ public class Reserva implements Serializable {
     /**
      * devuelve la fecha de la reserva
      *
-     * @return
+     * @return fechaReserva
      */
     public Timestamp getFechaReserva() {
         return fechaReserva;
@@ -198,4 +201,23 @@ public class Reserva implements Serializable {
     public void setFechaReserva(Timestamp fechaReserva) {
         this.fechaReserva = fechaReserva;
     }
+
+    /**
+     * devuelve la fecha de la entrega prevista
+     *
+     * @return fechaEntrega
+     */
+    public Timestamp getFechaEntrega() {
+        return fechaEntrega;
+    }
+
+    /**
+     * inserta la fecha de la entrega prevista
+     *
+     * @param fechaEntrega
+     */
+    public void setFechaEntrega(Timestamp fechaEntrega) {
+        this.fechaEntrega = fechaEntrega;
+    }
+
 }
