@@ -34,9 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
     ,@NamedQuery(name = "listaVendedores",
             query = "SELECT v FROM Vendedor v  ORDER BY v.login "
     )
-    ,@NamedQuery(name = "administradorByLogin",
-            query = "SELECT a FROM Administrador a WHERE a.login=:login"
-    )})
+})
 
 @XmlRootElement
 public class Administrador extends Usuario implements Serializable {
@@ -45,7 +43,7 @@ public class Administrador extends Usuario implements Serializable {
     //Lista de Proveedores gestionados
     @OneToMany(mappedBy = "administrador", fetch = EAGER)
     private Set<Proveedor> proveedores;
-    
+
     @OneToMany(mappedBy = "administrador", fetch = EAGER)
     private Set<Vendedor> vendedores;
 

@@ -7,7 +7,6 @@ package flyshoes.services;
 
 import flyshoes.entity.Administrador;
 import flyshoes.entity.Proveedor;
-import flyshoes.entity.Usuario;
 import flyshoes.entity.Vendedor;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,25 +66,6 @@ public class AdministradorFacadeREST extends AbstractFacade<Administrador> {
     public Administrador find(@PathParam("id") Long id) {
         return super.find(id);
     }
-
-    /**
-     * login administrador
-     * @param login
-     * @return administrador
-     */
-    @GET
-    @Path("administradorByLogin/{login}")
-    @Produces({MediaType.APPLICATION_XML})
-    public Administrador usuarioByLogin(@PathParam("login") String login) {
-        Administrador administrador= null;
-        try{
-        administrador=(Administrador) em.createNamedQuery("administradorByLogin").setParameter("login", login).getSingleResult();
-        } catch (Exception e) {
-            LOGGER.severe(" " + e.getMessage());
-        }
-       return administrador;
-    }
-    
 
     /**
      * Lista de todos los proveeedores ordenados por Empresa

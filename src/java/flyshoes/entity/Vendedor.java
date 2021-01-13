@@ -24,15 +24,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @PrimaryKeyJoinColumn(referencedColumnName = "id_usuario")
 @Table(name = "vendedor", schema = "flyshoesdb")
 
-
-@NamedQueries({
-    @NamedQuery(name = "findAllReservas",
+@NamedQuery(name = "findAllReservas",
         query = "SELECT r FROM Reserva r ORDER BY r.cliente.login ")
-    ,
-    @NamedQuery(name = "vendedorByLogin",
-        query = "SELECT v FROM Vendedor v WHERE  v.login=:login")
-   
-})
+
 @XmlRootElement
 public class Vendedor extends Usuario implements Serializable {
 
@@ -48,7 +42,7 @@ public class Vendedor extends Usuario implements Serializable {
     @ManyToMany(fetch = EAGER, cascade = MERGE)
     @JoinTable(schema = "flyshoesdb", name = "vendedorProducto")
     private Set<Producto> productos;
-    
+
     @ManyToOne
     private Administrador administrador;
 
