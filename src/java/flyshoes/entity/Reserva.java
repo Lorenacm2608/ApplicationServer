@@ -2,6 +2,7 @@ package flyshoes.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -13,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -68,11 +71,13 @@ public class Reserva implements Serializable {
     @NotNull
     private Integer cantidad;
     //Fecha de reserva
-    @NotNull
-    private Timestamp fechaReserva;
+    
+    @Temporal(TemporalType.DATE)
+    private Date fechaReserva;
     //Fecha de entrega prevista
-    @NotNull
-    private Timestamp fechaEntrega;
+    
+    @Temporal(TemporalType.DATE)
+    private Date fechaEntrega;
 
     /**
      * Devuelve la id de la reserva
@@ -189,7 +194,7 @@ public class Reserva implements Serializable {
      *
      * @return fechaReserva
      */
-    public Timestamp getFechaReserva() {
+    public Date getFechaReserva() {
         return fechaReserva;
     }
 
@@ -198,7 +203,7 @@ public class Reserva implements Serializable {
      *
      * @param fechaReserva
      */
-    public void setFechaReserva(Timestamp fechaReserva) {
+    public void setFechaReserva(Date fechaReserva) {
         this.fechaReserva = fechaReserva;
     }
 
@@ -207,7 +212,7 @@ public class Reserva implements Serializable {
      *
      * @return fechaEntrega
      */
-    public Timestamp getFechaEntrega() {
+    public Date getFechaEntrega() {
         return fechaEntrega;
     }
 
@@ -216,7 +221,7 @@ public class Reserva implements Serializable {
      *
      * @param fechaEntrega
      */
-    public void setFechaEntrega(Timestamp fechaEntrega) {
+    public void setFechaEntrega(Date fechaEntrega) {
         this.fechaEntrega = fechaEntrega;
     }
 

@@ -7,6 +7,7 @@ package flyshoes.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -17,6 +18,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -80,7 +83,8 @@ public class Usuario implements Serializable {
     /*
     * Ultimo acceso del usuario
      */
-    private Timestamp lastAccess;
+    @Temporal(TemporalType.DATE)
+    private Date lastAccess;
 
     /*
     * Ultimo cambio de contraseña del usuario
@@ -228,7 +232,7 @@ public class Usuario implements Serializable {
      * Devuelve el valor de lastaccess para Usuario
      * @return el valor de lastaccess
      */
-    public Timestamp getLastAccess() {
+    public Date getLastAccess() {
         return lastAccess;
     }
 
@@ -236,7 +240,7 @@ public class Usuario implements Serializable {
      * Establece el valor de lastaccess para Usuario
      * @param de lastaccess del valor lastaccess
      */
-    public void setLastAccess(Timestamp lastAccess) {
+    public void setLastAccess(Date lastAccess) {
         this.lastAccess = lastAccess;
     }
 
