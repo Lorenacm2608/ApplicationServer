@@ -70,24 +70,6 @@ public class VendedorFacadeREST extends AbstractFacade<Vendedor> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    /**
-     * login vendedor
-     * @param login
-     * @return vendedor
-     */
-    @GET
-    @Path("vendedorByLogin/{login}")
-    @Produces({MediaType.APPLICATION_XML})
-    public Vendedor usuarioByLogin(@PathParam("login") String login) {
-        Vendedor vendedor= null;
-        try{
-        vendedor=(Vendedor) em.createNamedQuery("vendedorByLogin").setParameter("login", login).getSingleResult();
-        } catch (Exception e) {
-            LOGGER.severe(" " + e.getMessage());
-        }
-       return vendedor;
-    }
-    
 
     /**
      * Devuelve la lista completa de las reservas de un cliente

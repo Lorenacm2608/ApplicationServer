@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "usuario", schema = "flyshoesdb")
 @NamedQuery(name = "usuarioByLogin",
-        query = "SELECT u FROM Usuario u WHERE u.login =:login")
+        query = "SELECT u FROM Usuario u WHERE u.login=:login")
 @XmlRootElement
 public class Usuario implements Serializable {
 

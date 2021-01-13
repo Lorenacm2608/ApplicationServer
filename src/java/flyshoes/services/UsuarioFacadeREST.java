@@ -6,7 +6,8 @@
 package flyshoes.services;
 
 import flyshoes.entity.Usuario;
-import java.util.List;
+import flyshoes.exceptions.AutenticacionFallidaException;
+import flyshoes.seguridad.Seguridad;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -47,7 +48,7 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     @PUT
     @Consumes({MediaType.APPLICATION_XML})
     @Override
-    public void edit( Usuario entity) {
+    public void edit(Usuario entity) {
         super.edit(entity);
     }
 
@@ -64,30 +65,37 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
         return super.find(id);
     }
 
-
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-    
-     /**
-     * Login usario
+
+    /**
+     * Login del usuario 
+     *
      * @param login
      * @return usuario
      */
     @GET
-    @Path("usuarioByLogin/{login}")
+    @Path("usuarioByLogin/{login}/{pass}")
     @Produces({MediaType.APPLICATION_XML})
-    public Usuario usuarioByLogin(@PathParam("login") String login) {
-        Usuario usuario= null;
-        try{
-        usuario=(Usuario) em.createNamedQuery("usuarioByLogin").setParameter("login", login).getSingleResult();
-        } catch (Exception e) {
-            LOGGER.severe(" " + e.getMessage());
-        }
-       return usuario;
+    public Usuario usuarioByLogin(@PathParam("login") String login,@PathParam("pass") String pass) throws AutenticacionFallidaException {
+        Usuario usuario = null;
+
+        
+            System.out.println(pass);
+           usuario = (Usuario) em.createNamedQuery("usuarioByLogin").setParameter("login", login).getSingleResult();
+            System.out.println("Passn de la base de datos "+usuario.getPassword());
+            System.out.println(Seguridad.desencriptarContrasenia(pass)+" y ahora");
+            if (usuario.getPassword().toString().equals(Seguridad.desencriptarContrasenia(pass))) {
+                System.out.println(Seguridad.desencriptarContrasenia(pass)+" ASI");
+            } else {
+                LOGGER.severe("Contraseña incorrecta ");
+                System.out.println("3");
+                throw new AutenticacionFallidaException();
+            }
+        
+        return usuario;
     }
-    
-  
-    
+
 }

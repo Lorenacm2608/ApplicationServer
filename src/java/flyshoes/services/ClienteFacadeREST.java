@@ -36,7 +36,7 @@ public class ClienteFacadeREST extends AbstractFacade<Cliente> {
     @PersistenceContext(unitName = "ApplicationServerPU")
     private EntityManager em;
     private Logger LOGGER = Logger.getLogger(AdministradorFacadeREST.class.getName());
-    
+
     public ClienteFacadeREST() {
         super(Cliente.class);
     }
@@ -51,7 +51,7 @@ public class ClienteFacadeREST extends AbstractFacade<Cliente> {
     @PUT
     @Consumes({MediaType.APPLICATION_XML})
     @Override
-    public void edit( Cliente entity) {
+    public void edit(Cliente entity) {
         super.edit(entity);
     }
 
@@ -67,34 +67,18 @@ public class ClienteFacadeREST extends AbstractFacade<Cliente> {
     public Cliente find(@PathParam("id") Long id) {
         return super.find(id);
     }
+
     /**
-     * Login cliente
-     * @param login
-     * @return cliente
-     */
-    @GET
-    @Path("clienteByLogin/{login}")
-    @Produces({MediaType.APPLICATION_XML})
-    public Cliente clienteByLogin(@PathParam("login") String login) {
-        Cliente cliente= null;
-        try{
-        cliente=(Cliente) em.createNamedQuery("clienteByLogin").setParameter("login", login).getSingleResult();
-        } catch (Exception e) {
-            LOGGER.severe(" " + e.getMessage());
-        }
-       return cliente;
-    }
-    
-    
-    /**
-     * Metodo GET para recibir las reservas de un cliente: usa el metodo findReserva
+     * Metodo GET para recibir las reservas de un cliente: usa el metodo
+     * findReserva
+     *
      * @return Una lista de reservas de un Cliente.
      */
     @GET
     @Path("Reservas_cliente/{id}")
     @Produces({MediaType.APPLICATION_XML})
     public List<Reserva> findReserva(@PathParam("id") Long id) {
-         List<Reserva> reservas = null;
+        List<Reserva> reservas = null;
         try {
             reservas = new ArrayList<>(em.createNamedQuery("findReserva").setParameter("id", id).getResultList());
 
@@ -103,7 +87,7 @@ public class ClienteFacadeREST extends AbstractFacade<Cliente> {
         }
         return reservas;
     }
-    
+
     /**
      * Este método nos devuelve todos los productos en orden ascendente
      * dependiendo de su precio
@@ -122,5 +106,5 @@ public class ClienteFacadeREST extends AbstractFacade<Cliente> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }
