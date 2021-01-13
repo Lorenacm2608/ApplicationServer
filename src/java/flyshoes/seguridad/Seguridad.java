@@ -5,7 +5,10 @@
  */
 package flyshoes.seguridad;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.MessageDigest;
@@ -29,46 +32,24 @@ import javax.xml.bind.DatatypeConverter;
 public class Seguridad {
 
     private static PrivateKey privateKey;
-    private static Cipher rsa;
-    private static Logger LOGGER = Logger.getLogger(Seguridad.class.getName());
+    private static Cipher cipher;
+    private static final Logger LOGGER = Logger.getLogger(Seguridad.class.getName());
 
     /**
-     * Cargar clave privada
+     * Retorna el contenido de un fichero
      *
-     * @param fileName
-     * @return clave publica
-     * @throws Exception
+     * @param path Path del fichero
+     * @return El texto del fichero
      */
-    /*
-    private static PrivateKey loadPrivateKey(String fileName) {
-        PrivateKey keyFromBytes = null;
+    private static byte[] fileReader(String path) {
+        byte ret[] = null;
+        File file = new File(path);
         try {
-            FileInputStream fis = new FileInputStream(fileName);
-            int numBtyes = fis.available();
-            byte[] bytes = new byte[numBtyes];
-            fis.read(bytes);
-            fis.close();
-
-            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-            KeySpec keySpec = new PKCS8EncodedKeySpec(bytes);
-            keyFromBytes = keyFactory.generatePrivate(keySpec);
-
-        } catch (Exception e) {
-            LOGGER.severe("Error al cargar la clave privada " + e.getMessage());
+            ret = Files.readAllBytes(file.toPath());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return keyFromBytes;
-    }*/
-        private static PrivateKey loadPrivateKey(String fileName) throws Exception {
-        FileInputStream fis = new FileInputStream(fileName);
-        int numBtyes = fis.available();
-        byte[] bytes = new byte[numBtyes];
-        fis.read(bytes);
-        fis.close();
-
-        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-        KeySpec keySpec = new PKCS8EncodedKeySpec(bytes);
-        PrivateKey keyFromBytes = keyFactory.generatePrivate(keySpec);
-        return keyFromBytes;
+        return ret;
     }
 
     /**
@@ -114,17 +95,17 @@ public class Seguridad {
     public static String desencriptarContrasenia(String contrasenia) {
         String pass = "";
         try {
-            rsa = Cipher.getInstance("RSA/ECB/PKCS1Padding");
-            privateKey = loadPrivateKey("privatekey.dat");
-            rsa.init(Cipher.ENCRYPT_MODE, privateKey);
-            byte[] bytesDesencriptados = rsa.doFinal(hexStringToByteArray(contrasenia));
+            byte fileKey[] = fileReader("Private.key");
+            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+            PKCS8EncodedKeySpec pKCS8EncodedKeySpec = new PKCS8EncodedKeySpec(fileKey);
+            privateKey = keyFactory.generatePrivate(pKCS8EncodedKeySpec);
+            cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+            cipher.init(Cipher.DECRYPT_MODE, privateKey);
+            byte[] bytesDesencriptados = cipher.doFinal(hexStringToByteArray(contrasenia));
             pass = new String(bytesDesencriptados);
-            System.out.println(pass);
 
-        } catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException ex) {
-            LOGGER.severe("Error al desencriptar con clave privada");
         } catch (Exception ex) {
-            Logger.getLogger(Seguridad.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.severe("Error al desencriptar con clave privada");
         }
         return cifradoSha(pass, "SHA1");
     }
