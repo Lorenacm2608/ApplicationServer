@@ -16,7 +16,7 @@ import javax.mail.internet.MimeMultipart;
 
 /**
  *
- * @author Lorena
+ * @author Lorena Cáceres Manuels
  */
 public class EmailService {
     
