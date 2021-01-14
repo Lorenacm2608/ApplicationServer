@@ -84,7 +84,20 @@ public class ReservaFacadeREST extends AbstractFacade<Reserva> {
         List<Reserva> reservas = new ArrayList(super.findReservasConfirmadas());
         return reservas;
     }
-
+    
+    /**
+     * Este método devuelve las reservas que han sido confirmadas
+     *
+     * @return reservas
+     */
+    @GET
+    @Path("findReservas")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<Reserva> findReservas() {
+        List<Reserva> reservas = new ArrayList(super.findReservas());
+        return reservas;
+    }
+    
     /**
      * Este método devuelve las reservas que han sido realizadas
      *

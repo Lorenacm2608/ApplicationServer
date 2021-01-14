@@ -64,6 +64,14 @@ public abstract class AbstractFacade<T> {
     public List<Reserva> findReservasRealizadas() {
         return (List<Reserva>) getEntityManager().createNamedQuery("findReservasRealizadas").getResultList();
     }
+    /**
+     * Implementa el método que nos muestra las reservas confirmadas
+     *
+     * @return lista de reservas
+     */
+    public List<Reserva> findReservas() {
+        return (List<Reserva>) getEntityManager().createNamedQuery("findReservas").getResultList();
+    }
 
     /**
      * Implementa el método que muestra los productos de manera ascendente según
