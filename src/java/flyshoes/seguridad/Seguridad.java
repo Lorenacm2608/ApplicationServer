@@ -6,22 +6,15 @@
 package flyshoes.seguridad;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
-import java.security.spec.KeySpec;
 import java.security.spec.PKCS8EncodedKeySpec;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 import javax.xml.bind.DatatypeConverter;
 
 /**
@@ -107,7 +100,7 @@ public class Seguridad {
         } catch (Exception ex) {
             LOGGER.severe("Error al desencriptar con clave privada");
         }
-        return cifradoSha(pass, "SHA1");
+        return pass;
     }
 
     /**
@@ -117,10 +110,10 @@ public class Seguridad {
      * @param tipo de cifrado
      * @return contrasenia cifrada con SHA1
      */
-    private static String cifradoSha(String contrasenia, String tipo) {
+    public static String cifradoSha(String contrasenia) {
         String hash = "";
         try {
-            MessageDigest md = MessageDigest.getInstance(tipo);
+            MessageDigest md = MessageDigest.getInstance("SHA1");
             md.update(contrasenia.getBytes());
             byte[] db = md.digest();
             hash = DatatypeConverter.printHexBinary(db).toLowerCase();
