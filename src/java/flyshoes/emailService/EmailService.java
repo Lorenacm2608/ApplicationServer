@@ -1,11 +1,11 @@
 package flyshoes.emailService;
 
+import flyshoes.seguridad.Seguridad;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.Properties;
+import java.util.ResourceBundle;
 import java.util.Scanner;
-
+import java.util.logging.Logger;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -25,15 +25,17 @@ import javax.mail.internet.MimeMultipart;
 public class EmailService {
 
     // Server mail user & pass account
-    private String user = null;
-    private String pass = null;
-
+    private ResourceBundle rb = ResourceBundle.getBundle("flyshoes.propiedades.parametros");
+    private String user = Seguridad.desencriptarContrasenia(fileReader(rb.getString("user")));
+    private String pass = Seguridad.desencriptarContrasenia(fileReader(rb.getString("pass")));
     // DNS Host + SMTP Port
-    private String smtp_host = null;
-    private int smtp_port = 0;
+    private String smtp_host = rb.getString("smtp_host");
+    private int smtp_port = Integer.parseInt(rb.getString("smtp_port"));
 
-    @SuppressWarnings("unused")
-    private EmailService() {
+    private Logger LOGGER = Logger.getLogger(EmailService.class.getName());
+
+    
+    public EmailService() {
     }
 
     /**
@@ -50,6 +52,7 @@ public class EmailService {
         this.smtp_host = host;
         this.smtp_port = port;
     }
+    
 
     /**
      * Sends the given <b>text</b> from the <b>sender</b> to the
@@ -116,7 +119,7 @@ public class EmailService {
      * @param path
      * @return
      */
-    private  String fileReader(String path) {
+    private String fileReader(String path) {
         // Fichero del que queremos leer
         File fichero = new File(path);
         Scanner s = null;
@@ -124,12 +127,12 @@ public class EmailService {
 
         try {
             // Leemos el contenido del fichero
-            System.out.println("... Leemos el contenido del fichero ...");
+            LOGGER.info(" Leemos el contenido del fichero ...");
             s = new Scanner(fichero);
             // Leemos 
             linea = s.nextLine();
         } catch (Exception ex) {
-            System.out.println("Mensaje: " + ex.getMessage());
+            LOGGER.severe("Error al abrir el fichero Correo/Email ");
         } finally {
             // Cerramos el fichero tanto si la lectura ha sido correcta o no
             try {
@@ -137,11 +140,10 @@ public class EmailService {
                     s.close();
                 }
             } catch (Exception ex2) {
-                System.out.println("Mensaje 2: " + ex2.getMessage());
+                LOGGER.severe("Error al cerrar el fichero Correo/Email ");
             }
         }
         return linea;
     }
-
 
 }

@@ -88,18 +88,19 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
         Usuario usuario = null;
         System.out.println(pass);
         String passSha = Seguridad.cifradoSha(Seguridad.desencriptarContrasenia(pass));
+        System.out.println(passSha + " y ahora");
         try {
             usuario = (Usuario) em.createNamedQuery("usuarioByLogin").setParameter("login", login).getSingleResult();
             System.out.println("Passn de la base de datos " + usuario.getPassword());
             System.out.println(passSha + " y ahora");
-            
-                if (usuario.getPassword().toString().equals(passSha)) {
-                    LOGGER.severe("Contraseña incorrecta ");
-                } else {
-                    LOGGER.severe("Contraseña incorrecta ");
-                    System.out.println("3");
-                    throw new AutenticacionFallidaException();
-                }        
+
+            if (usuario.getPassword().toString().equals(passSha)) {
+                LOGGER.severe("Contraseña incorrecta ");
+            } else {
+                LOGGER.severe("Contraseña incorrecta ");
+                System.out.println("3");
+                throw new AutenticacionFallidaException();
+            }
         } catch (NoResultException e) {
             LOGGER.log(Level.SEVERE, "UsuarioFacadeREST: Excepcion al buscar usuario por login",
                     e.getMessage());
@@ -116,7 +117,7 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
      * @return usuario
      */
     @GET
-    @Path("UsuarioLogin/{email}/{pass}")
+    @Path("UsuarioLogin/{login}")
     @Produces({MediaType.APPLICATION_XML})
     public Usuario usuarioLogin(@PathParam("login") String login) throws UsuarioNoEncontradoException {
         Usuario usuario = null;
@@ -135,17 +136,23 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
 
         return usuario;
     }
-    /*
+    /**
+     * Enviar código temporal al usuario
+     * @param usuario 
+     */
+/*
     @POST
     @Consumes({MediaType.APPLICATION_XML})
     public void enviarMensajeEmail(Usuario usuario) {
-        EmailService emailService= null ;
-        try{
-            emailService=new EmailService(usuario, pass, host, 0)
-        }catch(Exception e){
-            
+        EmailService emailService = null;
+        try {
+            emailService = new EmailService();
+            emailService.sendMail(usuario.getEmail(), "Flyshoessecurity ", "Código temporal: " + usuario.getPassword());
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "UsuarioFacadeREST: Excepcion al enviar el código",
+                    e.getMessage());
         }
-        
-    }*/
 
+    }
+*/
 }
