@@ -10,5 +10,5 @@ package flyshoes.entity;
  * @author Lorena
  */
 public enum TipoProducto {
-    ZAPATILLAS, ROPA;
+    ZAPATILLAS, ROPA, AMBAS;
 }
