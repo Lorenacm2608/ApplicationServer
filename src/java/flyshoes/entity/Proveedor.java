@@ -16,7 +16,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -237,4 +236,22 @@ public class Proveedor implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    /**
+     * Devuelve la fecha de alta del producto
+     * @return 
+     */
+    public Date getFechaAlta() {
+        return fechaAlta;
+    }
+
+    /**
+     * Inserta la fecha de alta del producto
+     * @param fechaAlta 
+     */
+    public void setFechaAlta(Date fechaAlta) {
+        this.fechaAlta = fechaAlta;
+    }
+    
+    
 }
