@@ -6,6 +6,7 @@
 package flyshoes.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -19,6 +20,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -59,6 +62,9 @@ public class Proveedor implements Serializable {
     private String telefono;
     //descripcion del proveedor
     private String descripcion;
+    //Fecha alta del proveedor
+    @Temporal(TemporalType.DATE)
+    private Date fechaAlta;
 
     //administrador encargado del proveedor
     @ManyToOne
