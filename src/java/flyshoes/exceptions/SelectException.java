@@ -3,7 +3,7 @@ package flyshoes.exceptions;
 /**
  * Excepción que se lanza cuando ocurre algun problema a la hora de leer
  *
- * @author 2dam
+ * @author Lorena Cáceres Manuel
  */
 public class SelectException extends Exception {
 
