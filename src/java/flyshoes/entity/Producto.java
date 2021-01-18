@@ -1,6 +1,7 @@
 package flyshoes.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -19,6 +20,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -96,6 +99,28 @@ public class Producto implements Serializable {
      */
     @ManyToMany(mappedBy = "productos", cascade = CascadeType.ALL, fetch = EAGER)
     private Set<Vendedor> vendedores;
+    
+    @Temporal(TemporalType.DATE)
+    private Date disponibilidad;
+
+    /**
+     * Devuelve la fecha de disponibilidad
+     *
+     * @return
+     */
+    public Date getDisponibilidad() {
+        return disponibilidad;
+    }
+
+    /**
+     * Inserta la fecha de disponibilidad
+     *
+     * @param disponibilidad
+     */
+
+    public void setDisponibilidad(Date disponibilidad) {
+        this.disponibilidad = disponibilidad;
+    }
 
     /**
      * Devuelve la imagen del producto
