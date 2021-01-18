@@ -96,6 +96,7 @@ public class Seguridad {
             cipher.init(Cipher.DECRYPT_MODE, privateKey);
             byte[] bytesDesencriptados = cipher.doFinal(hexStringToByteArray(contrasenia));
             pass = new String(bytesDesencriptados);
+           
 
         } catch (Exception ex) {
             LOGGER.severe("Error al desencriptar con clave privada");
@@ -107,7 +108,6 @@ public class Seguridad {
      * Cifrado Sha1 para poder almacenar en la bd
      *
      * @param contrasenia
-     * @param tipo de cifrado
      * @return contrasenia cifrada con SHA1
      */
     public static String cifradoSha(String contrasenia) {

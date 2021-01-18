@@ -13,6 +13,7 @@ import flyshoes.seguridad.Seguridad;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
+import javax.mail.MessagingException;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -54,7 +55,13 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     @Consumes({MediaType.APPLICATION_XML})
     @Override
     public void edit(Usuario entity) {
-        super.edit(entity);
+        try {
+            entity.setPassword(Seguridad.cifradoSha(entity.getPassword()));
+            super.edit(entity);
+        } catch (Exception e) {
+
+        }
+
     }
 
     @DELETE
@@ -86,19 +93,17 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     @Produces({MediaType.APPLICATION_XML})
     public Usuario usuarioByLogin(@PathParam("login") String login, @PathParam("pass") String pass) throws AutenticacionFallidaException, UsuarioNoEncontradoException {
         Usuario usuario = null;
-        System.out.println(pass);
+
+        System.out.println(pass + " <--HEXADECIMAL");
+        System.out.println(Seguridad.desencriptarContrasenia(pass) + " <---TEXTO PLANO");
         String passSha = Seguridad.cifradoSha(Seguridad.desencriptarContrasenia(pass));
-        System.out.println(passSha + " y ahora");
+        System.out.println(passSha + " <--TEXTO SHA");
         try {
             usuario = (Usuario) em.createNamedQuery("usuarioByLogin").setParameter("login", login).getSingleResult();
-            System.out.println("Passn de la base de datos " + usuario.getPassword());
-            System.out.println(passSha + " y ahora");
+            System.out.println("Pass de la base de datos " + usuario.getPassword());
 
-            if (usuario.getPassword().toString().equals(passSha)) {
+            if (!usuario.getPassword().equals(passSha)) {
                 LOGGER.severe("Contraseña incorrecta ");
-            } else {
-                LOGGER.severe("Contraseña incorrecta ");
-                System.out.println("3");
                 throw new AutenticacionFallidaException();
             }
         } catch (NoResultException e) {
@@ -124,10 +129,6 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
         try {
             LOGGER.info("Buscando usuarrio por login.");
             usuario = (Usuario) em.createNamedQuery("usuarioByLogin").setParameter("login", login).getSingleResult();
-            if (usuario != null) {
-                LOGGER.log(Level.INFO, "UsuarioFacadeREST:Usuario no encontrado",
-                        usuario.getLogin());
-            }
         } catch (NoResultException e) {
             LOGGER.log(Level.SEVERE, "UsuarioFacadeREST: Excepcion al buscar usuario por login",
                     e.getMessage());
@@ -136,23 +137,27 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
 
         return usuario;
     }
+
     /**
-     * Enviar código temporal al usuario
-     * @param usuario 
+     * Enviar código a la dirección de correo
+     *
+     * @param email
+     * @param pass
      */
-/*
-    @POST
-    @Consumes({MediaType.APPLICATION_XML})
-    public void enviarMensajeEmail(Usuario usuario) {
+    @GET
+    @Path("enviarMensajeEmail/{email}/{pass}")
+    @Produces({MediaType.APPLICATION_XML})
+    public void enviarMensajeEmail(@PathParam("email") String email, @PathParam("pass") String pass) {
         EmailService emailService = null;
         try {
             emailService = new EmailService();
-            emailService.sendMail(usuario.getEmail(), "Flyshoessecurity ", "Código temporal: " + usuario.getPassword());
-        } catch (Exception e) {
+            emailService.sendMail(Seguridad.desencriptarContrasenia(email), "FlyshoesSecurity ", "Código temporal: " + Seguridad.desencriptarContrasenia(pass));
+
+        } catch (MessagingException e) {
             LOGGER.log(Level.SEVERE, "UsuarioFacadeREST: Excepcion al enviar el código",
                     e.getMessage());
         }
 
     }
-*/
+
 }

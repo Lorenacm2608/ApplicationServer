@@ -2,9 +2,10 @@ package flyshoes.emailService;
 
 import flyshoes.seguridad.Seguridad;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Properties;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 import java.util.logging.Logger;
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -34,7 +35,6 @@ public class EmailService {
 
     private Logger LOGGER = Logger.getLogger(EmailService.class.getName());
 
-    
     public EmailService() {
     }
 
@@ -52,7 +52,6 @@ public class EmailService {
         this.smtp_host = host;
         this.smtp_port = port;
     }
-    
 
     /**
      * Sends the given <b>text</b> from the <b>sender</b> to the
@@ -119,31 +118,51 @@ public class EmailService {
      * @param path
      * @return
      */
+    /*
     private String fileReader(String path) {
         // Fichero del que queremos leer
-        File fichero = new File(path);
-        Scanner s = null;
-        String linea = "";
-
+        System.out.println("Aqui estoy buscando: " + System.getProperty("user.dir"));
+        System.out.println(" estoy leendo esto: " + path);
+        String cadena = "";
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
         try {
-            // Leemos el contenido del fichero
-            LOGGER.info(" Leemos el contenido del fichero ...");
-            s = new Scanner(fichero);
-            // Leemos 
-            linea = s.nextLine();
-        } catch (Exception ex) {
-            LOGGER.severe("Error al abrir el fichero Correo/Email ");
+            fis = new FileInputStream(path);
+            ois = new ObjectInputStream(fis);
+            cadena = (String) ois.readObject();
+            return cadena;
+        } catch (FileNotFoundException e1) {
+            LOGGER.severe("Ha ocurrido un problema con el fichero");
+        } catch (IOException e2) {
+            LOGGER.severe("Error, en la lectura del fichero");
+        } catch (ClassNotFoundException e3) {
+            LOGGER.severe("Error, clase no encontrada");
         } finally {
-            // Cerramos el fichero tanto si la lectura ha sido correcta o no
             try {
-                if (s != null) {
-                    s.close();
-                }
-            } catch (Exception ex2) {
-                LOGGER.severe("Error al cerrar el fichero Correo/Email ");
+                ois.close();
+                fis.close();
+            } catch (IOException ex) {
+                LOGGER.getLogger(EmailService.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return linea;
+        return cadena;
+    }*/
+    /**
+     * Cargar clave pública
+     *
+     * @param fileName
+     * @return clave publica
+     * @throws Exception
+     */
+    private static String fileReader(String path) {
+        byte ret[] = null;
+        File file = new File(path);
+        try {
+            ret = Files.readAllBytes(file.toPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(new String(ret));
+        return new String(ret);
     }
-
 }
