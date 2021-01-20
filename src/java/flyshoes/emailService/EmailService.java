@@ -1,8 +1,10 @@
 package flyshoes.emailService;
 
 import flyshoes.seguridad.Seguridad;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -26,9 +28,10 @@ import javax.mail.internet.MimeMultipart;
 public class EmailService {
 
     // Server mail user & pass account
-    private ResourceBundle rb = ResourceBundle.getBundle("flyshoes.propiedades.parametros");
-    private String user = Seguridad.desencriptarContrasenia(fileReader(rb.getString("user")));
-    private String pass = Seguridad.desencriptarContrasenia(fileReader(rb.getString("pass")));
+    private ResourceBundle rb = ResourceBundle.getBundle("flyshoes.propiedades.parametros");  
+    private String user = Seguridad.desencriptarContrasenia(getFile(rb.getString("user")));
+    private String pass = Seguridad.desencriptarContrasenia(getFile(rb.getString("pass")));
+
     // DNS Host + SMTP Port
     private String smtp_host = rb.getString("smtp_host");
     private int smtp_port = Integer.parseInt(rb.getString("smtp_port"));
@@ -112,41 +115,26 @@ public class EmailService {
         Transport.send(message);
     }
 
-    /**
-     * Aqui voy a leer el email y la contraseña
-     *
-     * @param path
-     * @return
-     */
-    /*
-    private String fileReader(String path) {
-        // Fichero del que queremos leer
-        System.out.println("Aqui estoy buscando: " + System.getProperty("user.dir"));
-        System.out.println(" estoy leendo esto: " + path);
-        String cadena = "";
-        FileInputStream fis = null;
-        ObjectInputStream ois = null;
+    public static String getFile(String path) {
+
+        InputStream keyfis = EmailService.class.getClassLoader()
+                .getResourceAsStream(path);
+        
+        ByteArrayOutputStream os = null;
+        byte[] buffer = new byte[1024];
         try {
-            fis = new FileInputStream(path);
-            ois = new ObjectInputStream(fis);
-            cadena = (String) ois.readObject();
-            return cadena;
-        } catch (FileNotFoundException e1) {
-            LOGGER.severe("Ha ocurrido un problema con el fichero");
-        } catch (IOException e2) {
-            LOGGER.severe("Error, en la lectura del fichero");
-        } catch (ClassNotFoundException e3) {
-            LOGGER.severe("Error, clase no encontrada");
-        } finally {
-            try {
-                ois.close();
-                fis.close();
-            } catch (IOException ex) {
-                LOGGER.getLogger(EmailService.class.getName()).log(Level.SEVERE, null, ex);
+            os = new ByteArrayOutputStream();
+            int len;
+            while ((len = keyfis.read(buffer)) != -1) {
+                os.write(buffer, 0, len);
             }
+            keyfis.close();
+        } catch (IOException e) {
+
         }
-        return cadena;
-    }*/
+        return os.toString();
+    }
+
     /**
      * Cargar clave pública
      *
@@ -155,6 +143,7 @@ public class EmailService {
      * @throws Exception
      */
     private static String fileReader(String path) {
+        // System.out.println(System.getProperty("user.dir"));
         byte ret[] = null;
         File file = new File(path);
         try {
@@ -165,4 +154,6 @@ public class EmailService {
         System.out.println(new String(ret));
         return new String(ret);
     }
+
+
 }
