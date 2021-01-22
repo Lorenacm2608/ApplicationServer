@@ -24,8 +24,14 @@ import javax.xml.bind.annotation.XmlTransient;
 @PrimaryKeyJoinColumn(referencedColumnName = "id_usuario")
 @Table(name = "vendedor", schema = "flyshoesdb")
 
-@NamedQuery(name = "findAllReservas",
-        query = "SELECT r FROM Reserva r ORDER BY r.cliente.login ")
+@NamedQueries({
+    @NamedQuery(name = "listaProveedoresProducto",
+            query = "SELECT p FROM Proveedor p  ORDER BY p.empresa"
+    )
+    ,@NamedQuery(name = "findAllReservas",
+            query = "SELECT r FROM Reserva r ORDER BY r.cliente.login "
+    )
+})
 
 @XmlRootElement
 public class Vendedor extends Usuario implements Serializable {
