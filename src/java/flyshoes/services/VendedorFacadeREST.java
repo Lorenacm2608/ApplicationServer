@@ -5,6 +5,7 @@
  */
 package flyshoes.services;
 
+import flyshoes.entity.Proveedor;
 import flyshoes.entity.Reserva;
 import flyshoes.entity.Vendedor;
 import java.util.ArrayList;
@@ -87,5 +88,24 @@ public class VendedorFacadeREST extends AbstractFacade<Vendedor> {
             LOGGER.severe(" " + e.getMessage());
         }
         return reservas;
+    }
+
+    /**
+     * Lista de todos los proveeedores ordenados por Empresa
+     *
+     * @return proveedores
+     */
+    @GET
+    @Path("listaProveedoresProducto")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<Proveedor> getProveedoresProducto() {
+        List<Proveedor> proveedores = null;
+        try {
+            proveedores = new ArrayList<>(em.createNamedQuery("listaProveedoresProducto").getResultList());
+
+        } catch (Exception e) {
+            LOGGER.severe(" " + e.getMessage());
+        }
+        return proveedores;
     }
 }
