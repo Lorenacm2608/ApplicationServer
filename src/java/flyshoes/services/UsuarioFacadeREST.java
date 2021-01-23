@@ -46,19 +46,28 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_XML})
-    public void create(Usuario entity) {
-        super.create(entity);
+    public void create(Usuario usuario) {
+        try {
+            usuario.setPassword(Seguridad.cifradoSha(usuario.getPassword()));
+            super.create(usuario);
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "UsuarioFacadeREST: Excepción al crear usuario",
+                    e.getMessage());
+
+        }
+
     }
 
     @PUT
     @Consumes({MediaType.APPLICATION_XML})
     @Override
-    public void edit(Usuario entity) {
+    public void edit(Usuario usuario) {
         try {
-            entity.setPassword(Seguridad.cifradoSha(entity.getPassword()));
-            super.edit(entity);
+            usuario.setPassword(Seguridad.cifradoSha(usuario.getPassword()));
+            super.edit(usuario);
         } catch (Exception e) {
-
+            LOGGER.log(Level.SEVERE, "UsuarioFacadeREST: Excepción al modificar usuario",
+                    e.getMessage());
         }
 
     }
@@ -92,7 +101,6 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     @Produces({MediaType.APPLICATION_XML})
     public Usuario usuarioByLogin(@PathParam("login") String login, @PathParam("pass") String pass) throws AutenticacionFallidaException, UsuarioNotFoundException {
         Usuario usuario = null;
-
         System.out.println(pass + " <--HEXADECIMAL");
         System.out.println(Seguridad.desencriptarContrasenia(pass) + " <---TEXTO PLANO");
         String passSha = Seguridad.cifradoSha(Seguridad.desencriptarContrasenia(pass));
