@@ -1,5 +1,6 @@
 package flyshoes.services;
 
+import flyshoes.entity.Cliente;
 import flyshoes.entity.Producto;
 import flyshoes.entity.Reserva;
 import flyshoes.entity.Usuario;
@@ -64,7 +65,23 @@ public abstract class AbstractFacade<T> {
     public List<Reserva> findReservasRealizadas() {
         return (List<Reserva>) getEntityManager().createNamedQuery("findReservasRealizadas").getResultList();
     }
-
+    /**
+     * Implementa el método que nos muestra las reservas 
+     *
+     * @return lista de reservas
+     */
+    public List<Reserva> findReservas() {
+        return (List<Reserva>) getEntityManager().createNamedQuery("findReservas").getResultList();
+    }
+    /**
+     * Implementa el método que nos muestra los clientes
+     *
+     * @return lista de reservas
+     */
+    public List<Cliente> findClientes() {
+        return (List<Cliente>) getEntityManager().createNamedQuery("findCliente").getResultList();
+    }
+    
     /**
      * Implementa el método que muestra los productos de manera ascendente según
      * el precio

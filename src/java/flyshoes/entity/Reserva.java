@@ -39,6 +39,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     ,
     @NamedQuery(name = "findReservasRealizadas",
             query = "SELECT r FROM Reserva r WHERE r.estado ='REALIZADA'"
+    ),
+    @NamedQuery(name = "findReservas",
+            query = "SELECT r FROM Reserva r"
     )
 
 })
