@@ -87,21 +87,21 @@ public class ClienteFacadeREST extends AbstractFacade<Cliente> {
         }
         return reservas;
     }
-
+    
     /**
-     * Este método nos devuelve todos los productos en orden ascendente
-     * dependiendo de su precio
+     * Metodo GET para recibir los clientes: usa el metodo
+     * findCliente
      *
-     * @return productos. Colección de productos
+     * @return Una lista de reservas de un Cliente.
      */
     @GET
-    @Path("findAllProductosAsc")
+    @Path("findCliente")
     @Produces({MediaType.APPLICATION_XML})
-    public List<Producto> findAllProductosAsc() {
-        List<Producto> productos = new ArrayList<>(super.findAllProductosAsc());
-        return productos;
+    public List<Cliente> findCliente() {
+        List<Cliente> cliente = new ArrayList(super.findClientes());
+        return cliente;
     }
-
+   
     @Override
     protected EntityManager getEntityManager() {
         return em;

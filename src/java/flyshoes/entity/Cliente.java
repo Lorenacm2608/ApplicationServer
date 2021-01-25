@@ -23,10 +23,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @PrimaryKeyJoinColumn(referencedColumnName = "id_usuario")
 @Table(name = "cliente", schema = "flyshoesdb")
-
+@NamedQueries({
 @NamedQuery(name = "findReserva",
-        query = "SELECT r FROM Reserva r where r.cliente.id_usuario=:id")
-
+        query = "SELECT r FROM Reserva r where r.cliente.id_usuario=:id"),
+@NamedQuery(name = "findCliente",
+        query = "SELECT c FROM Cliente c")
+})
 @XmlRootElement
 public class Cliente extends Usuario implements Serializable {
 
