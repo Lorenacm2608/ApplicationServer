@@ -71,11 +71,11 @@ public class Reserva implements Serializable {
     @NotNull
     private Integer cantidad;
     //Fecha de reserva
-    
+
     @Temporal(TemporalType.DATE)
     private Date fechaReserva;
     //Fecha de entrega prevista
-    
+
     @Temporal(TemporalType.DATE)
     private Date fechaEntrega;
 

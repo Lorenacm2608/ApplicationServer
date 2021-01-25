@@ -53,9 +53,7 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "UsuarioFacadeREST: Excepción al crear usuario",
                     e.getMessage());
-
         }
-
     }
 
     @PUT

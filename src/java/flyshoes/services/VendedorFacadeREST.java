@@ -91,6 +91,24 @@ public class VendedorFacadeREST extends AbstractFacade<Vendedor> {
     }
 
     /**
+     * Devuelve la lista completa de vendedores
+     *
+     * @return lista reservas
+     */
+    @GET
+    @Path("findAllVendedores")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<Vendedor> findAllVendedores() {
+        List<Vendedor> vendedores = null;
+        try {
+            vendedores = new ArrayList<>(em.createNamedQuery("findAllVendedores").getResultList());
+        } catch (Exception e) {
+            LOGGER.severe(" " + e.getMessage());
+        }
+        return vendedores;
+    }
+
+    /**
      * Lista de todos los proveeedores ordenados por Empresa
      *
      * @return proveedores

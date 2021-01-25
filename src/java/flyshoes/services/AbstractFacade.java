@@ -95,6 +95,14 @@ public abstract class AbstractFacade<T> {
     public List<Producto> findAllZapatillas() {
         return (List<Producto>) getEntityManager().createNamedQuery("findAllZapatillas").getResultList();
     }
+    /**
+     * Implementa el método que nos muestra todas las reservas
+     *
+     * @return lista de reservas
+     */
+    public List<Reserva> findAllReservas() {
+        return (List<Reserva>) getEntityManager().createNamedQuery("findAllReservas").getResultList();
+    }
 
     /**
      * Implementa el método nos muestra la ropa

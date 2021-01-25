@@ -8,11 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import static javax.persistence.FetchType.EAGER;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -99,7 +97,7 @@ public class Producto implements Serializable {
      */
     @ManyToMany(mappedBy = "productos", cascade = CascadeType.ALL, fetch = EAGER)
     private Set<Vendedor> vendedores;
-    
+
     @Temporal(TemporalType.DATE)
     private Date disponibilidad;
 
@@ -117,7 +115,6 @@ public class Producto implements Serializable {
      *
      * @param disponibilidad
      */
-
     public void setDisponibilidad(Date disponibilidad) {
         this.disponibilidad = disponibilidad;
     }
