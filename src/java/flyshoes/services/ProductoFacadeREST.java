@@ -41,14 +41,23 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
     @PUT
     @Consumes({MediaType.APPLICATION_XML})
     @Override
-    public void edit( Producto entity) {
+    public void edit(Producto entity) {
         super.edit(entity);
     }
 
     @DELETE
     @Path("{id}")
     public void remove(@PathParam("id") Long id) {
-        super.remove(super.find(id));
+        try {
+            Producto producto = super.find(id);
+            producto.setProveedor(null);
+            producto.setVendedores(null);
+            producto.setReservas(null);
+            super.edit(producto);
+            super.remove(super.find(id));
+        } catch (Exception e) {
+
+        }
     }
 
     @GET
@@ -124,5 +133,5 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }

@@ -25,6 +25,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "vendedor", schema = "flyshoesdb")
 
 @NamedQueries({
+    @NamedQuery(name = "findAllVendedores",
+            query = "SELECT v FROM Vendedor v"
+    )
+    ,
     @NamedQuery(name = "listaProveedoresProducto",
             query = "SELECT p FROM Proveedor p  ORDER BY p.empresa"
     )
@@ -77,7 +81,7 @@ public class Vendedor extends Usuario implements Serializable {
      *
      * @return productos
      */
-    @XmlTransient
+    
     public Set<Producto> getProductos() {
         return productos;
     }
