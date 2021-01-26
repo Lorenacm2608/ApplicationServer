@@ -73,6 +73,26 @@ public class ProveedorFacadeREST extends AbstractFacade<Proveedor> {
      * @return productos
      */
     @GET
+    @Path("getAllProveedores")
+    @Produces({MediaType.APPLICATION_XML})
+    public List<Proveedor> getAllProveedores() {
+        List<Proveedor> listproveedores = null;
+        try {
+            listproveedores = new ArrayList<>(em.createNamedQuery("getAllProveedores").getResultList());
+        } catch (Exception e) {
+            LOGGER.severe(" " + e.getMessage());
+        }
+        return listproveedores;
+
+    }
+
+    /**
+     * Lista de productos ofrecidos
+     *
+     * @param id del proveedor
+     * @return productos
+     */
+    @GET
     @Path("producto/{id}")
     @Produces({MediaType.APPLICATION_XML})
     public List<Producto> getProductos(@PathParam("id") Long id) {
