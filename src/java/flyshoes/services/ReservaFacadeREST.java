@@ -19,7 +19,7 @@ import javax.ws.rs.core.MediaType;
 /**
  *
  * @author Lorena Cáceres Manuel
- * 
+ *
  */
 @Stateless
 @Path("reserva")
@@ -42,14 +42,22 @@ public class ReservaFacadeREST extends AbstractFacade<Reserva> {
     @PUT
     @Consumes({MediaType.APPLICATION_XML})
     @Override
-    public void edit( Reserva entity) {
+    public void edit(Reserva entity) {
         super.edit(entity);
     }
 
     @DELETE
     @Path("{id}")
     public void remove(@PathParam("id") Long id) {
-        super.remove(super.find(id));
+        try {
+            Reserva reserva = super.find(id);
+            reserva.setProducto(null);
+            reserva.setCliente(null);
+            super.edit(reserva);
+            super.remove(super.find(id));
+        } catch (Exception e) {
+
+        }
     }
 
     @GET
@@ -84,7 +92,7 @@ public class ReservaFacadeREST extends AbstractFacade<Reserva> {
         List<Reserva> reservas = new ArrayList(super.findReservasConfirmadas());
         return reservas;
     }
-    
+
     /**
      * Este método devuelve las reservas que han sido confirmadas
      *
@@ -97,7 +105,7 @@ public class ReservaFacadeREST extends AbstractFacade<Reserva> {
         List<Reserva> reservas = new ArrayList(super.findReservas());
         return reservas;
     }
-    
+
     /**
      * Este método devuelve las reservas que han sido realizadas
      *
@@ -110,12 +118,10 @@ public class ReservaFacadeREST extends AbstractFacade<Reserva> {
         List<Reserva> reservas = new ArrayList(super.findReservasRealizadas());
         return reservas;
     }
-    
-  
-    
+
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }
