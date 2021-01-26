@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "administrador", schema = "flyshoesdb")
 @NamedQueries({
     @NamedQuery(name = "listaProveedores",
-            query = "SELECT p FROM Proveedor p  ORDER BY p.empresa"
+            query = "SELECT p FROM Proveedor p"
     )
     ,@NamedQuery(name = "listaVendedores",
             query = "SELECT v FROM Vendedor v  ORDER BY v.login "
