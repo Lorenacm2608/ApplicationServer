@@ -1,10 +1,14 @@
 package flyshoes.services;
 
 import flyshoes.entity.Producto;
+import flyshoes.exceptions.ProductoNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -26,6 +30,7 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
 
     @PersistenceContext(unitName = "ApplicationServerPU")
     private EntityManager em;
+    private Logger LOGGER = Logger.getLogger(ProductoFacadeREST.class.getName());
 
     public ProductoFacadeREST() {
         super(Producto.class);
@@ -122,6 +127,30 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
     public List<Producto> findAllRopa() {
         List<Producto> ropa = new ArrayList<>(super.findAllRopa());
         return ropa;
+    }
+
+    /**
+     * Búsqueda de producto por modelo
+     *
+     * @param modelo
+     * @return
+     * @throws ProductoNotFoundException
+     */
+    @GET
+    @Path("findProducto/{modelo}")
+    @Produces({MediaType.APPLICATION_XML})
+    public Producto usuarioLogin(@PathParam("modelo") String modelo) throws ProductoNotFoundException {
+        Producto producto = null;
+        try {
+            LOGGER.info("Buscando producto por modelo.");
+            producto = (Producto) em.createNamedQuery("findProducto").setParameter("modelo", modelo).getSingleResult();
+        } catch (NoResultException e) {
+            LOGGER.log(Level.SEVERE, "usuarioLogin: Excepcion al buscar producto por modelo",
+                    e.getMessage());
+            throw new ProductoNotFoundException();
+        }
+
+        return producto;
     }
 
     /**
