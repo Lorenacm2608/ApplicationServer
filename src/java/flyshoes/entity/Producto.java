@@ -44,7 +44,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "findAllZapatillas", query = "SELECT p FROM Producto p WHERE p.tipo LIKE 'ZAPATILLAS'")
     ,
     @NamedQuery(name = "findAllRopa", query = "SELECT p FROM Producto p WHERE p.tipo LIKE 'ROPA'")
+    ,
+    @NamedQuery(name = "findProducto",
+            query = "SELECT p FROM Producto p WHERE p.modelo=:modelo")
 })
+
 @XmlRootElement
 public class Producto implements Serializable {
 
@@ -99,7 +103,7 @@ public class Producto implements Serializable {
      */
     @ManyToMany(mappedBy = "productos", cascade = CascadeType.ALL, fetch = EAGER)
     private Set<Vendedor> vendedores;
-    
+
     @Temporal(TemporalType.DATE)
     private Date disponibilidad;
 
@@ -117,7 +121,6 @@ public class Producto implements Serializable {
      *
      * @param disponibilidad
      */
-
     public void setDisponibilidad(Date disponibilidad) {
         this.disponibilidad = disponibilidad;
     }

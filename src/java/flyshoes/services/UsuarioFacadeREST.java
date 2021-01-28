@@ -8,6 +8,8 @@ package flyshoes.services;
 import flyshoes.emailService.EmailService;
 import flyshoes.entity.Usuario;
 import flyshoes.exceptions.AutenticacionFallidaException;
+import flyshoes.exceptions.EmailNoExisteException;
+import flyshoes.exceptions.EmailYaExisteException;
 import flyshoes.exceptions.UsuarioNotFoundException;
 import flyshoes.seguridad.Seguridad;
 import java.util.logging.Level;
@@ -101,14 +103,9 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     @Produces({MediaType.APPLICATION_XML})
     public Usuario usuarioByLogin(@PathParam("login") String login, @PathParam("pass") String pass) throws AutenticacionFallidaException, UsuarioNotFoundException {
         Usuario usuario = null;
-        System.out.println(pass + " <--HEXADECIMAL");
-        System.out.println(Seguridad.desencriptarContrasenia(pass) + " <---TEXTO PLANO");
         String passSha = Seguridad.cifradoSha(Seguridad.desencriptarContrasenia(pass));
-        System.out.println(passSha + " <--TEXTO SHA");
         try {
             usuario = (Usuario) em.createNamedQuery("usuarioByLogin").setParameter("login", login).getSingleResult();
-            System.out.println("Pass de la base de datos " + usuario.getPassword());
-
             if (!usuario.getPassword().equals(passSha)) {
                 LOGGER.severe("Contraseña incorrecta ");
                 throw new AutenticacionFallidaException();
@@ -142,6 +139,28 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
             throw new UsuarioNotFoundException();
         }
 
+        return usuario;
+    }
+    /**
+     * Consulta si el email ya se encuentra registrado
+     * @param email
+     * @return
+     * @throws EmailNoExisteException 
+     */
+
+    @GET
+    @Path("findEmail/{email}")
+    @Produces({MediaType.APPLICATION_XML})
+    public Usuario findEmail(@PathParam("email") String email) throws EmailNoExisteException {
+        Usuario usuario = null;
+        try {
+            LOGGER.info("Buscando usuarrio por login.");
+            usuario = (Usuario) em.createNamedQuery("findEmail").setParameter("email", email).getSingleResult();
+        } catch (NoResultException e) {
+            LOGGER.log(Level.SEVERE, "UsuarioFacadeREST: Excepcion al buscar usuario por login",
+                    e.getMessage());
+            throw new EmailNoExisteException();
+        }
         return usuario;
     }
 
